@@ -11,6 +11,7 @@ public class LasersPTUI {
 
     public static void testMethod(String str){
         System.out.println(str);
+        System.out.println("YAY");
     }
     public static void main(String[] args) {
         System.out.println("My name is Jordan Shea");
