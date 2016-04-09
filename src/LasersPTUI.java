@@ -3,17 +3,22 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 import java.io.FileNotFoundException;
 
 /**
- * Created by Jordan on 4/9/2016.
+ * @author Jordan Edward Shea
+ * @author Jennifer Liu
  *
  */
 public class LasersPTUI {
 
+    public static void testMethod(String str){
+        System.out.println(str);
+    }
+    public static void main(String[] args) {
+        System.out.println("My name is Jordan Shea");
+        System.out.println("My name is Jennifer Liu");
+        System.out.println("My name is Moses Lagoon");
+        System.out.println("Our project account is p142-03n");
+        testMethod("Please work");
 
-    public static void main(String[] args) throws FileNotFoundException{
-        if(args.length != 0){
-            System.out.println("Usage: java LasersPTUI safe-file" + args[0]);
-        }
-        System.out.println("Hello, there!");
-        System.out.println("Next checkin!");
+
     }
 }
