@@ -7,5 +7,6 @@ public class LasersPTUI {
         System.out.println("My name is Jordan Shea");
         System.out.println("My name is Moses Lagoon");
         System.out.println("Our project account is p142-03n");
+        System.out.println("Hi");
     }
 }
