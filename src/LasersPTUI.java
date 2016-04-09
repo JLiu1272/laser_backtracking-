@@ -7,6 +7,11 @@ import java.io.FileNotFoundException;
  * @author Jordan Edward Shea
  * @author Jennifer Liu
  *
+ * Job Specifications
+ * Moses: Constructor, Display, Help
+ * Jordan: Remove, Quit
+ * Jennifer: Add, Errors, Verify
+ *
  */
 public class LasersPTUI {
 
