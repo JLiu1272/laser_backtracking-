@@ -15,6 +15,7 @@ import java.util.Scanner;    //SCANNER
  * Jordan: Remove, Quit
  * Jennifer: Add, Errors, Verify
  *
+ * Added Methods
  */
 
 public class LasersPTUI {
