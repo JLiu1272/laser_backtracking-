@@ -75,10 +75,6 @@ public class LasersPTUI {
     }
 
     public static void main(String[] args) {
-        System.out.println("My name is Jordan Shea");
-        System.out.println("My name is Jennifer Liu");
-        System.out.println("My name is Moses Lagoon");
-        System.out.println("Our project account is p142-03n");
         // Jordan Shea
         try {
             if (args.length == 1) {
