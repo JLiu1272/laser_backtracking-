@@ -18,6 +18,7 @@ import java.util.Scanner;    //SCANNER
 
 public class LasersPTUI {
     private char[][] grid;    // safe
+
     //MOSES LAGOON - Constructor for LasersPTUI
 
     public int rDIM;    //row dimension of the safe
