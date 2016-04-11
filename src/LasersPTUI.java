@@ -48,6 +48,14 @@ public class LasersPTUI {
                 this.grid[r][c] = s.charAt(0);
             }
         }
+
+        for (int r =0; r <rDIM; r++){
+            for(int c = 0; c < cDIM; c++){
+                String s = in.next();
+                System.out.print(this.grid[r][c]);
+            }
+            System.out.println();
+        }
     }
 
     public String display(){
@@ -81,6 +89,7 @@ public class LasersPTUI {
             } else {
                 System.out.println("Usage: java LasersPTUI safe-file [input]");
             }
+            
         } catch (Exception e){
             System.out.println(e);
         }
