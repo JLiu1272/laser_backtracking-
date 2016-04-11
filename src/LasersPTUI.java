@@ -1,6 +1,8 @@
 import com.sun.org.apache.xpath.internal.SourceTree;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;    //SCANNER
 
 /**
  * @author Moses Lagoon
@@ -15,10 +17,36 @@ import java.io.FileNotFoundException;
  */
 
 public class LasersPTUI {
-    private char[][] grid;
+    private char[][] grid;    // safe
+    //MOSES LAGOON - Constructor for LasersPTUI
 
-    public LasersPTUI(){
+    public int rDIM;    //row dimension of the safe
+    public int cDIM;    //column dimension of the safe
+    private int[] rowArray;
+    private int[] colArray;
 
+
+    /**
+     * The constructor reads the the file and constructs an initial safe(grid).
+     *
+     *
+     * @param filename - the name of the file
+     * @throws FileNotFoundException
+     */
+    public LasersPTUI(String filename) throws FileNotFoundException {
+        Scanner in = new Scanner(new File(filename)); //scanning the file in
+        this.rDIM = in.nextInt();    //Reading in the dimension of the safe
+        this.cDIM = in.nextInt();
+        this.grid = new char[rDIM][cDIM];// creating initial safe grid with their
+                                        // respective row and col dimensions
+
+        //CONSTRUCTING THE GRID BY ADDING VALUES
+        for (int r =0; r <rDIM; r++){
+            for(int c = 0; c < cDIM; c++){
+                String s = in.next();
+                this.grid[r][c] = s.charAt(0);
+            }
+        }
     }
 
     public String display(){
