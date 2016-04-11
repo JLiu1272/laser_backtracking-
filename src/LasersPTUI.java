@@ -71,5 +71,18 @@ public class LasersPTUI {
         System.out.println("My name is Jennifer Liu");
         System.out.println("My name is Moses Lagoon");
         System.out.println("Our project account is p142-03n");
+        // Jordan Shea
+        try {
+            if (args.length == 1) {
+                new LasersPTUI(args[0]);
+            } else if (args.length == 2) {
+                new LasersPTUI(args[0]);
+                // Need to create scanner/helper method to read in args[1]
+            } else {
+                System.out.println("Usage: java LasersPTUI safe-file [input]");
+            }
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 }
