@@ -25,8 +25,6 @@ public class LasersPTUI {
 
     public int rDIM;    //row dimension of the safe
     public int cDIM;    //column dimension of the safe
-    private int[] rowArray;
-    private int[] colArray;
 
 
     /**
@@ -50,8 +48,7 @@ public class LasersPTUI {
                 this.grid[r][c] = s.charAt(0);
             }
         }
-
-
+        
     }
 
     public void display(){
