@@ -57,7 +57,7 @@ public class LasersPTUI {
 
 
         String result = "  ";
-        /** Printing Column Numbers */
+        /*Printing Column Numbers */
         for (int c = 0; c<cDIM; c++){
             result += " " + c;        //Prints out Column number here
         }
@@ -91,6 +91,20 @@ public class LasersPTUI {
        */
     }
 
+    /**
+     * The help command displays the help message to standard output, with no
+     * status message. Continuing with the above sample run:
+     */
+
+    public void helpMessage(){
+        System.out.print("a|add r c: Add laser to (r,c)\n" +
+                "d|display: Display safe\n" +
+                "h|help: Print this help message\n" +
+                "q|quit: Exit program\n" +
+                "r|remove r c: Remove laser from (r,c)\n" +
+                "v|verify: Verify safe correctness");
+    }
+
     //MOSES LAGOON
 
     public boolean verify(){
@@ -105,17 +119,20 @@ public class LasersPTUI {
         return "";
     }
 
-    public static void main(String[] args) {
-//        System.out.println("My name is Jordan Shea");
-//        System.out.println("My name is Jennifer Liu");
-//        System.out.println("My name is Moses Lagoon");
-//        System.out.println("Our project account is p142-03n");
+    public static void main(String[] args) throws FileNotFoundException {   //Added file not found exception here
+
+/*       System.out.println("My name is Jordan Shea");
+        System.out.println("My name is Jennifer Liu");
+        System.out.println("My name is Moses Lagoon");
+        System.out.println("Our project account is p142-03n");
+        */
         // Jordan Shea
-        try {
+        //try {
             if (args.length == 1) {
                 //MOSES LAGOON
                 LasersPTUI lasers = new LasersPTUI(args[0]);
                 lasers.display();           //PRINTING DISPLAY HERE
+                lasers.helpMessage();
                 //MOSES LAGOON
             } else if (args.length == 2) {
                 //MOSES LAGOON
@@ -127,8 +144,8 @@ public class LasersPTUI {
                 System.out.println("Usage: java LasersPTUI safe-file [input]");
             }
 
-        } catch (Exception e){
-            System.out.println(e);
-        }
+//        } catch (Exception e){
+//            System.out.println(e);
+//        }
     }
 }
