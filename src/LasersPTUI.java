@@ -131,7 +131,6 @@ public class LasersPTUI {
                     System.out.print("Error: Invalid Input");
                     validInput = false;
             }
-
         }
     }
 
