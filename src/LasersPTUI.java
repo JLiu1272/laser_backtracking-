@@ -69,7 +69,7 @@ public class LasersPTUI {
         String result = "  ";
         /*Printing Column Numbers */
         for (int c = 0; c<cDIM; c++){
-            result += " " + c;        //Prints out Column number here
+            result += " " + c%10;        //Prints out Column number here
         }
         result+= "\n" + "   ";
 
@@ -81,7 +81,7 @@ public class LasersPTUI {
 
         /** DATA BODY - rows of them */
         for (int r =0; r <rDIM; r++){
-            result += r + "|";                  // ROW Number and Left side bars
+            result += r%10 + "|";                  // ROW Number and Left side bars
             for(int c = 0; c < cDIM; c++){
                 result += " " + this.grid[r][c];    //filling the grid in
             }
