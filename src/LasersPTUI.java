@@ -52,6 +52,8 @@ public class LasersPTUI {
     }
 
     public void display(){
+
+
         String result = "  ";
         /*Printing Column Numbers */
         for (int c = 0; c<cDIM; c++){
@@ -59,7 +61,7 @@ public class LasersPTUI {
         }
         result+= "\n" + "   ";
 
-        /** TOP ROW DASHES "-------" */
+        /** TOP ROW DASES "-------" */
         for(int j = 1; j<cDIM; j++){
             result += "--";         //TOP ROW DASHES HERE
         }
@@ -132,7 +134,6 @@ public class LasersPTUI {
 
         }
     }
-
 
     //MOSES LAGOON
 
