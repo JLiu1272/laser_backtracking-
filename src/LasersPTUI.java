@@ -362,7 +362,7 @@ public class LasersPTUI {
     }
 
     public String add(int r, int c){
-        return "";
+        return "2";
     }
 
     public static void main(String[] args) throws FileNotFoundException {   //Added file not found exception here
