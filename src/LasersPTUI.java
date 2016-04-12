@@ -124,7 +124,7 @@ public class LasersPTUI {
                 case "a":
                     int r = scnInput.nextInt();
                     int c = scnInput.nextInt();
-                    add(r,c);
+                    System.out.println(add(r,c));
                     break;
                 case "d":
                     display();
@@ -411,14 +411,23 @@ public class LasersPTUI {
      * @return
      */
     public String add(int row, int col){
+        //If users input a value that is greater
+        //than the dimension of the safe, it should
+        //return an error
         if(row >= rDIM || col >= cDIM){
+            this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
         }
+        //If the cell that we want to add it to is an outlet or is a laser beam, it should
+        //return an error
         else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
                 grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' || grid[row][col] == '*'){
+            this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
         }
 
+        //This function generates all the possible neighbors that
+        //an object could have at its cell
         HashMap<Integer,Integer> neighbors = new HashMap<>();
         if(col == cDIM-1){
             neighbors.put(row, col-1);
@@ -442,33 +451,52 @@ public class LasersPTUI {
             neighbors.put(row-1,col);
         }
 
+        //This loops through all its neighbors
+        //If one of the neighbors have a power outlet,
+        //it needs to make sure that the outlet can handle
+        //all the lasers if we add a laser there
         for(Map.Entry<Integer, Integer> n : neighbors.entrySet()){
+            //System.out.println(n.getKey() + ", " + n.getValue());
             if(grid[n.getKey()][n.getValue()] == '1'){
-                if(!checkNeighbors(1,n.getKey(),n.getValue(),'L')){
+                LasersPTUI lasersCopy = new LasersPTUI(this);
+                lasersCopy.grid[row][col] = 'L';
+                if(!lasersCopy.checkNeighbors(1,n.getKey(),n.getValue(),'L')){
+                    this.display();
                     return "Error adding laser at: (" + row + ", " + col + ")";
                 }
             }
             else if(grid[n.getKey()][n.getValue()] == '2'){
-                if(!checkNeighbors(2,n.getKey(),n.getValue(),'L')){
+                LasersPTUI lasersCopy = new LasersPTUI(this);
+                lasersCopy.grid[row][col] = 'L';
+                if(!lasersCopy.checkNeighbors(2,n.getKey(),n.getValue(),'L')){
+                    this.display();
                     return "Error adding laser at: (" + row + ", " + col + ")";
                 }
 
             }
             else if(grid[n.getKey()][n.getValue()] == '3'){
-                if(!checkNeighbors(3,n.getKey(),n.getValue(),'L')){
+                LasersPTUI lasersCopy = new LasersPTUI(this);
+                lasersCopy.grid[row][col] = 'L';
+                if(!lasersCopy.checkNeighbors(3,n.getKey(),n.getValue(),'L')){
+                    this.display();
                     return "Error adding laser at: (" + row + ", " + col + ")";
                 }
 
             }
-            else{
-                if(!checkNeighbors(4,n.getKey(),n.getValue(),'L')){
+            else if(grid[n.getKey()][n.getValue()] == '4'){
+                LasersPTUI lasersCopy = new LasersPTUI(this);
+                lasersCopy.grid[row][col] = 'L';
+                if(!lasersCopy.checkNeighbors(4,n.getKey(),n.getValue(),'L')){
+                    this.display();
                     return "Error adding laser at: (" + row + ", " + col + ")";
                 }
             }
         }
 
+        //If all condition works, add the laser at the specified location
+        //and display the new graph with the laser added
         grid[row][col] = 'L';
-        display();
+        this.display();
         return "Laser added at: (" + row + ", " + col + ")" ;
     }
     //JENNIFER LIU
@@ -487,8 +515,8 @@ public class LasersPTUI {
             //MOSES LAGOON
             LasersPTUI lasers = new LasersPTUI(args[0]);
             lasers.display();           //PRINTING DISPLAY HERE
-            //lasers.helpMessage();
-            lasers.add(0,0);
+            lasers.helpMessage();
+
             //MOSES LAGOON
         } else if (args.length == 2) {
             //MOSES LAGOON
