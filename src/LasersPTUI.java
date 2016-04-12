@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;    //SCANNER
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Moses Lagoon
  * @author Jordan Edward Shea
@@ -51,6 +54,17 @@ public class LasersPTUI {
 
     }
 
+    public LasersPTUI(LasersPTUI otherSafe){
+        this.cDIM = otherSafe.cDIM;
+        this.rDIM = otherSafe.rDIM;
+
+        this.grid = new char[otherSafe.rDIM][otherSafe.cDIM];
+        for(int row = 0; row < otherSafe.rDIM; row++){
+            System.arraycopy(otherSafe.grid[row], 0, this.grid[row], 0, otherSafe.cDIM);
+        }
+
+
+    }
     public void display(){
         String result = "  ";
         /*Printing Column Numbers */
@@ -172,33 +186,33 @@ public class LasersPTUI {
                 //In here, we call the checkNeighbors method to help us do this
                 else if(grid[row][col] == '0'){
                     //put conditions
-                    if(!checkNeighbors(0, row, col)){
+                    if(!checkNeighbors(0, row, col,'L')){
                         return "Error verifying at: (" + row + ", " + col + ")";
                     }
 
                 }
                 else if(grid[row][col] == '1'){
                     //put condition
-                    if(!checkNeighbors(1, row, col)){
+                    if(!checkNeighbors(1, row, col, 'L')){
                         return "Error verifying at: (" + row + ", " + col + ")";
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
-                    if(!checkNeighbors(2, row, col)){
+                    if(!checkNeighbors(2, row, col, 'L')){
                         return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
-                    if(!checkNeighbors(3, row, col)){
+                    if(!checkNeighbors(3, row, col, 'L')){
                         return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
-                    if(!checkNeighbors(4, row, col)){
+                    if(!checkNeighbors(4, row, col, 'L')){
                         return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
@@ -222,13 +236,13 @@ public class LasersPTUI {
      * does not match with the number that a power outlet can
      * handle
      */
-    public boolean checkNeighbors(int num, int row, int col){
+    public boolean checkNeighbors(int num, int row, int col, char val){
         int numLasers = 0;
         if(row == 0 && col == 0){
-            if(grid[row][col+1] == 'L'){
+            if(grid[row][col+1] == val){
                 numLasers++;
             }
-            if(grid[row+1][col] == 'L'){
+            if(grid[row+1][col] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -237,10 +251,10 @@ public class LasersPTUI {
         }
         //Checks for the top right corner (0, cDIM)
         else if(row == 0 && col == cDIM-1){
-            if(grid[row][col-1] == 'L'){
+            if(grid[row][col-1] == val){
                 numLasers++;
             }
-            if(grid[row+1][col] == 'L'){
+            if(grid[row+1][col] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -249,10 +263,10 @@ public class LasersPTUI {
         }
         //Checks for the bottom left corner (0, rDIM)
         else if(row == rDIM -1 && col == 0){
-            if(grid[row-1][col] == 'L'){
+            if(grid[row-1][col] == val){
                 numLasers++;
             }
-            if(grid[row][col+1] == 'L'){
+            if(grid[row][col+1] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -261,10 +275,10 @@ public class LasersPTUI {
         }
         //Checks for the bottom right corner (rDIM, cDIM)
         else if(row == rDIM-1 && col == cDIM-1){
-            if(grid[row][col-1] == 'L'){
+            if(grid[row][col-1] == val){
                 numLasers++;
             }
-            if(grid[row-1][col] == 'L'){
+            if(grid[row-1][col] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -274,13 +288,13 @@ public class LasersPTUI {
         //Checking for the sides
         //The left side
         else if(col == 0 && row > 0){
-            if(grid[row-1][col] == 'L'){
+            if(grid[row-1][col] == val){
                 numLasers++;
             }
-            if(grid[row+1][col] == 'L'){
+            if(grid[row+1][col] == val){
                 numLasers++;
             }
-            if(grid[row][col+1] == 'L'){
+            if(grid[row][col+1] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -289,13 +303,13 @@ public class LasersPTUI {
         }
         //Check for Top Side
         else if(col > 0 && row == 0){
-            if(grid[row+1][col] == 'L'){
+            if(grid[row+1][col] == val){
                 numLasers++;
             }
-            if(grid[row][col-1] == 'L'){
+            if(grid[row][col-1] == val){
                 numLasers++;
             }
-            if(grid[row][col+1] == 'L'){
+            if(grid[row][col+1] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -304,13 +318,13 @@ public class LasersPTUI {
         }
         //Check for the Right Side
         else if(col == cDIM-1 && row > 0){
-            if(grid[row+1][col] == 'L'){
+            if(grid[row+1][col] == val){
                 numLasers++;
             }
-            if(grid[row][col-1] == 'L'){
+            if(grid[row][col-1] == val){
                 numLasers++;
             }
-            if(grid[row-1][col] == 'L'){
+            if(grid[row-1][col] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -319,13 +333,13 @@ public class LasersPTUI {
         }
         //Check for the bottom Side
         else if(row == rDIM-1 && col > 0){
-            if(grid[row-1][col] == 'L'){
+            if(grid[row-1][col] == val){
                 numLasers++;
             }
-            if(grid[row][col-1] == 'L'){
+            if(grid[row][col-1] == val){
                 numLasers++;
             }
-            if(grid[row][col+1] == 'L'){
+            if(grid[row][col+1] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -335,16 +349,16 @@ public class LasersPTUI {
         //Check for the cells that are inside the
         //grid
         else{
-            if(grid[row-1][col] == 'L'){
+            if(grid[row-1][col] == val){
                 numLasers++;
             }
-            if(grid[row][col-1] == 'L'){
+            if(grid[row][col-1] == val){
                 numLasers++;
             }
-            if(grid[row][col+1] == 'L'){
+            if(grid[row][col+1] == val){
                 numLasers++;
             }
-            if(grid[row+1][col] == 'L'){
+            if(grid[row+1][col] == val){
                 numLasers++;
             }
             if(numLasers != num){
@@ -380,15 +394,89 @@ public class LasersPTUI {
         }
         return true;
     }
+
+    /**
+     * First, the status of the add command is displayed. If the laser was successfully placed,
+     * the standard output message, followed by a new line, should be (where r and c are the
+     * actual integer coordinates):
+     *
+     *     Laser added at: (r, c)
+     *
+     * If the laser could not be placed (because there was a pillar or laser at the coordinate),
+     * the standard output message, followed by a new line, should be:
+     *
+     *     Error adding laser at: (r, c)
+     * @param row - (int) the row where we want to add the laser
+     * @param col - (int) the col where we want to add the laser
+     * @return
+     */
+    public String add(int row, int col){
+        if(row >= rDIM || col >= cDIM){
+            return "Error adding laser at: (" + row + ", " + col + ")";
+        }
+        else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
+                grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' || grid[row][col] == '*'){
+            return "Error adding laser at: (" + row + ", " + col + ")";
+        }
+
+        HashMap<Integer,Integer> neighbors = new HashMap<>();
+        if(col == cDIM-1){
+            neighbors.put(row, col-1);
+        }
+        else if(col == 0){
+            neighbors.put(row,col+1);
+        }
+        else{
+            neighbors.put(row,col+1);
+            neighbors.put(row,col-1);
+        }
+
+        if(row == rDIM-1){
+            neighbors.put(row-1,col);
+        }
+        else if(row == 0){
+            neighbors.put(row+1,col);
+        }
+        else{
+            neighbors.put(row+1,col);
+            neighbors.put(row-1,col);
+        }
+
+        for(Map.Entry<Integer, Integer> n : neighbors.entrySet()){
+            if(grid[n.getKey()][n.getValue()] == '1'){
+                if(!checkNeighbors(1,n.getKey(),n.getValue(),'L')){
+                    return "Error adding laser at: (" + row + ", " + col + ")";
+                }
+            }
+            else if(grid[n.getKey()][n.getValue()] == '2'){
+                if(!checkNeighbors(2,n.getKey(),n.getValue(),'L')){
+                    return "Error adding laser at: (" + row + ", " + col + ")";
+                }
+
+            }
+            else if(grid[n.getKey()][n.getValue()] == '3'){
+                if(!checkNeighbors(3,n.getKey(),n.getValue(),'L')){
+                    return "Error adding laser at: (" + row + ", " + col + ")";
+                }
+
+            }
+            else{
+                if(!checkNeighbors(4,n.getKey(),n.getValue(),'L')){
+                    return "Error adding laser at: (" + row + ", " + col + ")";
+                }
+            }
+        }
+
+        grid[row][col] = 'L';
+        display();
+        return "Laser added at: (" + row + ", " + col + ")" ;
+    }
     //JENNIFER LIU
 
     public char[][] remove(int r, int c){
         return null;
     }
 
-    public String add(int r, int c){
-        return "";
-    }
 
     public void quit(){
         System.exit(2);
@@ -399,7 +487,8 @@ public class LasersPTUI {
             //MOSES LAGOON
             LasersPTUI lasers = new LasersPTUI(args[0]);
             lasers.display();           //PRINTING DISPLAY HERE
-            lasers.helpMessage();
+            //lasers.helpMessage();
+            lasers.add(0,0);
             //MOSES LAGOON
         } else if (args.length == 2) {
             //MOSES LAGOON
