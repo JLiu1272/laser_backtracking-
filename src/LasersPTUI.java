@@ -54,6 +54,11 @@ public class LasersPTUI {
 
     }
 
+    /**
+     * Copy Construction
+     * Creating a deep copy of the safe
+     * @param otherSafe (LasersPTUI)
+     */
     public LasersPTUI(LasersPTUI otherSafe){
         this.cDIM = otherSafe.cDIM;
         this.rDIM = otherSafe.rDIM;
@@ -421,7 +426,8 @@ public class LasersPTUI {
         //If the cell that we want to add it to is an outlet or is a laser beam, it should
         //return an error
         else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
-                grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' || grid[row][col] == '*'){
+                grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' || grid[row][col] == '*' ||
+                grid[row][col] == 'L'){
             this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
         }
@@ -496,6 +502,18 @@ public class LasersPTUI {
         //If all condition works, add the laser at the specified location
         //and display the new graph with the laser added
         grid[row][col] = 'L';
+        for(int rowBeams = 0; rowBeams < rDIM; rowBeams++){
+            if(rowBeams != row && grid[rowBeams][col] == '.'){
+                grid[rowBeams][col] = '*';
+            }
+            //grid[rowBeams][col] = '*';
+        }
+        for(int colBeams = 0; colBeams < cDIM; colBeams++){
+            if(colBeams != col && grid[row][colBeams] == '.'){
+                grid[row][colBeams] = '*';
+            }
+            //grid[row][colBeams] = '*';
+        }
         this.display();
         return "Laser added at: (" + row + ", " + col + ")" ;
     }
