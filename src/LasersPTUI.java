@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;    //SCANNER
 
-import java.util.HashMap;
-
 /**
  * @author Moses Lagoon
  * @author Jordan Edward Shea
@@ -27,8 +25,6 @@ public class LasersPTUI {
 
     public int rDIM;    //row dimension of the safe
     public int cDIM;    //column dimension of the safe
-    private int[] rowArray;
-    private int[] colArray;
 
 
     /**
@@ -53,12 +49,9 @@ public class LasersPTUI {
             }
         }
 
-
     }
 
     public void display(){
-
-
         String result = "  ";
         /*Printing Column Numbers */
         for (int c = 0; c<cDIM; c++){
@@ -66,7 +59,7 @@ public class LasersPTUI {
         }
         result+= "\n" + "   ";
 
-        /** TOP ROW DASES "-------" */
+        /** TOP ROW DASHES "-------" */
         for(int j = 1; j<cDIM; j++){
             result += "--";         //TOP ROW DASHES HERE
         }
@@ -108,12 +101,44 @@ public class LasersPTUI {
                 "q|quit: Exit program\n" +
                 "r|remove r c: Remove laser from (r,c)\n" +
                 "v|verify: Verify safe correctness");
-
+        // Jordan Shea
+        System.out.println();
+        boolean validInput = true;
+        while (validInput){
+            Scanner scnInput = new Scanner(System.in);
+            switch(scnInput.next()){
+                case "a":
+                    int r = scnInput.nextInt();
+                    int c = scnInput.nextInt();
+                    add(r,c);
+                    break;
+                case "d":
+                    display();
+                    break;
+                case "h":
+                    helpMessage();
+                    break;
+                case "q":
+                    quit();
+                    break;
+                case "r":
+                    int row = scnInput.nextInt();
+                    int column = scnInput.nextInt();
+                    remove(row, column);
+                    break;
+                case "v":
+                    verify();
+                    break;
+                default:
+                    System.out.print("Error: Invalid Input");
+                    validInput = false;
+            }
+        }
     }
 
     //MOSES LAGOON
 
-    //JENNIFER LIU 
+    //JENNIFER LIU
     /**
      * Verify command displays a status message that indicates whether the safe is
      * valid or not. In order to be valid, none of the rules of the safe may be
@@ -138,9 +163,9 @@ public class LasersPTUI {
                 //If there are more than one laser in the same row or column,
                 //return false
                 if(grid[row][col] == 'L'){
-                  if(!verifyWithPos(row,col)){
-                      return "Error verifying at: (" + row + ", " + col + ")";
-                  }
+                    if(!verifyWithPos(row,col)){
+                        return "Error verifying at: (" + row + ", " + col + ")";
+                    }
                 }
                 //If there is a power outlet, make sure that the number of lasers
                 //surrounding the outlet matches with its number
@@ -311,7 +336,7 @@ public class LasersPTUI {
         //grid
         else{
             if(grid[row-1][col] == 'L'){
-               numLasers++;
+                numLasers++;
             }
             if(grid[row][col-1] == 'L'){
                 numLasers++;
@@ -341,7 +366,7 @@ public class LasersPTUI {
         //Check to make sure that the there is
         //only 1 laser horizontally placed
         for(int col = 0; col < cDIM; col++){
-           if(grid[r][col] == 'L' && col != c){
+            if(grid[r][col] == 'L' && col != c){
                 return false;
             }
         }
@@ -355,44 +380,35 @@ public class LasersPTUI {
         }
         return true;
     }
-    //JENNIFER LIU 
+    //JENNIFER LIU
 
     public char[][] remove(int r, int c){
         return null;
     }
 
     public String add(int r, int c){
-        return "2";
+        return "";
     }
 
-    public static void main(String[] args) throws FileNotFoundException {   //Added file not found exception here
+    public void quit(){
+        System.exit(2);
+    }
 
-/*       System.out.println("My name is Jordan Shea");
-        System.out.println("My name is Jennifer Liu");
-        System.out.println("My name is Moses Lagoon");
-        System.out.println("Our project account is p142-03n");
-        */
-        // Jordan Shea
-        //try {
-            if (args.length == 1) {
-                //MOSES LAGOON
-                LasersPTUI lasers = new LasersPTUI(args[0]);
-                System.out.println(lasers.verify());
-                lasers.display();           //PRINTING DISPLAY HERE
-                lasers.helpMessage();
-                //MOSES LAGOON
-            } else if (args.length == 2) {
-                //MOSES LAGOON
-                //Creating a new lasers object to print out display
-                LasersPTUI lasers = new LasersPTUI(args[0]);
-                lasers.display();
-                //MOSES LAGOON
-            } else {
-                System.out.println("Usage: java LasersPTUI safe-file [input]");
-            }
-
-//        } catch (Exception e){
-//            System.out.println(e);
-//        }
+    public static void main(String[] args) throws FileNotFoundException {
+        if (args.length == 1) {
+            //MOSES LAGOON
+            LasersPTUI lasers = new LasersPTUI(args[0]);
+            lasers.display();           //PRINTING DISPLAY HERE
+            lasers.helpMessage();
+            //MOSES LAGOON
+        } else if (args.length == 2) {
+            //MOSES LAGOON
+            //Creating a new lasers object to print out display
+            LasersPTUI lasers = new LasersPTUI(args[0]);
+            lasers.display();
+            //MOSES LAGOON
+        } else {
+            System.out.println("Usage: java LasersPTUI safe-file [input]");
+        }
     }
 }
