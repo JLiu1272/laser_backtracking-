@@ -127,7 +127,7 @@ public class LasersPTUI {
                     remove(row, column);
                     break;
                 case "v":
-                    verify();
+                    System.out.println(verify());
                     break;
                 default:
                     System.out.print("Error: Invalid Input");
