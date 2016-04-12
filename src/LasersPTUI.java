@@ -52,8 +52,6 @@ public class LasersPTUI {
     }
 
     public void display(){
-
-
         String result = "  ";
         /*Printing Column Numbers */
         for (int c = 0; c<cDIM; c++){
@@ -61,7 +59,7 @@ public class LasersPTUI {
         }
         result+= "\n" + "   ";
 
-        /** TOP ROW DASES "-------" */
+        /** TOP ROW DASHES "-------" */
         for(int j = 1; j<cDIM; j++){
             result += "--";         //TOP ROW DASHES HERE
         }
@@ -101,7 +99,40 @@ public class LasersPTUI {
                 "q|quit: Exit program\n" +
                 "r|remove r c: Remove laser from (r,c)\n" +
                 "v|verify: Verify safe correctness");
+        // Jordan Shea
+        boolean validInput = true;
+        while (validInput){
+            Scanner scnInput = new Scanner(System.in);
+            switch(scnInput.next()){
+                case "a":
+                    int r = scnInput.nextInt();
+                    int c = scnInput.nextInt();
+                    add(r,c);
+                    break;
+                case "d":
+                    display();
+                    break;
+                case "h":
+                    helpMessage();
+                    break;
+                case "q":
+                    quit();
+                    break;
+                case "r":
+                    int row = scnInput.nextInt();
+                    int column = scnInput.nextInt();
+                    remove(row, column);
+                    break;
+                case "v":
+                    verify();
+                    break;
+                default:
+                    validInput = false;
+            }
+
+        }
     }
+
 
     //MOSES LAGOON
 
@@ -117,33 +148,25 @@ public class LasersPTUI {
         return "";
     }
 
-    public static void main(String[] args) throws FileNotFoundException {   //Added file not found exception here
+    public void quit(){
+        System.exit(2);
+    }
 
-/*       System.out.println("My name is Jordan Shea");
-        System.out.println("My name is Jennifer Liu");
-        System.out.println("My name is Moses Lagoon");
-        System.out.println("Our project account is p142-03n");
-        */
-        // Jordan Shea
-        //try {
-            if (args.length == 1) {
-                //MOSES LAGOON
-                LasersPTUI lasers = new LasersPTUI(args[0]);
-                lasers.display();           //PRINTING DISPLAY HERE
-                lasers.helpMessage();
-                //MOSES LAGOON
-            } else if (args.length == 2) {
-                //MOSES LAGOON
-                //Creating a new lasers object to print out display
-                LasersPTUI lasers = new LasersPTUI(args[0]);
-                lasers.display();
-                //MOSES LAGOON
-            } else {
-                System.out.println("Usage: java LasersPTUI safe-file [input]");
-            }
-
-//        } catch (Exception e){
-//            System.out.println(e);
-//        }
+    public static void main(String[] args) throws FileNotFoundException {
+        if (args.length == 1) {
+            //MOSES LAGOON
+            LasersPTUI lasers = new LasersPTUI(args[0]);
+            lasers.display();           //PRINTING DISPLAY HERE
+            lasers.helpMessage();
+            //MOSES LAGOON
+        } else if (args.length == 2) {
+            //MOSES LAGOON
+            //Creating a new lasers object to print out display
+            LasersPTUI lasers = new LasersPTUI(args[0]);
+            lasers.display();
+            //MOSES LAGOON
+        } else {
+            System.out.println("Usage: java LasersPTUI safe-file [input]");
+        }
     }
 }
