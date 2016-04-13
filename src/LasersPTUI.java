@@ -112,7 +112,6 @@ public class LasersPTUI {
      */
     public void helpMessage(){
         System.out.print(
-                "> help\n"+
                 "a|add r c: Add laser to (r,c)\n" +
                 "d|display: Display safe\n" +
                 "h|help: Print this help message\n" +
@@ -156,47 +155,65 @@ public class LasersPTUI {
     }
 
     //JENNIFER LIU
+
+    /**
+     * Takes in user input and see which
+     * command they are checking for. If the user input
+     * is incorrect, it spits out the reason why it is
+     * incorrect
+     * @param str (String) - the user command
+     */
     public void commands(String str){
+        //Splits the string base on spaces
         String[] ch = str.split("\\s+");
         ArrayList<Integer> digits = new ArrayList<>();
+        //Only care about the first character of the
+        //first string
         char currCh = ch[0].charAt(0);
+        //If the character is a digit, add it to the
+        //digit arraylist
         for(int i = 1; i < ch.length; i++){
             if(ch[i].matches("\\-?\\d+")){
-                System.out.println(ch[i]);
                 digits.add(Integer.parseInt(ch[i]));
             }
         }
-        System.out.println(digits);
+        //Do the actions that correspond to the command
+        //Return error if the command is not valid
         switch (currCh) {
             case 'a':
                 if (digits.size() < 2 || digits.size() > 2) {
                     System.out.println("Incorrect coordinates");
                 } else {
-                    System.out.println(add(digits.get(0), digits.get(1)));
+                    System.out.print(add(digits.get(0), digits.get(1)) + "\n");
                 }
+                System.out.print("> ");
                 break;
             case 'd':
                 display();
+                System.out.print("> ");
                 break;
             case 'h':
                 helpMessage();
+                System.out.print("> ");
                 break;
             case 'q':
-                quit();
-                break;
+                quit(); break;
             case 'r':
-                if (digits.size() < 3 || digits.size() > 3) {
+                if (digits.size() < 2 || digits.size() > 2) {
                     System.out.println("Incorrect coordinates");
                 }
                 else{
                     System.out.println(remove(digits.get(0), digits.get(1)));
                 }
+                System.out.print("> ");
                 break;
             case 'v':
-                System.out.println(verify());
+                System.out.print(verify());
+                System.out.print("> ");
                 break;
             default:
-                System.out.println("Unrecognized command: " + str);
+                System.out.print("Unrecognized command: " + str);
+                System.out.print("> ");
                 break;
         }
     }
@@ -234,40 +251,40 @@ public class LasersPTUI {
                 //In here, we call the checkNeighbors method to help us do this
                 else if(grid[row][col] == '0'){
                     //put conditions
-                    if(!checkNeighbors(0, row, col,'L')){
-                        return "Error verifying at: (" + row + ", " + col + ")";
+                    if(!checkNeighbors(0, row, col, 'L').equals("true")){
+                        return checkNeighbors(0,row, col,'L');
                     }
 
                 }
                 else if(grid[row][col] == '1'){
                     //put condition
-                    if(!checkNeighbors(1, row, col, 'L')){
-                        return "Error verifying at: (" + row + ", " + col + ")";
+                    if(!checkNeighbors(1, row, col, 'L').equals("true")){
+                        return checkNeighbors(1,row, col,'L');
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
-                    if(!checkNeighbors(2, row, col, 'L')){
-                        return "Error verifying at: (" + row + ", " + col + ")";
+                    if(!checkNeighbors(2, row, col, 'L').equals("true")){
+                        return checkNeighbors(2,row, col,'L');
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
-                    if(!checkNeighbors(3, row, col, 'L')){
-                        return "Error verifying at: (" + row + ", " + col + ")";
+                    if(!checkNeighbors(3, row, col, 'L').equals("true")){
+                        return checkNeighbors(3,row, col,'L');
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
-                    if(!checkNeighbors(4, row, col, 'L')){
-                        return "Error verifying at: (" + row + ", " + col + ")";
+                    if(!checkNeighbors(4, row, col, 'L').equals("true")){
+                        return checkNeighbors(4,row, col,'L');
                     }
                 }
             }
         }
 
-        return "Safe is fully verified";
+        return "Safe is fully verified!";
     }
 
     /**
@@ -284,53 +301,73 @@ public class LasersPTUI {
      * does not match with the number that a power outlet can
      * handle
      */
-    public boolean checkNeighbors(int num, int row, int col, char val){
+    public String checkNeighbors(int num, int row, int col, char val){
         int numLasers = 0;
         if(row == 0 && col == 0){
             if(grid[row][col+1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col + 1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int c = col +1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
         }
         //Checks for the top right corner (0, cDIM)
         else if(row == 0 && col == cDIM-1){
             if(grid[row][col-1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col -1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int r= row +1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
         }
         //Checks for the bottom left corner (0, rDIM)
         else if(row == rDIM -1 && col == 0){
             if(grid[row-1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r = row -1;
+                    return "Error verifying at: (" + r + ", " + col + ")";
+                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int c = col +1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
         }
         //Checks for the bottom right corner (rDIM, cDIM)
         else if(row == rDIM-1 && col == cDIM-1){
             if(grid[row][col-1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col -1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row-1][col] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int r= row -1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
         }
         //Checking for the sides
@@ -338,60 +375,96 @@ public class LasersPTUI {
         else if(col == 0 && row > 0){
             if(grid[row-1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r= row -1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r= row +1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int c = col +1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
         }
         //Check for Top Side
         else if(col > 0 && row == 0){
             if(grid[row+1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r= row +1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col -1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int c = col +1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
         }
         //Check for the Right Side
         else if(col == cDIM-1 && row > 0){
             if(grid[row+1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r= row +1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col -1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row-1][col] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int r= row -1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
         }
         //Check for the bottom Side
         else if(row == rDIM-1 && col > 0){
             if(grid[row-1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r= row -1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col -1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int c = col +1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
         }
         //Check for the cells that are inside the
@@ -399,21 +472,34 @@ public class LasersPTUI {
         else{
             if(grid[row-1][col] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int r= row -1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col -1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
+                if(numLasers > num){
+                    int c = col +1;
+                    return "Error verifying at: (" + row + ", " + c + ")";
+                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-            }
-            if(numLasers != num){
-                return false;
+                if(numLasers > num){
+                    int r= row +1;
+                    return "Error verifying at: (" + row + ", " + r + ")";
+                }
             }
         }
-        return true;
+        return "true";
     }
 
     /**
@@ -516,19 +602,49 @@ public class LasersPTUI {
         }
 
         //If all condition works, add the laser at the specified location
-        //and display the new graph with the laser added
+        //then display the new graph with the laser added
         grid[row][col] = 'L';
-        for(int rowBeams = row; rowBeams < rDIM; rowBeams++){
+        //South Direction
+        for(int rowBeams = row+1; rowBeams < rDIM; rowBeams++){
+            //If the direction that the laser is hitting hits a pillar,
+            //we stop adding the laser beams
             if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
-                    grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'){
+                    grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'
+                    || grid[rowBeams][col] == 'X'){
                 break;
             }
             else{
                 grid[rowBeams][col] = '*';
             }
         }
-        for(int colBeams = 0; colBeams < cDIM; colBeams++){
-            if(colBeams != col && grid[row][colBeams] == '.'){
+        //North Direction
+        for(int rowBeams = row-1; rowBeams >= 0; rowBeams--){
+            if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
+                    grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'||
+                    grid[rowBeams][col] == 'X'){
+                break;
+            }
+            else{
+                grid[rowBeams][col] = '*';
+            }
+        }
+        //East Direction
+        for(int colBeams = col+1; colBeams < cDIM; colBeams++){
+            if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' || grid[row][colBeams]== 'X'||
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0'){
+                break;
+            }
+            else{
+                grid[row][colBeams] = '*';
+            }
+        }
+        //West Direction
+        for(int colBeams = col-1; colBeams >= 0; colBeams--){
+            if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' || grid[row][colBeams] == 'X'||
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0'){
+                break;
+            }
+            else{
                 grid[row][colBeams] = '*';
             }
         }
@@ -639,6 +755,7 @@ public class LasersPTUI {
             //MOSES LAGOON
             LasersPTUI lasers = new LasersPTUI(args[0]);
             lasers.display(); //PRINTING DISPLAY HERE
+            System.out.print("> ");
             Scanner sc = new Scanner(System.in);
             lasers.commands(sc.nextLine());
             while(true){
