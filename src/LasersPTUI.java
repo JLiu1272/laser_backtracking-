@@ -478,7 +478,6 @@ public class LasersPTUI {
                 }
             }
         }
-
         return true;
     }
 
