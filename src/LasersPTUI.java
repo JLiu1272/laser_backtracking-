@@ -519,8 +519,21 @@ public class LasersPTUI {
     }
     //JENNIFER LIU
 
-    public char[][] remove(int r, int c){
-        return null;
+    public String remove(int row, int col){
+        //If users input a value that is greater
+        //than the dimension of the safe, it should
+        //return an error
+        if(row >= rDIM || col >= cDIM){
+            this.display();
+            return "Error removing laser at: (" + row + ", " + col + ")";
+        }
+        else if(grid[row][col] != 'L'){
+            this.display();
+            return "Error: No laser exists at: (" + row + ", " + col + ")";
+        }
+        else {
+            return "";
+        }
     }
 
 
