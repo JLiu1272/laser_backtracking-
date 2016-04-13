@@ -157,19 +157,22 @@ public class LasersPTUI {
 
     //JENNIFER LIU
     public void commands(String str){
-        ArrayList<Character> ch = new ArrayList<>();
-        ch.add(str.charAt(0));
-        for(int i = 1; i < str.length(); i++){
-            if(str.charAt(i) != ' ' &&  Character.isDigit(str.charAt(i))){
-                ch.add(str.charAt(i));
+        String[] ch = str.split("\\s+");
+        ArrayList<Integer> digits = new ArrayList<>();
+        char currCh = ch[0].charAt(0);
+        for(int i = 1; i < ch.length; i++){
+            if(ch[i].matches("\\-?\\d+")){
+                System.out.println(ch[i]);
+                digits.add(Integer.parseInt(ch[i]));
             }
         }
-        switch (ch.get(0)) {
+        System.out.println(digits);
+        switch (currCh) {
             case 'a':
-                if (ch.size() < 3 || ch.size() > 3) {
+                if (digits.size() < 2 || digits.size() > 2) {
                     System.out.println("Incorrect coordinates");
                 } else {
-                    System.out.println(add(Character.getNumericValue(ch.get(ch.size()-2)), Character.getNumericValue(ch.get(ch.size()-1))));
+                    System.out.println(add(digits.get(0), digits.get(1)));
                 }
                 break;
             case 'd':
@@ -182,11 +185,11 @@ public class LasersPTUI {
                 quit();
                 break;
             case 'r':
-                if (ch.size() < 3 || ch.size() > 3) {
+                if (digits.size() < 3 || digits.size() > 3) {
                     System.out.println("Incorrect coordinates");
                 }
                 else{
-                    System.out.println(remove(Character.getNumericValue(ch.get(ch.size()-2)), Character.getNumericValue(ch.get(ch.size()-1))));
+                    System.out.println(remove(digits.get(0), digits.get(1)));
                 }
                 break;
             case 'v':
