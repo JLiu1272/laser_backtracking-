@@ -5,8 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;    //SCANNER
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * @author Moses Lagoon
@@ -121,7 +120,7 @@ public class LasersPTUI {
                 "r|remove r c: Remove laser from (r,c)\n" +
                 "v|verify: Verify safe correctness");
         // Jordan Shea
-        System.out.println();
+        /*System.out.println();
         boolean validInput = true;
         while (validInput){
             Scanner scnInput = new Scanner(System.in);
@@ -153,42 +152,49 @@ public class LasersPTUI {
                     validInput = false;
             }
         }
-        //Jordan
+        //Jordan*/
     }
 
     //JENNIFER LIU
     public void commands(String str){
-        String[] ch = str.split("[\\s@&.?$+-]+");
-        switch (ch[0]) {
-            case "a":
-                if (ch.length < 3 || ch.length > 3) {
+        ArrayList<Character> ch = new ArrayList<>();
+        ch.add(str.charAt(0));
+        for(int i = 1; i < str.length(); i++){
+
+            if(str.charAt(i) != ' ' &&  Character.isDigit(str.charAt(i))){
+                ch.add(str.charAt(i));
+            }
+        }
+        switch (ch.get(0)) {
+            case 'a':
+                if (ch.size() < 3 || ch.size() > 3) {
                     System.out.println("Incorrect coordinates");
                 } else {
-                    System.out.println(add(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1])));
+                    System.out.println(add(Character.getNumericValue(ch.get(ch.size()-2)), Character.getNumericValue(ch.get(ch.size()-1))));
                 }
                 break;
-            case "d":
+            case 'd':
                 display();
                 break;
-            case "h":
+            case 'h':
                 helpMessage();
                 break;
-            case "q":
+            case 'q':
                 quit();
                 break;
-            case "r":
-                if (ch.length < 3 || ch.length > 3) {
+            case 'r':
+                if (ch.size() < 3 || ch.size() > 3) {
                     System.out.println("Incorrect coordinates");
                 }
                 else{
-                    remove(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1]));
+                    System.out.println(remove(Character.getNumericValue(ch.get(ch.size()-2)), Character.getNumericValue(ch.get(ch.size()-1))));
                 }
                 break;
-            case "v":
+            case 'v':
                 System.out.println(verify());
                 break;
             default:
-                System.out.print("Error: Invalid Input");
+                System.out.println("Unrecognized command: " + str);
                 break;
         }
     }
@@ -418,7 +424,10 @@ public class LasersPTUI {
     public boolean verifyWithPos(int r, int c){
 
         int cRest = cDIM;
-        if(c != cDIM-1 && grid[r][c+1] != '*' && grid[r][c+1] != 'L'){
+        if(c != cDIM-1 && grid[r][c+1] != '*'){
+            if(grid[r][c+1] == 'L'){
+                return false;
+            }
             cRest = c;
             //Check to make sure that the there is
             //only 1 laser horizontally placed
@@ -429,6 +438,9 @@ public class LasersPTUI {
             }
         }
         if(c != 0 && grid[r][c-1] != '*'){
+            if(grid[r][c-1] == 'L'){
+                return false;
+            }
             cRest = c+1;
             //Check to make sure that the there is
             //only 1 laser horizontally placed
@@ -441,16 +453,22 @@ public class LasersPTUI {
 
         int rRest = rDIM;
         if(r != rDIM-1 && grid[r+1][c] != '*'){
+            if(grid[r+1][c] == 'L'){
+                return false;
+            }
             rRest = r;
             //Check to make sure that there is only 1
             //laser vertically placed
             for(int row = 0; row < rRest; row++){
-                if(grid[row][c] == 'L' && row != r){
+                if(grid[row][c] == 'L'){
                     return false;
                 }
             }
         }
         if(r != 0 && grid[r-1][c] != '*'){
+            if(grid[r-1][c] == 'L'){
+                return false;
+            }
             rRest = r-1;
             //Check to make sure that there is only 1
             //laser vertically placed
@@ -536,34 +554,33 @@ public class LasersPTUI {
      * @return a String value that prompts the user whether the removal
      * of the laser was successful or not at the given position
      */
-    public String remove(int row, int col){
+    public String remove(int row, int col) {
         // If the user inputs a value that is greater than the dimension of
         // the safe, then the program should return an error message.
-        if(row >= rDIM || col >= cDIM){
+        if (row >= rDIM || col >= cDIM) {
             this.display();
             return "Error removing laser at: (" + row + ", " + col + ")";
         }
         // If the user attempts to remove an object that is not a laser, then
         // the program should return an error message.
-        else if(grid[row][col] != 'L'){
+        else if (grid[row][col] != 'L') {
             this.display();
             return "Error: No laser exists at: (" + row + ", " + col + ")";
-        }
-        else {
+        } else {
             // Removes laser from the current position by substituting it with a '.'
             grid[row][col] = '.';
             // Begins the process of removing vertical beams
-            for(int rowBeams = 0; rowBeams < rDIM; rowBeams++){
-                if(rowBeams != row && grid[rowBeams][col] == '*'){
+            for (int rowBeams = 0; rowBeams < rDIM; rowBeams++) {
+                if (rowBeams != row && grid[rowBeams][col] == '*') {
                     boolean check = true;
-                    for (int newCol = 0; newCol < cDIM; newCol++){
+                    for (int newCol = 0; newCol < cDIM; newCol++) {
                         // Checks for intersecting lasers
-                        if(grid[rowBeams][newCol] == 'L'){
+                        if (grid[rowBeams][newCol] == 'L') {
                             check = false;
                         }
                     }
                     // Removes beam by replacing '*' with '.'
-                    if(check) {
+                    if (check) {
                         grid[rowBeams][col] = '.';
                     }
                     // Does not remove beam if it can be associated with a
@@ -575,28 +592,30 @@ public class LasersPTUI {
 
             }
             // Begins the process of removing horizontal beams
-            for(int colBeams = 0; colBeams < cDIM; colBeams++){
-                if(colBeams != col && grid[row][colBeams] == '*'){
+            for (int colBeams = 0; colBeams < cDIM; colBeams++) {
+                if (colBeams != col && grid[row][colBeams] == '*') {
                     boolean check = true;
-                    for (int newRow = 0; newRow < cDIM; newRow++){
-                        if(grid[newRow][colBeams] == 'L'){
+                    for (int newRow = 0; newRow < cDIM; newRow++) {
+                        if (grid[newRow][colBeams] == 'L') {
                             check = false;
                         }
                     }
                     // Removes beam by replacing '*' with '.'
-                    if(check) {
-                        grid[row][colBeams] = '.';
-                    }
-                    // Does not remove beam if it can be associated with a
-                    // separate laser
-                    else {
-                        grid[row][colBeams] = '*';
+                    if (check) {
+                        if (check) {
+                            grid[row][colBeams] = '.';
+                        }
+                        // Does not remove beam if it can be associated with a
+                        // separate laser
+                        else {
+                            grid[row][colBeams] = '*';
+                        }
                     }
                 }
             }
-            // Displays updated grid with the position in which the laser was removed
-            this.display();
-            return "Laser removed at: (" + row + ", " + col + ")";
+                // Displays updated grid with the position in which the laser was removed
+                this.display();
+                return "Laser removed at: (" + row + ", " + col + ")";
         }
     }
 
@@ -618,6 +637,7 @@ public class LasersPTUI {
             LasersPTUI lasers = new LasersPTUI(args[0]);
             lasers.display(); //PRINTING DISPLAY HERE
             Scanner sc = new Scanner(System.in);
+            lasers.commands(sc.nextLine());
             while(true){
                 lasers.commands(sc.nextLine());
             }
