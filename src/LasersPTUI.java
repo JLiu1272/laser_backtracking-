@@ -105,12 +105,12 @@ public class LasersPTUI {
                 "3|1 * * L");
        */
     }
+    //MOSES LAGOON
 
     /**
      * The help command displays the help message to standard output, with no
      * status message. Continuing with the above sample run:
      */
-
     public void helpMessage(){
         System.out.print(
                 "> help\n"+
@@ -153,48 +153,46 @@ public class LasersPTUI {
                     validInput = false;
             }
         }
+        //Jordan
     }
-
-    public void commands(String str){
-        String[] ch = str.split("[\\s@&.?$+-]+");
-        boolean validInput = true;
-            switch (ch[0]) {
-                case "a":
-                    if (ch.length < 3 || ch.length > 3) {
-                        System.out.println("Incorrect coordinates");
-                    } else {
-                        System.out.println(add(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1])));
-                    }
-                    break;
-                case "d":
-                    display();
-                    break;
-                case "h":
-                    helpMessage();
-                    break;
-                case "q":
-                    quit();
-                    break;
-                case "r":
-                    if (ch.length < 3 || ch.length > 3) {
-                        System.out.println("Incorrect coordinates");
-                    }
-                    else{
-                        remove(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1]));
-                    }
-                    break;
-                case "v":
-                    System.out.println(verify());
-                    break;
-                default:
-                    System.out.print("Error: Invalid Input");
-                    validInput = false;
-            }
-    }
-
-    //MOSES LAGOON
 
     //JENNIFER LIU
+    public void commands(String str){
+        String[] ch = str.split("[\\s@&.?$+-]+");
+        switch (ch[0]) {
+            case "a":
+                if (ch.length < 3 || ch.length > 3) {
+                    System.out.println("Incorrect coordinates");
+                } else {
+                    System.out.println(add(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1])));
+                }
+                break;
+            case "d":
+                display();
+                break;
+            case "h":
+                helpMessage();
+                break;
+            case "q":
+                quit();
+                break;
+            case "r":
+                if (ch.length < 3 || ch.length > 3) {
+                    System.out.println("Incorrect coordinates");
+                }
+                else{
+                    remove(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1]));
+                }
+                break;
+            case "v":
+                System.out.println(verify());
+                break;
+            default:
+                System.out.print("Error: Invalid Input");
+                break;
+        }
+    }
+
     /**
      * Verify command displays a status message that indicates whether the safe is
      * valid or not. In order to be valid, none of the rules of the safe may be
