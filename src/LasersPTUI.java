@@ -143,7 +143,7 @@ public class LasersPTUI {
                 case "r":
                     int row = scnInput.nextInt();
                     int column = scnInput.nextInt();
-                    remove(row, column);
+                    System.out.println(remove(row, column));
                     break;
                 case "v":
                     System.out.println(verify());
@@ -231,7 +231,7 @@ public class LasersPTUI {
      * This ensures that the number of lasers that are adjacent to
      * the power outlet matches with the number that is stated
      * in the power outlet. For instance, if the power outlet only
-     * allows for 1 lasers to be plugged adjacenet to it, there
+     * allows for 1 lasers to be plugged adjacent to it, there
      * should only be 1 lasers in total for all of the possible
      * locations that an outlet could be placed.
      * @param num - (int) the number of lasers allowed by the outlet
@@ -519,24 +519,98 @@ public class LasersPTUI {
     }
     //JENNIFER LIU
 
+    // Jordan Shea
+    /**
+     * This function operates by removing a laser (and its beams) from
+     * the user's grid, and prompting the user whether the attempt was
+     * successful or not. The parameters 'row' and 'col' represent the
+     * coordinates that the user would wish to see a laser removed. An
+     * attempt is deemed unsuccessful if the coordinates point to an
+     * index outside the length of the grid, or if the coordinate points
+     * to something that is not a laser. Otherwise, this function will
+     * remove the given laser and its beams (without affecting the beams
+     * of other lasers that may have intersected the removed beam) and
+     * create a prompt saying:
+     *
+     * Laser removed at: (r, c)
+     *
+     * @param row (int) the row where we want to remove a laser
+     * @param col (int) the column where we want to remove a laser
+     * @return a String value that prompts the user whether the removal
+     * of the laser was successful or not at the given position
+     */
     public String remove(int row, int col){
-        //If users input a value that is greater
-        //than the dimension of the safe, it should
-        //return an error
+        // If the user inputs a value that is greater than the dimension of
+        // the safe, then the program should return an error message.
         if(row >= rDIM || col >= cDIM){
             this.display();
             return "Error removing laser at: (" + row + ", " + col + ")";
         }
+        // If the user attempts to remove an object that is not a laser, then
+        // the program should return an error message.
         else if(grid[row][col] != 'L'){
             this.display();
             return "Error: No laser exists at: (" + row + ", " + col + ")";
         }
         else {
-            return "";
+            // Removes laser from the current position by substituting it with a '.'
+            grid[row][col] = '.';
+            // Begins the process of removing vertical beams
+            for(int rowBeams = 0; rowBeams < rDIM; rowBeams++){
+                if(rowBeams != row && grid[rowBeams][col] == '*'){
+                    boolean check = true;
+                    for (int newCol = 0; newCol < cDIM; newCol++){
+                        // Checks for intersecting lasers
+                        if(grid[rowBeams][newCol] == 'L'){
+                            check = false;
+                        }
+                    }
+                    // Removes beam by replacing '*' with '.'
+                    if(check) {
+                        grid[rowBeams][col] = '.';
+                    }
+                    // Does not remove beam if it can be associated with a
+                    // separate laser
+                    else {
+                        grid[rowBeams][col] = '*';
+                    }
+                }
+
+            }
+            // Begins the process of removing horizontal beams
+            for(int colBeams = 0; colBeams < cDIM; colBeams++){
+                if(colBeams != col && grid[row][colBeams] == '*'){
+                    boolean check = true;
+                    for (int newRow = 0; newRow < cDIM; newRow++){
+                        if(grid[newRow][colBeams] == 'L'){
+                            check = false;
+                        }
+                    }
+                    // Removes beam by replacing '*' with '.'
+                    if(check) {
+                        grid[row][colBeams] = '.';
+                    }
+                    // Does not remove beam if it can be associated with a
+                    // separate laser
+                    else {
+                        grid[row][colBeams] = '*';
+                    }
+                }
+            }
+            // Displays updated grid with the position in which the laser was removed
+            this.display();
+            return "Laser removed at: (" + row + ", " + col + ")";
         }
     }
 
 
+    /**
+     * This is a simple method that closes the program, which
+     * is invoked if the user typed in the 'q' command.
+     *
+     * Pre-Conditions: None
+     * Post-Conditions: Program ends
+     */
     public void quit(){
         System.exit(2);
     }
