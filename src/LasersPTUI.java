@@ -155,6 +155,43 @@ public class LasersPTUI {
         }
     }
 
+    public void commands(String str){
+        String[] ch = str.split("[\\s@&.?$+-]+");
+        boolean validInput = true;
+            switch (ch[0]) {
+                case "a":
+                    if (ch.length < 3 || ch.length > 3) {
+                        System.out.println("Incorrect coordinates");
+                    } else {
+                        System.out.println(add(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1])));
+                    }
+                    break;
+                case "d":
+                    display();
+                    break;
+                case "h":
+                    helpMessage();
+                    break;
+                case "q":
+                    quit();
+                    break;
+                case "r":
+                    if (ch.length < 3 || ch.length > 3) {
+                        System.out.println("Incorrect coordinates");
+                    }
+                    else{
+                        remove(Integer.parseInt(ch[ch.length - 2]), Integer.parseInt(ch[ch.length - 1]));
+                    }
+                    break;
+                case "v":
+                    System.out.println(verify());
+                    break;
+                default:
+                    System.out.print("Error: Invalid Input");
+                    validInput = false;
+            }
+    }
+
     //MOSES LAGOON
 
     //JENNIFER LIU
@@ -382,21 +419,50 @@ public class LasersPTUI {
      */
     public boolean verifyWithPos(int r, int c){
 
-        //Check to make sure that the there is
-        //only 1 laser horizontally placed
-        for(int col = 0; col < cDIM; col++){
-            if(grid[r][col] == 'L' && col != c){
-                return false;
+        int cRest = cDIM;
+        if(c != cDIM-1 && grid[r][c+1] != '*' && grid[r][c+1] != 'L'){
+            cRest = c;
+            //Check to make sure that the there is
+            //only 1 laser horizontally placed
+            for(int col = 0; col < cRest; col++){
+                if(grid[r][col] == 'L'){
+                    return false;
+                }
+            }
+        }
+        if(c != 0 && grid[r][c-1] != '*'){
+            cRest = c+1;
+            //Check to make sure that the there is
+            //only 1 laser horizontally placed
+            for(int col = cRest; col < cDIM; col++){
+                if(grid[r][col] == 'L' && col != c){
+                    return false;
+                }
             }
         }
 
-        //Check to make sure that there is only 1
-        //laser vertically placed
-        for(int row = 0; row < rDIM; row++){
-            if(grid[row][c] == 'L' && row != r){
-                return false;
+        int rRest = rDIM;
+        if(r != rDIM-1 && grid[r+1][c] != '*'){
+            rRest = r;
+            //Check to make sure that there is only 1
+            //laser vertically placed
+            for(int row = 0; row < rRest; row++){
+                if(grid[row][c] == 'L' && row != r){
+                    return false;
+                }
             }
         }
+        if(r != 0 && grid[r-1][c] != '*'){
+            rRest = r-1;
+            //Check to make sure that there is only 1
+            //laser vertically placed
+            for(int row = rRest; row < rDIM; row++){
+                if(grid[row][c] == 'L' && row != r){
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -426,77 +492,10 @@ public class LasersPTUI {
         //If the cell that we want to add it to is an outlet or is a laser beam, it should
         //return an error
         else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
-                grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' || grid[row][col] == '*' ||
+                grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' ||
                 grid[row][col] == 'L'){
             this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
-        }
-
-        //This function generates all the possible neighbors that
-        //an object could have at its cell
-        HashMap<Integer,Integer> neighbors = new HashMap<>();
-        if(col == cDIM-1){
-            neighbors.put(row, col-1);
-        }
-        else if(col == 0){
-            neighbors.put(row,col+1);
-        }
-        else{
-            neighbors.put(row,col+1);
-            neighbors.put(row,col-1);
-        }
-
-        if(row == rDIM-1){
-            neighbors.put(row-1,col);
-        }
-        else if(row == 0){
-            neighbors.put(row+1,col);
-        }
-        else{
-            neighbors.put(row+1,col);
-            neighbors.put(row-1,col);
-        }
-
-        //This loops through all its neighbors
-        //If one of the neighbors have a power outlet,
-        //it needs to make sure that the outlet can handle
-        //all the lasers if we add a laser there
-        for(Map.Entry<Integer, Integer> n : neighbors.entrySet()){
-            //System.out.println(n.getKey() + ", " + n.getValue());
-            if(grid[n.getKey()][n.getValue()] == '1'){
-                LasersPTUI lasersCopy = new LasersPTUI(this);
-                lasersCopy.grid[row][col] = 'L';
-                if(!lasersCopy.checkNeighbors(1,n.getKey(),n.getValue(),'L')){
-                    this.display();
-                    return "Error adding laser at: (" + row + ", " + col + ")";
-                }
-            }
-            else if(grid[n.getKey()][n.getValue()] == '2'){
-                LasersPTUI lasersCopy = new LasersPTUI(this);
-                lasersCopy.grid[row][col] = 'L';
-                if(!lasersCopy.checkNeighbors(2,n.getKey(),n.getValue(),'L')){
-                    this.display();
-                    return "Error adding laser at: (" + row + ", " + col + ")";
-                }
-
-            }
-            else if(grid[n.getKey()][n.getValue()] == '3'){
-                LasersPTUI lasersCopy = new LasersPTUI(this);
-                lasersCopy.grid[row][col] = 'L';
-                if(!lasersCopy.checkNeighbors(3,n.getKey(),n.getValue(),'L')){
-                    this.display();
-                    return "Error adding laser at: (" + row + ", " + col + ")";
-                }
-
-            }
-            else if(grid[n.getKey()][n.getValue()] == '4'){
-                LasersPTUI lasersCopy = new LasersPTUI(this);
-                lasersCopy.grid[row][col] = 'L';
-                if(!lasersCopy.checkNeighbors(4,n.getKey(),n.getValue(),'L')){
-                    this.display();
-                    return "Error adding laser at: (" + row + ", " + col + ")";
-                }
-            }
         }
 
         //If all condition works, add the laser at the specified location
@@ -532,8 +531,11 @@ public class LasersPTUI {
         if (args.length == 1) {
             //MOSES LAGOON
             LasersPTUI lasers = new LasersPTUI(args[0]);
-            lasers.display();           //PRINTING DISPLAY HERE
-            lasers.helpMessage();
+            lasers.display(); //PRINTING DISPLAY HERE
+            Scanner sc = new Scanner(System.in);
+            while(true){
+                lasers.commands(sc.nextLine());
+            }
 
             //MOSES LAGOON
         } else if (args.length == 2) {
