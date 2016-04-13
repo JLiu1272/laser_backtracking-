@@ -160,7 +160,6 @@ public class LasersPTUI {
         ArrayList<Character> ch = new ArrayList<>();
         ch.add(str.charAt(0));
         for(int i = 1; i < str.length(); i++){
-
             if(str.charAt(i) != ' ' &&  Character.isDigit(str.charAt(i))){
                 ch.add(str.charAt(i));
             }
@@ -501,7 +500,7 @@ public class LasersPTUI {
         //If users input a value that is greater
         //than the dimension of the safe, it should
         //return an error
-        if(row >= rDIM || col >= cDIM){
+        if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
             this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
         }
@@ -517,17 +516,19 @@ public class LasersPTUI {
         //If all condition works, add the laser at the specified location
         //and display the new graph with the laser added
         grid[row][col] = 'L';
-        for(int rowBeams = 0; rowBeams < rDIM; rowBeams++){
-            if(rowBeams != row && grid[rowBeams][col] == '.'){
+        for(int rowBeams = row; rowBeams < rDIM; rowBeams++){
+            if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
+                    grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'){
+                break;
+            }
+            else{
                 grid[rowBeams][col] = '*';
             }
-            //grid[rowBeams][col] = '*';
         }
         for(int colBeams = 0; colBeams < cDIM; colBeams++){
             if(colBeams != col && grid[row][colBeams] == '.'){
                 grid[row][colBeams] = '*';
             }
-            //grid[row][colBeams] = '*';
         }
         this.display();
         return "Laser added at: (" + row + ", " + col + ")" ;
@@ -557,7 +558,7 @@ public class LasersPTUI {
     public String remove(int row, int col) {
         // If the user inputs a value that is greater than the dimension of
         // the safe, then the program should return an error message.
-        if (row >= rDIM || col >= cDIM) {
+        if (row >= rDIM || col >= cDIM || row < 0 || col < 0) {
             this.display();
             return "Error removing laser at: (" + row + ", " + col + ")";
         }
