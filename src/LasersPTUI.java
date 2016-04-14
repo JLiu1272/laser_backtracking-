@@ -25,7 +25,7 @@ public class LasersPTUI {
 
     //MOSES LAGOON - Constructor for LasersPTUI
 
-    public int rDIM;    //row dimension of the safe
+         public int rDIM;    //row dimension of the safe
     public int cDIM;    //column dimension of the safe
 
 
