@@ -44,8 +44,6 @@ public class LasersPTUI {
         } else if (args.length == 2) {
             //MOSES LAGOON
             //Creating a new lasers object to print out display
-            LasersPTUI lasers = new LasersPTUI(args[0]);
-            // Jordan Shea
             Scanner sc = new Scanner(new File(args[1]));
             LasersConfig lasers = new LasersConfig(args[0]);
             lasers.display();
