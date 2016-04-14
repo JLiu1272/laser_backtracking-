@@ -93,7 +93,7 @@ public class LasersPTUI {
             }
             result += "\n";
         }
-        System.out.println(result);
+        System.out.print(result);
 
 
         //JUST CHECKING WITH SOLUTION:
@@ -175,11 +175,11 @@ public class LasersPTUI {
                 System.out.print("> ");
                 break;
             case 'v':
-                System.out.print(verify());
+                System.out.println(verify());
                 System.out.print("> ");
                 break;
             default:
-                System.out.print("Unrecognized command: " + str);
+                System.out.println("Unrecognized command: " + str);
                 System.out.print("> ");
                 break;
         }
@@ -801,13 +801,25 @@ public class LasersPTUI {
             while(sc.hasNextLine()){
                 lasers.commands(sc.nextLine());
             }
-
             //MOSES LAGOON
         } else if (args.length == 2) {
             //MOSES LAGOON
             //Creating a new lasers object to print out display
             LasersPTUI lasers = new LasersPTUI(args[0]);
+            // Jordan Shea
+            Scanner sc = new Scanner(new File(args[1]));
             lasers.display();
+            System.out.print("> ");
+            while (sc.hasNext()){
+                String line = sc.nextLine();
+                System.out.println(line);
+                lasers.commands(line);
+            }
+            Scanner scnInput = new Scanner(System.in);
+            lasers.commands(scnInput.nextLine());
+            while(scnInput.hasNextLine()){
+                lasers.commands(scnInput.nextLine());
+            }
             //MOSES LAGOON
         } else {
             System.out.println("Usage: java LasersPTUI safe-file [input]");
