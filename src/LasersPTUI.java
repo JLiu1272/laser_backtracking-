@@ -6,7 +6,6 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;    //SCANNER
-
 import java.util.ArrayList;
 
 /**
@@ -27,7 +26,7 @@ public class LasersPTUI {
 
     //MOSES LAGOON - Constructor for LasersPTUI
 
-         public int rDIM;    //row dimension of the safe
+    public int rDIM;    //row dimension of the safe
     public int cDIM;    //column dimension of the safe
 
 
