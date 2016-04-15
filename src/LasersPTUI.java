@@ -33,7 +33,7 @@ public class LasersPTUI {
         if (args.length == 1) {
             //MOSES LAGOON
             LasersConfig lasers = new LasersConfig(args[0]);
-            //lasers.display(); //PRINTING DISPLAY HERE
+            lasers.display(); //PRINTING DISPLAY HERE
             System.out.print("> ");
             Scanner sc = new Scanner(System.in);
             lasers.commands(sc.nextLine());
@@ -46,7 +46,7 @@ public class LasersPTUI {
             //Creating a new lasers object to print out display
             Scanner sc = new Scanner(new File(args[1]));
             LasersConfig lasers = new LasersConfig(args[0]);
-            //lasers.display();
+            lasers.display();
             System.out.print("> ");
             while (sc.hasNext()){
                 String line = sc.nextLine();
