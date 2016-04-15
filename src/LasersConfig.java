@@ -433,6 +433,11 @@ public class LasersConfig {
         //Row does not equal to the row dimension
         if(r != rDIM-1){
             for(int row = r+1; row < cDIM; row++){
+                //If I hit something that is not
+                //a laser beam, it means I have hit
+                //a pillar or a laser. If it is a
+                //pillar, I break out of the for
+                //loop, else I return false
                 if(grid[row][c] != '*'){
                     if(grid[row][c] == 'L'){
                         return false;
