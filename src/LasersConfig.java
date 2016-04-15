@@ -574,131 +574,211 @@ public class LasersConfig {
         // If the user attempts to remove an object that is not a laser, then
         // the program should return an error message.
         else if (grid[row][col] != 'L') {
-            return "Error removing laser at: (" + row + ", " + col + ")";
-        } else {
-            boolean initialRowCheck = true;
-            boolean initialColCheck = true;
-            int rowCounter = 0;
-            int colCounter = 0;
-            for (int initRow = 0; initRow < rDIM; initRow++){
-                if (grid[initRow][col] == 'L'){
-                    colCounter++;
-                }
-            }
-            for (int initCol = 0; initCol < cDIM; initCol++){
-                if (grid[row][initCol] == 'L'){
-                    rowCounter++;
-                }
-            }
-            // Removes laser from the current position by substituting it with a '.'
-            if (rowCounter >= 2){
-                initialRowCheck = false;
-            }
-            if (colCounter >= 2){
-                initialColCheck = false;
-            }
-            if (initialRowCheck && initialColCheck){
-                grid[row][col] = '.';
+            this.display();
+            return "Error: No laser exists at: (" + row + ", " + col + ")";
+        }
+        else {
+            // Local Variables
+            boolean laserCheck = false;
+            // Corresponds to beams being shot to the right
+            int right;
+            if (col == cDIM - 1){
+                right = col;
             }
             else {
+                right = col + 1;
+            }
+            // Corresponds to beams being shot to the left
+            int left;
+            if (col == 0){
+                left = col;
+            }
+            else {
+                left = col - 1;
+            }
+            // Corresponds to beams being shot upwards
+            int up;
+            if (row == 0){
+                up = row;
+            }
+            else {
+                up = row - 1;
+            }
+            // Corresponds with beams being shot downwards
+            int down;
+            if (row == rDIM - 1){
+                down = row;
+            }
+            else {
+                down = row + 1;
+            }
+            int counter;
+            // Removes the beam that is being shot to the right
+            counter = 0;
+            for (int east = right; east <= cDIM -1; east++){
+                counter++;
+                if (grid[row][east] == '0' || grid[row][east] == '1' ||
+                        grid[row][east] == '2' || grid[row][east] == '3' ||
+                        grid[row][east] == '4' || grid[row][east] == 'X'){
+                    east = cDIM - 1;
+                }
+                else if (grid[row][east] == 'L' && counter != 1){
+                    laserCheck = true;
+                    east = cDIM - 1;
+                }
+                else {
+                    grid[row][east] = '.';
+                }
+                for (int north = up; north >= 0; north--){
+                    if (grid[north][east] == '0' || grid[north][east] == '1' ||
+                            grid[north][east] == '2' || grid[north][east] == '3' ||
+                            grid[north][east] == '4' || grid[north][east] == 'X'){
+                        north = 0;
+                    }
+                    if (grid[north][east] == 'L'){
+                        grid[row][east] = '*';
+                        north = 0;
+                    }
+                }
+                for (int south = down; south <= rDIM -1; south++){
+                    if (grid[south][east] == '0' || grid[south][east] == '1' ||
+                            grid[south][east] == '2' || grid[south][east] == '3' ||
+                            grid[south][east] == '4' || grid[south][east] == 'X'){
+                        south = rDIM - 1;
+                    }
+                    if (grid[south][east] == 'L'){
+                        grid[row][east] = '*';
+                        south = rDIM - 1;
+                    }
+                }
+            }
+            // Removes the beam that is being shot to the left
+            counter = 0;
+            for (int west = left; west >= 0; west--){
+                counter++;
+                if (grid[row][west] == '0' || grid[row][west] == '1' ||
+                        grid[row][west] == '2' || grid[row][west] == '3' ||
+                        grid[row][west] == '4' || grid[row][west] == 'X'){
+                    west = 0;
+                }
+                else if (grid[row][west] == 'L' && counter != 1){
+                    laserCheck = true;
+                    west = 0;
+                }
+                else {
+                    grid[row][west] = '.';
+                }
+                for (int north = up; north >= 0; north--){
+                    if (grid[north][west] == '0' || grid[north][west] == '1' ||
+                            grid[north][west] == '2' || grid[north][west] == '3' ||
+                            grid[north][west] == '4' || grid[north][west] == 'X'){
+                        north = 0;
+                    }
+                    if (grid[north][west] == 'L'){
+                        grid[row][west] = '*';
+                        north = 0;
+                    }
+                }
+                for (int south = down; south <= rDIM - 1; south++){
+                    if (grid[south][west] == '0' || grid[south][west] == '1' ||
+                            grid[south][west] == '2' || grid[south][west] == '3' ||
+                            grid[south][west] == '4' || grid[south][west] == 'X'){
+                        south = rDIM - 1;
+                    }
+                    if (grid[south][west] == 'L'){
+                        grid[row][west] = '*';
+                        south = rDIM - 1;
+                    }
+                }
+            }
+            // Removes the beam that is being shot downwards
+            counter = 0;
+            for (int south = down; south <= rDIM - 1; south++){
+                counter++;
+                if (grid[south][col] == '0' || grid[south][col] == '1' ||
+                        grid[south][col] == '2' || grid[south][col] == '3' ||
+                        grid[south][col] == '4' || grid[south][col] == 'X'){
+                    south = rDIM - 1;
+                }
+                else if (grid[south][col] == 'L' && counter != 1){
+                    laserCheck = true;
+                    south = rDIM - 1;
+                }
+                else {
+                    grid[south][col] = '.';
+                }
+                for (int west = left; west >= 0; west--){
+                    if (grid[south][west] == '0' || grid[south][west] == '1' ||
+                            grid[south][west] == '2' || grid[south][west] == '3' ||
+                            grid[south][west] == '4' || grid[south][west] == 'X'){
+                        west = 0;
+                    }
+                    if (grid[south][west] == 'L'){
+                        grid[south][col] = '*';
+                        west = 0;
+                    }
+                }
+                for (int east = right; east <= cDIM - 1; east++){
+                    if (grid[south][east] == '0' || grid[south][east] == '1' ||
+                            grid[south][east] == '2' || grid[south][east] == '3' ||
+                            grid[south][east] == '4' || grid[south][east] == 'X'){
+                        east = cDIM - 1;
+                    }
+                    if (grid[south][east] == 'L'){
+                        grid[south][col] = '*';
+                        east = cDIM - 1;
+                    }
+                }
+            }
+            // Removes the beam that is being shot upwards
+            counter = 0;
+            for (int north = up; north >= 0; north--){
+                counter++;
+                if (grid[north][col] == '0' || grid[north][col] == '1' ||
+                        grid[north][col] == '2' || grid[north][col] == '3' ||
+                        grid[north][col] == '4' || grid[north][col] == 'X'){
+                    north = 0;
+                }
+                else if (grid[north][col] == 'L' && counter != 1){
+                    laserCheck = true;
+                    north = 0;
+                }
+                else {
+                    grid[north][col] = '.';
+                }
+                for (int west = left; west >= 0; west--){
+                    if (grid[north][west] == '0' || grid[north][west] == '1' ||
+                            grid[north][west] == '2' || grid[north][west] == '3' ||
+                            grid[north][west] == '4' || grid[north][west] == 'X'){
+                        west = 0;
+                    }
+                    if (grid[north][west] == 'L'){
+                        grid[north][col] = '*';
+                        west = 0;
+                    }
+                }
+                for (int east = right; east <= cDIM - 1; east++){
+                    if (grid[north][east] == '0' || grid[north][east] == '1' ||
+                            grid[north][east] == '2' || grid[north][east] == '3' ||
+                            grid[north][east] == '4' || grid[north][east] == 'X'){
+                        east = cDIM - 1;
+                    }
+                    if (grid[north][east] == 'L'){
+                        grid[north][col] = '*';
+                        east = cDIM - 1;
+                    }
+                }
+            }
+            // Determines what symbol the old laser should be replaced with
+            if (laserCheck){
                 grid[row][col] = '*';
             }
-            // Begins the process of removing vertical beams
-            for (int rowBeams = 0; rowBeams < rDIM; rowBeams++) {
-                if (rowBeams != row && grid[rowBeams][col] == '*') {
-                    boolean check = true;
-                    for (int newCol = 0; newCol < cDIM; newCol++) {
-                        // Checks for intersecting lasers
-                        if (grid[rowBeams][newCol] == 'L') {
-                            check = false;
-                        }
-                    }
-                    // Removes beam by replacing '*' with '.'
-                    if (check) {
-                        grid[rowBeams][col] = '.';
-                    }
-                    // Does not remove beam if it can be associated with a
-                    // separate laser
-                    else {
-                        grid[rowBeams][col] = '*';
-                    }
-                }
-
-            }
-            // Begins the process of removing horizontal beams
-            for (int colBeams = 0; colBeams < cDIM; colBeams++) {
-                if (colBeams != col && grid[row][colBeams] == '*') {
-                    boolean check = true;
-                    for (int newRow = 0; newRow < cDIM; newRow++) {
-                        if (grid[newRow][colBeams] == 'L') {
-                            check = false;
-                        }
-                    }
-                    // Removes beam by replacing '*' with '.'
-                    if (check) {
-                        grid[row][colBeams] = '.';
-                        // Does not remove beam if it can be associated with a
-                        // separate laser
-                    }
-                    else {
-                        grid[row][colBeams] = '*';
-                    }
-                }
-            }
-            if (!initialColCheck) {
-                for (int endRow = row + 1; endRow < rDIM; endRow++) {
-                    if (grid[endRow][col] == '0' || grid[endRow][col] == '1' ||
-                            grid[endRow][col] == '2' || grid[endRow][col] == '3' ||
-                            grid[endRow][col] == '4' || grid[endRow][col] == 'X') {
-                        endRow = rDIM;
-                    } else {
-                        if (grid[endRow][col] != 'L') {
-                            grid[endRow][col] = '*';
-                        }
-                    }
-                }
-                for (int endRow = row - 1; endRow > 0; endRow--) {
-                    if (grid[endRow][col] == '0' || grid[endRow][col] == '1' ||
-                            grid[endRow][col] == '2' || grid[endRow][col] == '3' ||
-                            grid[endRow][col] == '4' || grid[endRow][col] == 'X') {
-                        endRow = 0;
-                    } else {
-                        if (grid[endRow][col] != 'L') {
-                            grid[endRow][col] = '*';
-                        }
-                    }
-                }
-            }
-            if (!initialRowCheck){
-                for (int endCol = col + 1; endCol < cDIM; endCol++) {
-                    if (grid[row][endCol] == '0' || grid[row][endCol] == '1' ||
-                            grid[row][endCol] == '2' || grid[row][endCol] == '3' ||
-                            grid[row][endCol] == '4' || grid[row][endCol] == 'X') {
-                        endCol = rDIM;
-                    }
-                    else {
-                        if (grid[row][endCol] != 'L') {
-                            grid[row][endCol] = '*';
-                        }
-                    }
-                }
-                for (int endCol = col - 1; endCol > 0; endCol--) {
-                    if (grid[row][endCol] == '0' || grid[row][endCol] == '1' ||
-                            grid[row][endCol] == '2' || grid[row][endCol] == '3' ||
-                            grid[row][endCol] == '4' || grid[row][endCol] == 'X') {
-                        endCol = 0;
-                    }
-                    else {
-                        if (grid[row][endCol] != 'L') {
-                            grid[row][endCol] = '*';
-                        }
-                    }
-                }
+            else {
+                grid[row][col] = '.';
             }
         }
-
         // Displays updated grid with the position in which the laser was removed
-        return "Laser removed at: ddfd(" + row + ", " + col + ")";
+        return "Laser removed at: (" + row + ", " + col + ")";
     }
 
     /**
