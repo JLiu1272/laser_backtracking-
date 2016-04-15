@@ -37,12 +37,8 @@ public class LasersPTUI {
             System.out.print("> ");
             Scanner sc = new Scanner(System.in);
             while(sc.hasNextLine()){
-                if(sc.nextLine().equals("")){
-                    lasers.commands(" ");
-                }
-                else{
-                    lasers.commands(sc.nextLine());
-                }
+                lasers.commands(sc.nextLine());
+
             }
             //MOSES LAGOON
         } else if (args.length == 2) {
