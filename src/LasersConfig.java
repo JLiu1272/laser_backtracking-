@@ -116,6 +116,9 @@ public class LasersConfig {
         ArrayList<Integer> digits = new ArrayList<>();
         //Only care about the first character of the
         //first string
+        if (ch[0].equals("")) {
+            quit();
+        }
         char currCh = ch[0].charAt(0);
         //If the character is a digit, add it to the
         //digit arraylist
