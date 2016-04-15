@@ -118,7 +118,7 @@ public class LasersConfig {
         //first string
         if(ch[0].equals("")){
             System.out.print("> ");
-
+            return;
         }
         char currCh = ch[0].charAt(0);
         //If the character is a digit, add it to the
