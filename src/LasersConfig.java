@@ -53,7 +53,7 @@ public class LasersConfig {
 
     public void display(){
         String result = "  ";
-    /*Printing Column Numbers */
+        /*Printing Column Numbers */
         for (int c = 0; c<cDIM; c++){
             result += " " + c%10;        //Prints out Column number here
         }
@@ -73,7 +73,7 @@ public class LasersConfig {
             }
             result += "\n";
         }
-        System.out.println(result);
+        System.out.print(result);
 
 
         //JUST CHECKING WITH SOLUTION:
@@ -86,7 +86,7 @@ public class LasersConfig {
          "3|1 * * L");
          */
     }
-//MOSES LAGOON
+    //MOSES LAGOON
 
     /**
      * The help command displays the help message to standard output, with no
@@ -95,14 +95,14 @@ public class LasersConfig {
     public void helpMessage() {
         System.out.print(
                 "a|add r c: Add laser to (r,c)\n" +
-                        "d|display: Display safe\n" +
-                        "h|help: Print this help message\n" +
-                        "q|quit: Exit program\n" +
-                        "r|remove r c: Remove laser from (r,c)\n" +
-                        "v|verify: Verify safe correctness\n");
+                "d|display: Display safe\n" +
+                "h|help: Print this help message\n" +
+                "q|quit: Exit program\n" +
+                "r|remove r c: Remove laser from (r,c)\n" +
+                "v|verify: Verify safe correctness\n");
     }
 
-//JENNIFER LIU
+    //JENNIFER LIU
     /**
      * Takes in user input and see which
      * command they are checking for. If the user input
@@ -131,7 +131,7 @@ public class LasersConfig {
                 if (digits.size() < 2 || digits.size() > 2) {
                     System.out.println("Incorrect coordinates");
                 } else {
-                    System.out.print(add(digits.get(0), digits.get(1)) + "\n");
+                    System.out.println(add(digits.get(0), digits.get(1)));
                 }
                 System.out.print("> ");
                 break;
@@ -155,11 +155,11 @@ public class LasersConfig {
                 System.out.print("> ");
                 break;
             case 'v':
-                System.out.print(verify());
+                System.out.println(verify());
                 System.out.print("> ");
                 break;
             default:
-                System.out.print("Unrecognized command: " + str);
+                System.out.println("Unrecognized command: " + str);
                 System.out.print("> ");
                 break;
         }
@@ -194,36 +194,39 @@ public class LasersConfig {
                 //If there is a power outlet, make sure that the number of lasers
                 //surrounding the outlet matches with its number
                 //In here, we call the checkNeighbors method to help us do this
+                //If there is a power outlet, make sure that the number of lasers
+                //surrounding the outlet matches with its number
+                //In here, we call the checkNeighbors method to help us do this
                 else if(grid[row][col] == '0'){
                     //put conditions
-                    if(!checkNeighbors(0, row, col, 'L').equals("true")){
-                        return checkNeighbors(0,row, col,'L');
+                    if(!checkNeighbors(0, row, col,'L')){
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
 
                 }
                 else if(grid[row][col] == '1'){
                     //put condition
-                    if(!checkNeighbors(1, row, col, 'L').equals("true")){
-                        return checkNeighbors(1,row, col,'L');
+                    if(!checkNeighbors(1, row, col, 'L')){
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
-                    if(!checkNeighbors(2, row, col, 'L').equals("true")){
-                        return checkNeighbors(2,row, col,'L');
+                    if(!checkNeighbors(2, row, col, 'L')){
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
-                    if(!checkNeighbors(3, row, col, 'L').equals("true")){
-                        return checkNeighbors(3,row, col,'L');
+                    if(!checkNeighbors(3, row, col, 'L')){
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
-                    if(!checkNeighbors(4, row, col, 'L').equals("true")){
-                        return checkNeighbors(4,row, col,'L');
+                    if(!checkNeighbors(4, row, col, 'L')){
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
             }
@@ -245,73 +248,53 @@ public class LasersConfig {
      * does not match with the number that a power outlet can
      * handle
      */
-    public String checkNeighbors(int num, int row, int col, char val){
+    public boolean checkNeighbors(int num, int row, int col, char val){
         int numLasers = 0;
         if(row == 0 && col == 0){
             if(grid[row][col+1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col + 1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col +1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Checks for the top right corner (0, cDIM)
         else if(row == 0 && col == cDIM-1){
             if(grid[row][col-1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col -1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row +1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Checks for the bottom left corner (0, rDIM)
         else if(row == rDIM -1 && col == 0){
             if(grid[row-1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r = row -1;
-                    return "Error verifying at: (" + r + ", " + col + ")";
-                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col +1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Checks for the bottom right corner (rDIM, cDIM)
         else if(row == rDIM-1 && col == cDIM-1){
             if(grid[row][col-1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col -1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row-1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row -1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Checking for the sides
@@ -319,96 +302,60 @@ public class LasersConfig {
         else if(col == 0 && row > 0){
             if(grid[row-1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row -1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row +1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col +1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Check for Top Side
         else if(col > 0 && row == 0){
             if(grid[row+1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row +1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col -1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col +1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Check for the Right Side
         else if(col == cDIM-1 && row > 0){
             if(grid[row+1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row +1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col -1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row-1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row -1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Check for the bottom Side
         else if(row == rDIM-1 && col > 0){
             if(grid[row-1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row -1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col -1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col +1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
         //Check for the cells that are inside the
@@ -416,34 +363,21 @@ public class LasersConfig {
         else{
             if(grid[row-1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row -1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
             }
             if(grid[row][col-1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col -1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row][col+1] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int c = col +1;
-                    return "Error verifying at: (" + row + ", " + c + ")";
-                }
             }
             if(grid[row+1][col] == val){
                 numLasers++;
-                if(numLasers > num){
-                    int r= row +1;
-                    return "Error verifying at: (" + row + ", " + r + ")";
-                }
+            }
+            if(numLasers != num){
+                return false;
             }
         }
-        return "true";
+        return true;
     }
 
     /**
@@ -455,61 +389,60 @@ public class LasersConfig {
      * are in sight of one another
      */
     public boolean verifyWithPos(int r, int c){
-        int cRest;
-        if(c != cDIM-1 && grid[r][c+1] != '*'){
-            if(grid[r][c+1] == 'L'){
-                return false;
-            }
-            cRest = c;
-            //Check to make sure that the there is
-            //only 1 laser horizontally placed
-            for(int col = 0; col < cRest; col++){
-                if(grid[r][col] == 'L'){
-                    return false;
-                }
-            }
-        }
-        if(c != 0 && grid[r][c-1] != '*'){
-            if(grid[r][c-1] == 'L'){
-                return false;
-            }
-            cRest = c+1;
-            //Check to make sure that the there is
-            //only 1 laser horizontally placed
-            for(int col = cRest; col < cDIM; col++){
-                if(grid[r][col] == 'L' && col != c){
-                    return false;
-                }
-            }
-        }
-        int rRest;
-        if(r != rDIM-1 && grid[r+1][c] != '*'){
-            if(grid[r+1][c] == 'L'){
-                return false;
-            }
-            rRest = r;
-            //Check to make sure that there is only 1
-            //laser vertically placed
-            for(int row = 0; row < rRest; row++){
-                if(grid[row][c] == 'L'){
-                    return false;
-                }
-            }
-        }
-        if(r != 0 && grid[r-1][c] != '*'){
-            if(grid[r-1][c] == 'L'){
-                return false;
-            }
-            rRest = r-1;
-            //Check to make sure that there is only 1
-            //laser vertically placed
-            for(int row = rRest; row < rDIM; row++){
-                if(grid[row][c] == 'L' && row != r){
-                    return false;
-                }
-            }
-        }
 
+        //Making sure that the column is not 0
+        if(c != 0){
+            for(int col = c-1; col >= 0; col--){
+                if(grid[r][col] != '*'){
+                    if(grid[r][col] == 'L'){
+                        return false;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+        //Making sure that the col is not greater than
+        //the column dimension
+        if(c != cDIM-1){
+            for(int col = c+1; col < cDIM; col++){
+                if(grid[r][col] != '*'){
+                    if(grid[r][col] == 'L'){
+                        return false;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+        //Row does not equal to 0
+        if(r != 0){
+            for(int row = r-1; row >= 0; row--){
+                if(grid[row][c] != '*'){
+                    if(grid[row][c] == 'L'){
+                        return false;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+        //Row does not equal to the row dimension
+        if(r != rDIM-1){
+            for(int row = r+1; row < cDIM; row++){
+                if(grid[row][c] != '*'){
+                    if(grid[row][c] == 'L'){
+                        return false;
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
         return true;
     }
 
