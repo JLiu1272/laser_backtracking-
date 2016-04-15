@@ -698,7 +698,7 @@ public class LasersConfig {
         }
 
         // Displays updated grid with the position in which the laser was removed
-        return "Laser removed at: (" + row + ", " + col + ")";
+        return "Laser removed at: ddfd(" + row + ", " + col + ")";
     }
 
     /**
