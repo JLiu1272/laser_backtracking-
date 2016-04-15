@@ -132,6 +132,7 @@ public class LasersConfig {
                     System.out.println("Incorrect coordinates");
                 } else {
                     System.out.println(add(digits.get(0), digits.get(1)));
+                    this.display();
                 }
                 System.out.print("> ");
                 break;
@@ -151,6 +152,7 @@ public class LasersConfig {
                 }
                 else{
                     System.out.println(remove(digits.get(0), digits.get(1)));
+                    this.display();
                 }
                 System.out.print("> ");
                 break;
@@ -182,13 +184,13 @@ public class LasersConfig {
                 //call verifyWithPos
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
-                    return "> Error verifying at: (" + row + ", " + col + ")";
+                    return "Error verifying at: (" + row + ", " + col + ")";
                 }
                 //If there are more than one laser in the same row or column,
                 //return false
                 if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
-                        return "> Error verifying at: (" + row + ", " + col + ")";
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 //If there is a power outlet, make sure that the number of lasers
@@ -200,38 +202,38 @@ public class LasersConfig {
                 else if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighbors(0, row, col,'L')){
-                        return "> Error verifying at: (" + row + ", " + col + ")";
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
 
                 }
                 else if(grid[row][col] == '1'){
                     //put condition
                     if(!checkNeighbors(1, row, col, 'L')){
-                        return "> Error verifying at: (" + row + ", " + col + ")";
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
                     if(!checkNeighbors(2, row, col, 'L')){
-                        return "> Error verifying at: (" + row + ", " + col + ")";
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
                     if(!checkNeighbors(3, row, col, 'L')){
-                        return "> Error verifying at: (" + row + ", " + col + ")";
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
                     if(!checkNeighbors(4, row, col, 'L')){
-                        return "> Error verifying at: (" + row + ", " + col + ")";
+                        return "Error verifying at: (" + row + ", " + col + ")";
                     }
                 }
             }
         }
-        return "> Safe is fully verified!";
+        return "Safe is fully verified!";
     }
 
     /**
@@ -473,7 +475,7 @@ public class LasersConfig {
         //return an error
         if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
             this.display();
-            return "> Error adding laser at: (" + row + ", " + col + ")";
+            return "Error adding laser at: (" + row + ", " + col + ")";
         }
         //If the cell that we want to add it to is an outlet or is a laser beam, it should
         //return an error
@@ -481,7 +483,7 @@ public class LasersConfig {
                 grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' ||
                 grid[row][col] == 'L'){
             this.display();
-            return "> Error adding laser at: (" + row + ", " + col + ")";
+            return "Error adding laser at: (" + row + ", " + col + ")";
         }
 
         //If all condition works, add the laser at the specified location
@@ -533,8 +535,7 @@ public class LasersConfig {
                 grid[row][colBeams] = '*';
             }
         }
-        this.display();
-        return "> Laser added at: (" + row + ", " + col + ")" ;
+        return "Laser added at: (" + row + ", " + col + ")" ;
     }
     //JENNIFER LIU
 
