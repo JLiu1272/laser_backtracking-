@@ -161,6 +161,7 @@ public class LasersConfig {
                 break;
             case 'v':
                 System.out.println(verify());
+                this.display();
                 System.out.print("> ");
                 break;
             default:
@@ -477,7 +478,6 @@ public class LasersConfig {
         //than the dimension of the safe, it should
         //return an error
         if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
-            this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
         }
         //If the cell that we want to add it to is an outlet or is a laser beam, it should
@@ -485,7 +485,6 @@ public class LasersConfig {
         else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
                 grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' ||
                 grid[row][col] == 'L'){
-            this.display();
             return "Error adding laser at: (" + row + ", " + col + ")";
         }
 
@@ -566,14 +565,12 @@ public class LasersConfig {
         // If the user inputs a value that is greater than the dimension of
         // the safe, then the program should return an error message.
         if (row >= rDIM || col >= cDIM || row < 0 || col < 0) {
-            this.display();
             return "Error removing laser at: (" + row + ", " + col + ")";
         }
         // If the user attempts to remove an object that is not a laser, then
         // the program should return an error message.
         else if (grid[row][col] != 'L') {
-            this.display();
-            return "Error: No laser exists at: (" + row + ", " + col + ")";
+            return "Error removing laser at: (" + row + ", " + col + ")";
         } else {
             boolean initialRowCheck = true;
             boolean initialColCheck = true;
@@ -697,7 +694,6 @@ public class LasersConfig {
         }
 
         // Displays updated grid with the position in which the laser was removed
-        this.display();
         return "Laser removed at: (" + row + ", " + col + ")";
     }
 
