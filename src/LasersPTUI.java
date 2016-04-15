@@ -39,6 +39,7 @@ public class LasersPTUI {
             while(sc.hasNextLine()){
                 lasers.commands(sc.nextLine());
 
+                lasers.commands(sc.nextLine());
             }
             //MOSES LAGOON
         } else if (args.length == 2) {
