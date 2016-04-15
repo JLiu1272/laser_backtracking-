@@ -116,8 +116,9 @@ public class LasersConfig {
         ArrayList<Integer> digits = new ArrayList<>();
         //Only care about the first character of the
         //first string
-        if (ch[0].equals("")) {
-            quit();
+        if(ch[0].equals("")){
+            System.out.print("> ");
+
         }
         char currCh = ch[0].charAt(0);
         //If the character is a digit, add it to the
@@ -145,6 +146,9 @@ public class LasersConfig {
                 break;
             case 'h':
                 helpMessage();
+                System.out.print("> ");
+                break;
+            case ' ':
                 System.out.print("> ");
                 break;
             case 'q':
