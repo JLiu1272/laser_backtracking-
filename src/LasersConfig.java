@@ -619,11 +619,11 @@ public class LasersConfig {
                 if (grid[row][east] == '0' || grid[row][east] == '1' ||
                         grid[row][east] == '2' || grid[row][east] == '3' ||
                         grid[row][east] == '4' || grid[row][east] == 'X'){
-                    east = cDIM - 1;
+                    break;
                 }
                 else if (grid[row][east] == 'L' && counter != 1){
                     laserCheck = true;
-                    east = cDIM - 1;
+                    break;
                 }
                 else {
                     grid[row][east] = '.';
@@ -632,22 +632,22 @@ public class LasersConfig {
                     if (grid[north][east] == '0' || grid[north][east] == '1' ||
                             grid[north][east] == '2' || grid[north][east] == '3' ||
                             grid[north][east] == '4' || grid[north][east] == 'X'){
-                        north = 0;
+                        break;
                     }
                     if (grid[north][east] == 'L'){
                         grid[row][east] = '*';
-                        north = 0;
+                        break;
                     }
                 }
                 for (int south = down; south <= rDIM -1; south++){
                     if (grid[south][east] == '0' || grid[south][east] == '1' ||
                             grid[south][east] == '2' || grid[south][east] == '3' ||
                             grid[south][east] == '4' || grid[south][east] == 'X'){
-                        south = rDIM - 1;
+                        break;
                     }
                     if (grid[south][east] == 'L'){
                         grid[row][east] = '*';
-                        south = rDIM - 1;
+                        break;
                     }
                 }
             }
