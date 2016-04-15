@@ -574,8 +574,7 @@ public class LasersConfig {
         // If the user attempts to remove an object that is not a laser, then
         // the program should return an error message.
         else if (grid[row][col] != 'L') {
-            this.display();
-            return "Error: No laser exists at: (" + row + ", " + col + ")";
+            return "Error removing laser at: (" + row + ", " + col + ")";
         }
         else {
             // Local Variables
