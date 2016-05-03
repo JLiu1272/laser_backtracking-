@@ -1,7 +1,5 @@
 package ptui;
-
 import model.LasersModel;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -32,7 +30,16 @@ public class ControllerPTUI  {
      * Run the main loop.  This is the entry point for the controller
      * @param inputFile The name of the input command file, if specified
      */
-    public void run(String inputFile) {
+    // Jordan Shea
+    public void run(String inputFile) throws FileNotFoundException {
+        if (inputFile != null){
+            Scanner sc = new Scanner(new File(inputFile));
+            while (sc.hasNext()){
+                String line = sc.nextLine();
+                System.out.println(line);
+                model.commands(line);
+            }
+        }
         Scanner scnInput = new Scanner(System.in);
         model.commands(scnInput.nextLine());
         while (scnInput.hasNextLine()) {

@@ -33,6 +33,7 @@ public class LasersPTUI implements Observer {
             System.exit(-1);
         }
         this.model.addObserver(this);
+        // Jordan Shea
         displayGrid();
         System.out.print("> ");
     }
@@ -44,6 +45,7 @@ public class LasersPTUI implements Observer {
         displayOutput();
     }
 
+    // Jordan Shea
     public void displayGrid(){
         String result = "  ";
         /*Printing Column Numbers */
@@ -69,6 +71,7 @@ public class LasersPTUI implements Observer {
         System.out.print(result);
     }
 
+    // Jordan Shea
     public void displayOutput(){
         if (model.getAddSuccess()) {
             System.out.println("Laser added at: (" + model.getUserRow() + ", " + model.getUserCol()+ ")");

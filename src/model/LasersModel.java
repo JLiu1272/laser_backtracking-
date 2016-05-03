@@ -1,14 +1,25 @@
 package model;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 
+/**
+ * This class represents the model that will be used to represent
+ * the safe in LasersPTUI and LasersGUI. This model can be changed
+ * as the user interacts with the GUI interface or as the user enters
+ * commands in ControllerPTUI.
+ *
+ * @author Jordan Edward Shea
+ * @author Jennifer Liu
+ * @author Moses Lagoon
+ */
+// Jordan Shea
 public class LasersModel extends Observable {
 
+    // Instance variables corresponding with the state of the model
     private char[][] grid;
     private int rDIM;
     private int cDIM;
@@ -27,7 +38,15 @@ public class LasersModel extends Observable {
     private boolean help;
     private boolean quit;
 
-
+    /**
+     * This is the constructor for the model that is used to represent the current
+     * state of the safe. Here, the constructor creates how the safe will initially
+     * look like based on the contents of a .txt file.
+     *
+     * @param filename Corresponds to the .txt file containing the initial safe layout
+     * @throws FileNotFoundException
+     */
+    // Jordan Shea
     public LasersModel(String filename) throws FileNotFoundException {
         Scanner in = new Scanner(new File(filename)); //scanning the file in
         this.userRow = 0;
@@ -58,64 +77,143 @@ public class LasersModel extends Observable {
         }
     }
 
+    // Jordan Shea
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return int value corresponding to the number of rows the safe contains.
+     */
     public int getrDIM(){
         return this.rDIM;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return int value corresponding to the number of columns the safe contains.
+     */
     public int getcDIM(){
         return this.cDIM;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return char[][] value corresponding to the position of lasers and columns in the safe.
+     */
     public char[][] getGrid(){
         return this.grid;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value corresponding to whether or not the user typed in an improper command
+     */
     public boolean getCommandError(){
         return this.commandError;
     }
 
-    public boolean getCoordinateError(){
-        return this.coordinateError;
-    }
-
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return String value corresponding to the invalid command a user may have typed in
+     */
     public String getUserCommand(){
         return this.userCommand;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value corresponding to whether or not the user typed in improper coordinates
+     */
+    public boolean getCoordinateError(){
+        return this.coordinateError;
+    }
+
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return int value corresponding to the row in which a laser was added, removed,
+     * or in which an error occurred in trying to verify the safe
+     */
     public int getUserRow(){
         return this.userRow;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return int value corresponding to the column in which a laser was added, removed,
+     * or in which an error occurred in trying to verify the safe
+     */
     public int getUserCol(){
         return this.userCol;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user added a laser successfully
+     */
     public boolean getAddSuccess(){
         return this.addSuccess;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user removed a laser successfully
+     */
     public boolean getRemoveSuccess(){
         return this.removeSuccess;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user added a laser unsuccessfully
+     */
     public boolean getAddFailure(){
         return this.addFailure;
     }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user removed a laser unsuccessfully
+     */
     public boolean getRemoveFailure(){
         return this.removeFailure;
     }
 
-    public boolean getDisplay() { return this.display; }
-
-    public boolean getHelp() { return this.help; }
-
-    public boolean getQuit() { return this.quit; }
-
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the program verified the grid successfully
+     */
     public boolean getVerifySuccess() { return this.verifySuccess; }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the program verified the grid unsuccessfully
+     */
     public boolean getVerifyFailure() { return this.verifyFailure; }
 
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user entered the display command
+     */
+    public boolean getDisplay() { return this.display; }
+
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user entered the help command
+     */
+    public boolean getHelp() { return this.help; }
+
+    /**
+     * Rudimentary function to obtain model state from LasersPTUI.
+     * @return boolean value that returns true if the user entered the quit command
+     */
+    public boolean getQuit() { return this.quit; }
+
+    /**
+     * Takes in user input and see which
+     * command they are checking for. If the user input
+     * is incorrect, it spits out the reason why it is
+     * incorrect
+     * @param str (String) - the user command
+     */
+    // Jordan Shea
     public void commands(String str){
         this.commandError = false;
         this.coordinateError = false;
