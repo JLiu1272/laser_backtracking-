@@ -2,13 +2,19 @@ package ptui;
 
 import model.LasersModel;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * This class represents the controller portion of the plain text UI.
  * It takes the model from the view (LasersPTUI) so that it can perform
  * the operations that are input in the run method.
  *
  * @author Sean Strout @ RIT CS
- * @author YOUR NAME HERE
+ * @author Jordan Edward Shea
+ * @author Jennifer Liu
+ * @author Moses Lagoon
  */
 public class ControllerPTUI  {
     /** The UI's connection to the model */
@@ -27,6 +33,10 @@ public class ControllerPTUI  {
      * @param inputFile The name of the input command file, if specified
      */
     public void run(String inputFile) {
-        // TODO
+        Scanner scnInput = new Scanner(System.in);
+        model.commands(scnInput.nextLine());
+        while (scnInput.hasNextLine()) {
+            model.commands(scnInput.nextLine());
+        }
     }
 }
