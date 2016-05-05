@@ -1,11 +1,17 @@
 package gui;
 
+import com.sun.javafx.font.freetype.HBGlyphLayout;
+import com.sun.tools.javac.comp.Check;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -20,7 +26,9 @@ import model.*;
  * and receives updates from it.
  *
  * @author Sean Strout @ RIT CS
- * @author YOUR NAME HERE
+ * @author Jordan Edward Shea
+ * @author Jennifer Liu
+ * @author Moses Lagoon
  */
 public class LasersGUI extends Application implements Observer {
     /** The UI's connection to the model */
@@ -103,14 +111,74 @@ public class LasersGUI extends Application implements Observer {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // TODO
-        init(primaryStage);  // do all your UI initialization here
+       // init(primaryStage);  // do all your UI initialization here
+        BorderPane border = new BorderPane();
+        Scene scene = new Scene(border);
+
+        //LEFT and RIGHT spaces in the BorderPane
+        //Sets space in the left and the right
+        border.setPadding(new Insets(0,70,0,70));
+
+
+        //TOP of the borderPane : Message area indicating status of safe
+        Label label1 = new Label();
+        label1.setText("Message area indicating status of safe");
+        label1.setAlignment(Pos.CENTER);
+        //label1.setPadding(new Insets(20));
+        border.setTop(label1);
+
+        //CENTER of the borderPane
+        border.setCenter(centerButtonPane());
+
+        //BOTTOM of the borderPane
+        Button checkbtn = new Button("Check");
+        Button hintbtn = new Button("Hint");
+        Button solvebtn = new Button("Solve");
+        Button restartbtn = new Button("Restart");
+        Button loadbtn = new Button("Load");
+
+        HBox bottombtns = new HBox();
+        //Set alignment here
+        bottombtns.setAlignment(Pos.CENTER);
+        bottombtns.getChildren().addAll(checkbtn,hintbtn,solvebtn,restartbtn,loadbtn);
+        border.setBottom(bottombtns);
 
         primaryStage.setTitle("Lasers");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    /**
+     * CenterButton pane for the safe
+     * @return
+     */
+    private GridPane centerButtonPane(){
+        GridPane grid = new GridPane();
+        double gap = 3;
+        grid.setHgap(gap);  //gap between buttons
+        grid.setVgap(gap);
+
+        int row;
+        int col;
+        int rDIM = model.getrDIM();             //getter of rows: rDIM model
+        int cDIM = model.getcDIM();             //getter of cols: cDIM model
+        for(row = 1; row<=rDIM; row++){
+            for (col = 1; col<=cDIM; col++){
+                Button btn = new Button();
+                grid.add(btn,col, row);
+            }
+        }
+
+        grid.setGridLinesVisible(false);
+        return grid;
+}
 
     @Override
     public void update(Observable o, Object arg) {
         // TODO
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }
