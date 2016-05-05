@@ -11,9 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.Observable;
 import java.util.Observer;
@@ -114,7 +117,9 @@ public class LasersGUI extends Application implements Observer {
        // init(primaryStage);  // do all your UI initialization here
         BorderPane border = new BorderPane();
         Scene scene = new Scene(border);
-
+        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
+        //border.setBackground(javafx.scene.paint.Color.LIGHTGRAY);
+        //border.setStyle(("-fx-background-color:blue);
         //LEFT and RIGHT spaces in the BorderPane
         //Sets space in the left and the right
         border.setPadding(new Insets(0,70,0,70));
@@ -123,23 +128,30 @@ public class LasersGUI extends Application implements Observer {
         //TOP of the borderPane : Message area indicating status of safe
         Label label1 = new Label();
         label1.setText("Message area indicating status of safe");
+        // Message types:
+        // The name of the safe file when initially loaded or restarted.
+        // The result of attempting to add or remove a laser from the safe.
+        // The status of the safe when checked for correctness
+        // The result of requesting a hint for the next laser to place.
+        // The result of attempting to fully solve the laser placements.
+
         label1.setAlignment(Pos.CENTER);
         //label1.setPadding(new Insets(20));
-        border.setTop(label1);
+        border.setTop(label1);                  //TOP Label Message: Safe Status
 
         //CENTER of the borderPane
-        border.setCenter(centerButtonPane());
+        border.setCenter(centerButtonPane());  //CENTER GridButtons
 
-        //BOTTOM of the borderPane
+        //BOTTOM of the borderPane             //BOTTOM Buttons
         Button checkbtn = new Button("Check");
         Button hintbtn = new Button("Hint");
         Button solvebtn = new Button("Solve");
         Button restartbtn = new Button("Restart");
         Button loadbtn = new Button("Load");
 
+        //BOTTOM Buttons are set here
         HBox bottombtns = new HBox();
-        //Set alignment here
-        bottombtns.setAlignment(Pos.CENTER);
+        bottombtns.setAlignment(Pos.CENTER);       //BOTTOM buttons added here
         bottombtns.getChildren().addAll(checkbtn,hintbtn,solvebtn,restartbtn,loadbtn);
         border.setBottom(bottombtns);
 
@@ -165,7 +177,9 @@ public class LasersGUI extends Application implements Observer {
         for(row = 1; row<=rDIM; row++){
             for (col = 1; col<=cDIM; col++){
                 Button btn = new Button();
+                btn.setMinSize(30,30);
                 grid.add(btn,col, row);
+
             }
         }
 
