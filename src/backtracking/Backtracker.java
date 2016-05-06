@@ -83,6 +83,32 @@ public class Backtracker {
      */
     public List<Configuration> solveWithPath(Configuration current) {
         // TODO
-        return new ArrayList<>();  // change this
+        ArrayList<Configuration> path = new ArrayList<>();
+
+        debugPrint("Current config", current);
+        if (current.isGoal()) {
+            debugPrint("\tGoal config", current);
+            return path;
+        } else {
+            for (Configuration child : current.getSuccessors()) {
+                if (child.isValid()) {
+                    debugPrint("\tValid successor", child);
+                    path.add(child);
+                    Optional<Configuration> sol = solve(child);
+                    if (sol.isPresent()) {
+                        return path;
+                    }
+                } else {
+                    debugPrint("\tInvalid successor", child);
+                }
+            }
+            // implicit backtracking happens here
+        }
+        return null;
+    }
+
+    public static void main(String[] args){
+        //Backtracker backtracker = new Backtracker(true);
     }
 }
+

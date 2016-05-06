@@ -33,6 +33,7 @@ public class SafeSolverPath {
                     (System.currentTimeMillis() - start)/1000.0 + " seconds.");
 
             // indicate whether there was a solution, or not
+            System.out.println("Path Size: " + path.size());
             if (path != null) {
                 int step = 0;
                 // loop through the configs from start to end and display them

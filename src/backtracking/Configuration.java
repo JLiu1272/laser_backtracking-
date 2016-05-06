@@ -10,7 +10,7 @@ import java.util.Collection;
  *
  * @author Sean Strout @ RIT CS
  */
-public interface Configuration {
+public interface Configuration{
     /**
      * Get the collection of successors from the current one.
      *
