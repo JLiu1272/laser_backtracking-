@@ -5,7 +5,6 @@ import model.LasersModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
-import java.util.Observable;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
  * @author Jennifer Liu
  */
 
-public class SafeConfig extends Observable implements Configuration{
+public class SafeConfig implements Configuration{
 
     private int rDIM;
     private int cDIM;
@@ -162,6 +161,14 @@ public class SafeConfig extends Observable implements Configuration{
             }
         }
         return true;
+    }
+
+    public char[][] getGrid(){
+        return this.grid;
+    }
+
+    public char getCurrentValue(){
+        return this.grid[currRow][currCol];
     }
 
     public String toString(){

@@ -2,6 +2,7 @@ package backtracking;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Thie is the main class for a safe solver with a path.  It runs the
@@ -26,14 +27,15 @@ public class SafeSolverPath {
             double start = System.currentTimeMillis();
 
             // attempt to solve the puzzle
+            Optional<Configuration> sol = bt.solve(init);
             List<Configuration> path = bt.solveWithPath(init);
+            //List<Configuration> path = bt.solveWithPath(init);
 
             // compute the elapsed time
             System.out.println("Elapsed time: " +
                     (System.currentTimeMillis() - start)/1000.0 + " seconds.");
 
             // indicate whether there was a solution, or not
-            System.out.println("Path Size: " + path.size());
             if (path != null) {
                 int step = 0;
                 // loop through the configs from start to end and display them

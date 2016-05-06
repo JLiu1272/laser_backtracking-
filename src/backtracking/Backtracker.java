@@ -1,5 +1,6 @@
 package backtracking;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class Backtracker {
 
     private boolean debug;
+    private List<Configuration> path = new ArrayList<>();
 
     /**
      * Initialize a new backtracker.
@@ -56,12 +58,21 @@ public class Backtracker {
         debugPrint("Current config", config);
         if (config.isGoal()) {
             debugPrint("\tGoal config", config);
+            path.add(0,config);
             return Optional.of(config);
         } else {
             for (Configuration child : config.getSuccessors()) {
                 if (child.isValid()) {
                     debugPrint("\tValid successor", child);
+                    System.out.println("Successors" + child);
+                    SafeConfig conf = (SafeConfig) child;
+                    if(conf.getCurrentValue() == 'L'){
+                        System.out.println(true);
+                    }
                     Optional<Configuration> sol = solve(child);
+                    /*if(safeConfigChild.getCurrentValue() == 'L'){
+                        path.add(0,child);
+                    }*/
                     if (sol.isPresent()) {
                         return sol;
                     }
@@ -83,32 +94,25 @@ public class Backtracker {
      */
     public List<Configuration> solveWithPath(Configuration current) {
         // TODO
-        ArrayList<Configuration> path = new ArrayList<>();
-
-        debugPrint("Current config", current);
-        if (current.isGoal()) {
-            debugPrint("\tGoal config", current);
-            return path;
-        } else {
-            for (Configuration child : current.getSuccessors()) {
-                if (child.isValid()) {
-                    debugPrint("\tValid successor", child);
-                    path.add(child);
-                    Optional<Configuration> sol = solve(child);
-                    if (sol.isPresent()) {
-                        return path;
-                    }
-                } else {
-                    debugPrint("\tInvalid successor", child);
-                }
-            }
-            // implicit backtracking happens here
+        if(path.size() == 0){
+            return null;
         }
-        return null;
+        else{
+            return path;
+        }
     }
 
-    public static void main(String[] args){
-        //Backtracker backtracker = new Backtracker(true);
+    public static void main(String[] args) throws FileNotFoundException{
+        Configuration init = new SafeConfig(args[0]);
+        Backtracker bt = new Backtracker(false);
+        Optional<Configuration> sol = bt.solve(init);
+        if(sol.isPresent()){
+            System.out.println("Solution: \n" + sol.get());
+        }
+        for(Configuration config: bt.path){
+            System.out.println(config);
+        }
     }
+
 }
 
