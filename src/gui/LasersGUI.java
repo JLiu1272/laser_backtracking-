@@ -116,9 +116,9 @@ public class LasersGUI extends Application implements Observer {
        // init(primaryStage);  // do all your UI initialization here
         BorderPane border = new BorderPane();
         Scene scene = new Scene(border);
-        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
+       // border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
         //LEFT and RIGHT SPACE
-        border.setPadding(new Insets(0,70,0,70));
+       // border.setPadding(new Insets(0,70,0,70));
 //        int c = model.getcDIM();
 //        int r = model.getrDIM();
         //border.setMinHeight(Math.max(c*30, r*30));
@@ -146,7 +146,6 @@ public class LasersGUI extends Application implements Observer {
         label.setText("Message: Status of safe!");
         topLabel.setAlignment(Pos.CENTER);
         topLabel.getChildren().add(label);
-
         return topLabel;
 
         // Message types:
@@ -155,7 +154,6 @@ public class LasersGUI extends Application implements Observer {
         // The status of the safe when checked for correctness
         // The result of requesting a hint for the next laser to place.
         // The result of attempting to fully solve the laser placements.
-
     }
 
 
@@ -165,10 +163,10 @@ public class LasersGUI extends Application implements Observer {
      */
     private GridPane centerButtonPane(){
         GridPane grid = new GridPane();
-        double hgap = 15;
-        double vgap = 3;
-        grid.setHgap(hgap);  //gap between buttons
-        grid.setVgap(vgap);
+//        double hgap = 2;
+//        double vgap = 1;
+//        grid.setHgap(hgap);  //gap between buttons
+//        grid.setVgap(vgap);
 
         int row;
         int col;
@@ -176,13 +174,19 @@ public class LasersGUI extends Application implements Observer {
         int cDIM = model.getcDIM();             //getter of cols: cDIM model
         for(row = 1; row<=rDIM; row++){
             for (col = 1; col<=cDIM; col++){
-                Button btn = new Button();
-                btn.setMinSize(30,30);
-                btn.setStyle("-fx-background-color : white");
-                grid.add(btn,col, row);
+              //  Button btn = new Button();
+                Button button = new Button();
+                Image laserImg = new Image(getClass().getResourceAsStream("resources/white.png"));
+                ImageView laserIcon = new ImageView(laserImg);
+                button.setGraphic(laserIcon);
+                setButtonBackground(button, "white.png");
+               // btn.setMinSize(30,30);
+               // btn.setStyle("-fx-background-color : white");
+                grid.add(button,col, row);
             }
         }
         grid.setGridLinesVisible(false);
+        grid.setAlignment(Pos.CENTER);
         return grid;
     }
 
@@ -206,6 +210,8 @@ public class LasersGUI extends Application implements Observer {
         HBox bottombtns = new HBox();
         bottombtns.setAlignment(Pos.CENTER);       //BOTTOM buttons added here
         bottombtns.getChildren().addAll(checkbtn,hintbtn,solvebtn,restartbtn,loadbtn);
+
+        bottombtns.setAlignment(Pos.CENTER);
 
         return bottombtns;
     }
