@@ -27,7 +27,7 @@ public class SafeSolverPath {
             double start = System.currentTimeMillis();
 
             // attempt to solve the puzzle
-            Optional<Configuration> sol = bt.solve(init);
+            Optional<Configuration> sol = bt.solveHelperFunction(init);
             List<Configuration> path = bt.solveWithPath(init);
             //List<Configuration> path = bt.solveWithPath(init);
 
