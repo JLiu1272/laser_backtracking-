@@ -368,6 +368,75 @@ public class LasersModel extends Observable {
         this.addSuccess = true;
     }
 
+    public void addWithGrid(int row, int col, char[][] grid){
+        //If users input a value that is greater
+        //than the dimension of the safe, it should
+        //return an error
+        if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
+            this.addFailure = true;
+            return;
+        }
+        //If the cell that we want to add it to is an outlet or is a laser beam, it should
+        //return an error
+        else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
+                grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' ||
+                grid[row][col] == 'L'){
+            this.addFailure = true;
+            return;
+        }
+
+        //If all condition works, add the laser at the specified location
+        //then display the new graph with the laser added
+        grid[row][col] = 'L';
+        //South Direction
+        for(int rowBeams = row+1; rowBeams < rDIM; rowBeams++){
+            //If the direction that the laser is hitting hits a pillar,
+            //we stop adding the laser beams
+            if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
+                    grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'
+                    || grid[rowBeams][col] == 'X' || grid[rowBeams][col] == 'L'){
+                break;
+            }
+            else{
+                grid[rowBeams][col] = '*';
+            }
+        }
+        //North Direction
+        for(int rowBeams = row-1; rowBeams >= 0; rowBeams--){
+            if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
+                    grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'||
+                    grid[rowBeams][col] == 'X' || grid[rowBeams][col] == 'L'){
+                break;
+            }
+            else{
+                grid[rowBeams][col] = '*';
+            }
+        }
+        //East Direction
+        for(int colBeams = col+1; colBeams < cDIM; colBeams++){
+            if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' || grid[row][colBeams]== 'X'||
+                    grid[row][colBeams] ==  'L' ||
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0'){
+                break;
+            }
+            else{
+                grid[row][colBeams] = '*';
+            }
+        }
+        //West Direction
+        for(int colBeams = col-1; colBeams >= 0; colBeams--){
+            if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' ||
+                    grid[row][colBeams] == 'X'|| grid[row][colBeams] == 'L' ||
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0'){
+                break;
+            }
+            else{
+                grid[row][colBeams] = '*';
+            }
+        }
+        this.addSuccess = true;
+    }
+
     // Jordan Shea
     /**
      * This function operates by removing a laser (and its beams) from
@@ -612,7 +681,7 @@ public class LasersModel extends Observable {
      * in the cardinal direction, it is invalid
      *
      */
-    public void verify(){
+    public boolean verify(){
         for(int row = 0; row < rDIM; row++){
             for(int col = 0; col < cDIM; col++){
                 //If the current object at this position is a Laser,
@@ -622,6 +691,7 @@ public class LasersModel extends Observable {
                     this.verifyFailure = true;
                     this.userRow = row;
                     this.userCol = col;
+                    return false;
                 }
                 //If there are more than one laser in the same row or column,
                 //return false
@@ -630,6 +700,7 @@ public class LasersModel extends Observable {
                         this.verifyFailure = true;
                         this.userRow = row;
                         this.userCol = col;
+                        return false;
                     }
                 }
                 //If there is a power outlet, make sure that the number of lasers
@@ -644,6 +715,7 @@ public class LasersModel extends Observable {
                         this.verifyFailure = true;
                         this.userRow = row;
                         this.userCol = col;
+                        return false;
                     }
 
                 }
@@ -653,6 +725,7 @@ public class LasersModel extends Observable {
                         this.verifyFailure = true;
                         this.userRow = row;
                         this.userCol = col;
+                        return false;
                     }
 
                 }
@@ -662,6 +735,7 @@ public class LasersModel extends Observable {
                         this.verifyFailure = true;
                         this.userRow = row;
                         this.userCol = col;
+                        return false;
                     }
                 }
                 else if(grid[row][col] == '3'){
@@ -670,6 +744,7 @@ public class LasersModel extends Observable {
                         this.verifyFailure = true;
                         this.userRow = row;
                         this.userCol = col;
+                        return false;
                     }
                 }
                 else if(grid[row][col] == '4'){
@@ -678,11 +753,148 @@ public class LasersModel extends Observable {
                         this.verifyFailure = true;
                         this.userRow = row;
                         this.userCol = col;
+                        return false;
                     }
                 }
             }
         }
         this.verifySuccess = true;
+        return true;
+    }
+
+
+    public boolean verifyGridCheck(int currRow, int currCol, char[][] grid){
+        for(int row = 0; row < currRow; row++){
+            for(int col = 0; col < currCol; col++){
+                //If there is a power outlet, make sure that the number of lasers
+                //surrounding the outlet matches with its number
+                //In here, we call the checkNeighbors method to help us do this
+                //If there is a power outlet, make sure that the number of lasers
+                //surrounding the outlet matches with its number
+                //In here, we call the checkNeighbors method to help us do this
+                if(grid[row][col] == '0'){
+                    //put conditions
+                    if(!checkNeighborsWithGrid(0, row, col,'L',grid)){
+                        this.verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
+                        return false;
+                    }
+
+                }
+                else if(grid[row][col] == '1'){
+                    //put condition
+                    if(!checkNeighborsWithGrid(1, row, col, 'L',grid)){
+                        this.verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
+                        return false;
+                    }
+
+                }
+                else if(grid[row][col] == '2'){
+                    //put condition
+                    if(!checkNeighborsWithGrid(2, row, col, 'L',grid)){
+                        this.verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
+                        return false;
+                    }
+                }
+                else if(grid[row][col] == '3'){
+                    //put condition
+                    if(!checkNeighborsWithGrid(3, row, col, 'L',grid)){
+                        this.verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
+                        return false;
+                    }
+                }
+                else if(grid[row][col] == '4'){
+                    //put condition
+                    if(!checkNeighborsWithGrid(4, row, col, 'L',grid)){
+                        this.verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
+                        return false;
+                    }
+                }
+            }
+        }
+        this.verifySuccess = true;
+        return true;
+    }
+
+    /**
+     * Verify command displays a status message that indicates whether the safe is
+     * valid or not. In order to be valid, none of the rules of the safe may be
+     * violated. Each tile that is not a pillar must have either a laser or beam
+     * covering it. Each pillar that requires a certain number of neighboring lasers
+     * must add up exactly. If two or more lasers in the sight of each other,
+     * in the cardinal direction, it is invalid
+     *
+     */
+    public boolean verifyWithGrid(int r, int c, char[][] grid){
+
+            //Making sure that the column is not 0
+            if(c != 0){
+                for(int col = c-1; col >= 0; col--){
+                    if(grid[r][col] != '*'){
+                        if(grid[r][col] == 'L'){
+                            return false;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+            }
+            //Making sure that the col is not greater than
+            //the column dimension
+            if(c != cDIM-1){
+                for(int col = c+1; col < cDIM; col++){
+                    if(grid[r][col] != '*'){
+                        if(grid[r][col] == 'L'){
+                            return false;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+            }
+            //Row does not equal to 0
+            if(r != 0){
+                for(int row = r-1; row >= 0; row--){
+                    if(grid[row][c] != '*'){
+                        if(grid[row][c] == 'L'){
+                            return false;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+            }
+            //Row does not equal to the row dimension
+            if(r != rDIM-1){
+                for(int row = r+1; row < cDIM; row++){
+                    //If I hit something that is not
+                    //a laser beam, it means I have hit
+                    //a pillar or a laser. If it is a
+                    //pillar, I break out of the for
+                    //loop, else I return false
+                    if(grid[row][c] != '*'){
+                        if(grid[row][c] == 'L'){
+                            return false;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+            }
+            return true;
     }
 
     /**
@@ -826,6 +1038,290 @@ public class LasersModel extends Observable {
             }
             if(numLasers != num){
                 return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * This ensures that the number of lasers that are adjacent to
+     * the power outlet matches with the number that is stated
+     * in the power outlet. For instance, if the power outlet only
+     * allows for 1 lasers to be plugged adjacent to it, there
+     * should only be 1 lasers in total for all of the possible
+     * locations that an outlet could be placed.
+     * @param num - (int) the number of lasers allowed by the outlet
+     * @param row - (int) current row
+     * @param col - (int) current col
+     * @return boolean - returns false if the number of lasers
+     * does not match with the number that a power outlet can
+     * handle
+     */
+    public boolean checkNeighborsWithGrid(int num, int row, int col, char val,char[][] grid){
+        int numLasers = 0;
+        int emptySlots = 0;
+        if(row == 0 && col == 0){
+            if(grid[row][col+1] == val){
+                numLasers++;
+            }
+            if(grid[row][col+1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row+1][col] == val){
+                numLasers++;
+            }
+            if(grid[row+1][col] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+
+        }
+        //Checks for the top right corner (0, cDIM)
+        else if(row == 0 && col == cDIM-1){
+            if(grid[row][col-1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col-1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row+1][col] == val){
+                numLasers++;
+            }
+            if(grid[row+1][col] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Checks for the bottom left corner (0, rDIM)
+        else if(row == rDIM -1 && col == 0){
+            if(grid[row-1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row-1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col+1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col+1] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Checks for the bottom right corner (rDIM, cDIM)
+        else if(row == rDIM-1 && col == cDIM-1){
+            if(grid[row][col-1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col-1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row-1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row-1][col] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Checking for the sides
+        //The left side
+        else if(col == 0 && row > 0){
+            if(grid[row-1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row-1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row+1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row+1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col+1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col+1] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Check for Top Side
+        else if(col > 0 && row == 0){
+            if(grid[row+1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row+1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col-1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col-1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col+1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col+1] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Check for the Right Side
+        else if(col == cDIM-1 && row > 0){
+            if(grid[row+1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row+1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col-1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col-1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row-1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row-1][col] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Check for the bottom Side
+        else if(row == rDIM-1 && col > 0){
+            if(grid[row-1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row-1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col-1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col-1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col+1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col+1] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
+            }
+        }
+        //Check for the cells that are inside the
+        //grid
+        else{
+            if(grid[row-1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row-1][col] == '.'){
+                emptySlots++;
+            }
+            if(grid[row][col-1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col-1] == '.'){
+                emptySlots++;
+            }
+
+            if(grid[row][col+1] == val){
+                numLasers++;
+            }
+            else if(grid[row][col+1] == '.'){
+                emptySlots++;
+            }
+            if(grid[row+1][col] == val){
+                numLasers++;
+            }
+            else if(grid[row+1][col] == '.'){
+                emptySlots++;
+            }
+            if(emptySlots == 0){
+                if(numLasers != num){
+                    return false;
+                }
+            }
+            else if(emptySlots > 0){
+                if(numLasers > num){
+                    return false;
+                }
             }
         }
         return true;
