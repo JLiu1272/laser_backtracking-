@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * The full representation of a configuration. It can read an in an initial conf-
- * guartion. 
+ * guartion.
  */
 
 public class LasersConfig {
