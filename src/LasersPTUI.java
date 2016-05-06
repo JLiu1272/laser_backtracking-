@@ -36,7 +36,6 @@ public class LasersPTUI {
             lasers.display(); //PRINTING DISPLAY HERE
             System.out.print("> ");
             Scanner sc = new Scanner(System.in);
-            lasers.commands(sc.nextLine());
             while(sc.hasNextLine()){
                 lasers.commands(sc.nextLine());
             }
