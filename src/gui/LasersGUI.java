@@ -124,7 +124,11 @@ public class LasersGUI extends Application implements Observer {
         //Sets space in the left and the right
         border.setPadding(new Insets(0,70,0,70));
 
+        int c = model.getcDIM();
+        int r = model.getrDIM();
 
+        border.setMinHeight(Math.max(c*30, r*30));
+        border.setMinWidth(Math.max(c*30, r*30));
         //TOP of the borderPane : Message area indicating status of safe
         Label label1 = new Label();
         label1.setText("Message area indicating status of safe");
@@ -166,9 +170,10 @@ public class LasersGUI extends Application implements Observer {
      */
     private GridPane centerButtonPane(){
         GridPane grid = new GridPane();
-        double gap = 3;
-        grid.setHgap(gap);  //gap between buttons
-        grid.setVgap(gap);
+        double hgap = 15;
+        double vgap = 3;
+        grid.setHgap(hgap);  //gap between buttons
+        grid.setVgap(vgap);
 
         int row;
         int col;
@@ -178,6 +183,7 @@ public class LasersGUI extends Application implements Observer {
             for (col = 1; col<=cDIM; col++){
                 Button btn = new Button();
                 btn.setMinSize(30,30);
+                btn.setStyle("-fx-background-color : white");
                 grid.add(btn,col, row);
 
             }
@@ -189,6 +195,7 @@ public class LasersGUI extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+       // System.out.println(arg.toString());
         // TODO
     }
 
