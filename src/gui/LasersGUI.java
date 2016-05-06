@@ -116,7 +116,7 @@ public class LasersGUI extends Application implements Observer {
        // init(primaryStage);  // do all your UI initialization here
         BorderPane border = new BorderPane();
         Scene scene = new Scene(border);
-       // border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
+        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
         //LEFT and RIGHT SPACE
        // border.setPadding(new Insets(0,70,0,70));
 //        int c = model.getcDIM();
