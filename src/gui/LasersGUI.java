@@ -1,7 +1,7 @@
 package gui;
 
 import com.sun.javafx.font.freetype.HBGlyphLayout;
-import com.sun.tools.javac.comp.Check;
+//import com.sun.tools.javac.comp.Check;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -185,10 +185,8 @@ public class LasersGUI extends Application implements Observer {
                 btn.setMinSize(30,30);
                 btn.setStyle("-fx-background-color : white");
                 grid.add(btn,col, row);
-
             }
         }
-
         grid.setGridLinesVisible(false);
         return grid;
 }
