@@ -1,7 +1,6 @@
 package gui;
 
 import com.sun.javafx.font.freetype.HBGlyphLayout;
-import com.sun.tools.javac.comp.Check;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
