@@ -1,7 +1,11 @@
 package backtracking;
 
+import model.LasersModel;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Optional;
 
 /**
@@ -15,11 +19,13 @@ import java.util.Optional;
  *
  * @author Sean Strout @ RIT CS
  * @author James Heliotis @ RIT CS
- * @author YOUR NAME HERE
+ * @author Jennifer Liu
  */
-public class Backtracker {
+public class Backtracker extends Observable{
 
     private boolean debug;
+    private List<Configuration> path = new ArrayList<>();
+    private char[][] solution;
 
     /**
      * Initialize a new backtracker.
@@ -45,7 +51,6 @@ public class Backtracker {
             System.out.println(msg + ":\n" + config);
         }
     }
-
     /**
      * Try find a solution, if one exists, for a given configuration.
      *
@@ -56,6 +61,8 @@ public class Backtracker {
         debugPrint("Current config", config);
         if (config.isGoal()) {
             debugPrint("\tGoal config", config);
+            setChanged();
+            notifyObservers();
             return Optional.of(config);
         } else {
             for (Configuration child : config.getSuccessors()) {
@@ -63,6 +70,44 @@ public class Backtracker {
                     debugPrint("\tValid successor", child);
                     Optional<Configuration> sol = solve(child);
                     if (sol.isPresent()) {
+                        return sol;
+                    }
+                } else {
+                    debugPrint("\tInvalid successor", child);
+                }
+            }
+            // implicit backtracking happens here
+        }
+        return Optional.empty();
+    }
+    /**
+     * Try find a solution, if one exists, for a given configuration.
+     * In addition to solving the solution, it constructs the path
+     * to get to the solution. It acts as a helper function for
+     * solveWith
+     *
+     * @param config A valid configuration
+     * @return A solution config, or null if no solution
+     */
+    public Optional<Configuration> solveHelperFunction(Configuration config) {
+        debugPrint("Current config", config);
+        if (config.isGoal()) {
+            debugPrint("\tGoal config", config);
+            //path.add(0,config);
+            return Optional.of(config);
+        } else {
+            for (Configuration child : config.getSuccessors()) {
+                SafeConfig child1 = (SafeConfig) child;
+                int currRow = child1.getCurrRow();
+                int currCol = child1.getCurrCol();
+                if (child.isValid()) {
+                    debugPrint("\tValid successor", child);
+                    Optional<Configuration> sol = solveHelperFunction(child);
+                    if (sol.isPresent()) {
+                        SafeConfig conf = (SafeConfig) child;
+                        if(conf.getCurrentValue(currRow,currCol) == 'L'){
+                            path.add(0,child);
+                        }
                         return sol;
                     }
                 } else {
@@ -83,32 +128,12 @@ public class Backtracker {
      */
     public List<Configuration> solveWithPath(Configuration current) {
         // TODO
-        ArrayList<Configuration> path = new ArrayList<>();
-
-        debugPrint("Current config", current);
-        if (current.isGoal()) {
-            debugPrint("\tGoal config", current);
-            return path;
-        } else {
-            for (Configuration child : current.getSuccessors()) {
-                if (child.isValid()) {
-                    debugPrint("\tValid successor", child);
-                    path.add(child);
-                    Optional<Configuration> sol = solve(child);
-                    if (sol.isPresent()) {
-                        return path;
-                    }
-                } else {
-                    debugPrint("\tInvalid successor", child);
-                }
-            }
-            // implicit backtracking happens here
+        if(path.size() == 0){
+            return null;
         }
-        return null;
-    }
-
-    public static void main(String[] args){
-        //Backtracker backtracker = new Backtracker(true);
+        else{
+            return path;
+        }
     }
 }
 

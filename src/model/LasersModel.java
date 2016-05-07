@@ -1,5 +1,7 @@
 package model;
 
+import backtracking.SafeConfig;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class LasersModel extends Observable {
     private boolean display;
     private boolean help;
     private boolean quit;
+
 
     /**
      * This is the constructor for the model that is used to represent the current
@@ -366,6 +369,7 @@ public class LasersModel extends Observable {
             }
         }
         this.addSuccess = true;
+        announceChange();
     }
 
     public void addWithGrid(int row, int col, char[][] grid){
@@ -670,6 +674,7 @@ public class LasersModel extends Observable {
         }
         // Displays updated grid with the position in which the laser was removed
         this.removeSuccess = true;
+        announceChange();
     }
 
     /**
@@ -681,26 +686,20 @@ public class LasersModel extends Observable {
      * in the cardinal direction, it is invalid
      *
      */
-    public boolean verify(){
+    public String verify(){
         for(int row = 0; row < rDIM; row++){
             for(int col = 0; col < cDIM; col++){
                 //If the current object at this position is a Laser,
                 //call verifyWithPos
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
-                    this.verifyFailure = true;
-                    this.userRow = row;
-                    this.userCol = col;
-                    return false;
+                    return  row + " " + col;
                 }
                 //If there are more than one laser in the same row or column,
                 //return false
                 if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
                 //If there is a power outlet, make sure that the number of lasers
@@ -712,60 +711,58 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighbors(0, row, col,'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
 
                 }
                 else if(grid[row][col] == '1'){
                     //put condition
                     if(!checkNeighbors(1, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
                     if(!checkNeighbors(2, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
                     if(!checkNeighbors(3, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
                     if(!checkNeighbors(4, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
             }
         }
-        this.verifySuccess = true;
-        return true;
+        return "verified";
+    }
+
+    public void restart(){
+        for(int row = 0; row < rDIM; row++){
+            for(int col = 0; col < cDIM; col++){
+                if(grid[row][col] == 'L'){
+                    grid[row][col] = '.';
+                }
+                else if(grid[row][col] == '*'){
+                    grid[row][col] = '.';
+                }
+            }
+        }
+        announceChange();
     }
 
 
-    public boolean verifyGridCheck(int currRow, int currCol, char[][] grid){
-        for(int row = 0; row < currRow; row++){
-            for(int col = 0; col < currCol; col++){
+    public boolean verifyGridCheck(char[][] grid){
+        for(int row = 0; row < rDIM; row++){
+            for(int col = 0; col < cDIM; col++){
                 //If there is a power outlet, make sure that the number of lasers
                 //surrounding the outlet matches with its number
                 //In here, we call the checkNeighbors method to help us do this
@@ -822,79 +819,8 @@ public class LasersModel extends Observable {
             }
         }
         this.verifySuccess = true;
+        announceChange();
         return true;
-    }
-
-    /**
-     * Verify command displays a status message that indicates whether the safe is
-     * valid or not. In order to be valid, none of the rules of the safe may be
-     * violated. Each tile that is not a pillar must have either a laser or beam
-     * covering it. Each pillar that requires a certain number of neighboring lasers
-     * must add up exactly. If two or more lasers in the sight of each other,
-     * in the cardinal direction, it is invalid
-     *
-     */
-    public boolean verifyWithGrid(int r, int c, char[][] grid){
-
-            //Making sure that the column is not 0
-            if(c != 0){
-                for(int col = c-1; col >= 0; col--){
-                    if(grid[r][col] != '*'){
-                        if(grid[r][col] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            //Making sure that the col is not greater than
-            //the column dimension
-            if(c != cDIM-1){
-                for(int col = c+1; col < cDIM; col++){
-                    if(grid[r][col] != '*'){
-                        if(grid[r][col] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            //Row does not equal to 0
-            if(r != 0){
-                for(int row = r-1; row >= 0; row--){
-                    if(grid[row][c] != '*'){
-                        if(grid[row][c] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            //Row does not equal to the row dimension
-            if(r != rDIM-1){
-                for(int row = r+1; row < cDIM; row++){
-                    //If I hit something that is not
-                    //a laser beam, it means I have hit
-                    //a pillar or a laser. If it is a
-                    //pillar, I break out of the for
-                    //loop, else I return false
-                    if(grid[row][c] != '*'){
-                        if(grid[row][c] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            return true;
     }
 
     /**
@@ -1404,6 +1330,6 @@ public class LasersModel extends Observable {
      */
     private void announceChange() {
         setChanged();
-        notifyObservers("hello");
+        notifyObservers();
     }
 }

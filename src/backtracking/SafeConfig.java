@@ -5,7 +5,6 @@ import model.LasersModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
-import java.util.Observable;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
  * @author Jennifer Liu
  */
 
-public class SafeConfig extends Observable implements Configuration{
+public class SafeConfig implements Configuration{
 
     private int rDIM;
     private int cDIM;
@@ -85,7 +84,6 @@ public class SafeConfig extends Observable implements Configuration{
         }
         else{
             SafeConfig noChange = new SafeConfig(this);
-            //noChange.grid[currRow][currCol] = ',';
             successors.add(noChange);
         }
         return successors;
@@ -94,9 +92,6 @@ public class SafeConfig extends Observable implements Configuration{
     @Override
     public boolean isValid() {
         // TODO
-
-        //System.out.println("currRow: " + currRow);
-        //System.out.println("currCol: " + currCol);
         if(grid[currRow][currCol] == 'L') {
             for (int row = currRow + 1; row < rDIM; row++) {
                 if (grid[row][currCol] == 'L') {
@@ -128,7 +123,7 @@ public class SafeConfig extends Observable implements Configuration{
             }
         }
 
-        if(!lasersModel.verifyGridCheck(rDIM,cDIM,grid)){
+        if(!lasersModel.verifyGridCheck(grid)){
             return false;
         }
 
@@ -164,6 +159,11 @@ public class SafeConfig extends Observable implements Configuration{
         return true;
     }
 
+    /**
+     * Testing purpose toString
+     * @return
+     */
+    @Override
     public String toString(){
         String result = "  ";
         /*Printing Column Numbers */
@@ -187,27 +187,32 @@ public class SafeConfig extends Observable implements Configuration{
             result += "\n";
         }
         return result;
-
-
-        //JUST CHECKING WITH SOLUTION:
-        /**
-         System.out.println("  0 1 2 3\n" +
-         "  -------\n" +
-         "0|* L * 0\n" +
-         "1|* X L *\n" +
-         "2|L * 1 *\n" +
-         "3|1 * * L");
-         */
     }
 
+    /**
+     * Return the current value in that grid
+     * at that current row and that current column
+     * @param currRow - the row of the value
+     * @param currCol - the col of the value
+     * @return a char value
+     */
+    public char getCurrentValue(int currRow, int currCol){
+        return this.grid[currRow][currCol];
+    }
 
-    public static void main(String[] args) throws FileNotFoundException{
-        SafeConfig sC = new SafeConfig("tests/4x4safe.txt");
-        //sC.display();
-        System.out.println(sC);
-        LasersModel lasersModel = new LasersModel("tests/4x4safe.txt");
-        //System.out.println(lasersModel.checkNeighbors(0,0,3,'L'));
-        //System.out.println(lasersModel.verifyGridCheck(4,4,sC.grid));
-        System.out.println(sC.isValid());
+    /**
+     * Return the current row
+     * @return int - current row
+     */
+    public int getCurrRow(){
+        return currRow;
+    }
+
+    /**
+     * Return current column
+     * @return int - current column
+     */
+    public int getCurrCol(){
+        return currCol;
     }
 }
