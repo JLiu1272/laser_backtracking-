@@ -1,6 +1,7 @@
 package gui;
 
 import com.sun.javafx.font.freetype.HBGlyphLayout;
+import com.sun.javafx.font.t2k.T2KFactory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,9 +17,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Observable;
@@ -211,7 +214,7 @@ public class LasersGUI extends Application implements Observer {
                 final int r1 = row;
                 final int c1 = col;
                 button.setOnAction(event -> {
-                    System.out.println("Cliked MATHI");
+                    System.out.println("A button was clicked!");
                     if(model.getGrid()[r1][c1] == '.'){
                         model.add(r, c);
                     }
@@ -302,6 +305,21 @@ public class LasersGUI extends Application implements Observer {
         Button restartbtn = new Button("Restart");
         Button loadbtn = new Button("Load");
 
+        final FileChooser fileChooser = new FileChooser();
+
+        loadbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                configureFileChooser(fileChooser);
+
+            }
+        });
+
+
+//        loadbtn.setOnAction(event -> {
+//            System.out.println("Load Button Clicked!");
+//        });
+
         restartbtn.setOnAction(event -> {
             model.restart();
             //System.out.println();
@@ -331,6 +349,12 @@ public class LasersGUI extends Application implements Observer {
         return bottombtns;
     }
 
+    private void configureFileChooser(final FileChooser fileChooser){
+        fileChooser.setTitle("Load file..");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+    }
 
     @Override
     public void update(Observable o, Object arg) {
