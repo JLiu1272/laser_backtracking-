@@ -123,7 +123,7 @@ public class SafeConfig implements Configuration{
             }
         }
 
-        if(!lasersModel.verifyGridCheck(rDIM,cDIM,grid)){
+        if(!lasersModel.verifyGridCheck(grid)){
             return false;
         }
 

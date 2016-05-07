@@ -686,26 +686,20 @@ public class LasersModel extends Observable {
      * in the cardinal direction, it is invalid
      *
      */
-    public boolean verify(){
+    public String verify(){
         for(int row = 0; row < rDIM; row++){
             for(int col = 0; col < cDIM; col++){
                 //If the current object at this position is a Laser,
                 //call verifyWithPos
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
-                    this.verifyFailure = true;
-                    this.userRow = row;
-                    this.userCol = col;
-                    return false;
+                    return  row + " " + col;
                 }
                 //If there are more than one laser in the same row or column,
                 //return false
                 if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
                 //If there is a power outlet, make sure that the number of lasers
@@ -717,60 +711,58 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighbors(0, row, col,'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
 
                 }
                 else if(grid[row][col] == '1'){
                     //put condition
                     if(!checkNeighbors(1, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
                     if(!checkNeighbors(2, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
                     if(!checkNeighbors(3, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
                     if(!checkNeighbors(4, row, col, 'L')){
-                        this.verifyFailure = true;
-                        this.userRow = row;
-                        this.userCol = col;
-                        return false;
+                        return row + " " + col;
                     }
                 }
             }
         }
-        this.verifySuccess = true;
-        return true;
+        return "verified";
+    }
+
+    public void restart(){
+        for(int row = 0; row < rDIM; row++){
+            for(int col = 0; col < cDIM; col++){
+                if(grid[row][col] == 'L'){
+                    grid[row][col] = '.';
+                }
+                else if(grid[row][col] == '*'){
+                    grid[row][col] = '.';
+                }
+            }
+        }
+        announceChange();
     }
 
 
-    public boolean verifyGridCheck(int currRow, int currCol, char[][] grid){
-        for(int row = 0; row < currRow; row++){
-            for(int col = 0; col < currCol; col++){
+    public boolean verifyGridCheck(char[][] grid){
+        for(int row = 0; row < rDIM; row++){
+            for(int col = 0; col < cDIM; col++){
                 //If there is a power outlet, make sure that the number of lasers
                 //surrounding the outlet matches with its number
                 //In here, we call the checkNeighbors method to help us do this
@@ -827,6 +819,7 @@ public class LasersModel extends Observable {
             }
         }
         this.verifySuccess = true;
+        announceChange();
         return true;
     }
 
