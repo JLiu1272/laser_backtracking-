@@ -294,7 +294,6 @@ public class LasersGUI extends Application implements Observer {
      * ely.
      * @return HBox
      */
-
     private HBox bottombtns(){
         //BOTTOM of the borderPane             //BOTTOM Buttons
         Button checkbtn = new Button("Check");
