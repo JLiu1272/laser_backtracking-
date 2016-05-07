@@ -212,10 +212,17 @@ public class LasersGUI extends Application implements Observer {
                 });*/
                 referenceGrid[row][col] = button;
                 grid.add(button,col, row);
+                final int r1 = row;
+                final int c1 = col;
                 button.setOnAction(event -> {
                     System.out.println("Cliked MATHI");
-                    model.add(r, c);
-                    setButtonBackground(button, "yellow.png");
+                    if(model.getGrid()[r1][c1] == '.'){
+                        model.add(r, c);
+                    }
+                    else if(model.getGrid()[r1][c1] == 'L'){
+                        model.remove(r, c);
+                    }
+
                     for(char[] d: safe){
                         System.out.println(Arrays.toString(d));
                     }
@@ -320,6 +327,7 @@ public class LasersGUI extends Application implements Observer {
                 switch (letter) {
                     case 'L':
                         x = new ImageView(new Image(getClass().getResourceAsStream("resources/laser.png")));
+                        setButtonBackground(referenceGrid[row][col], "yellow.png");
                         referenceGrid[row][col].setGraphic(x);
                         break;
                     case '*':

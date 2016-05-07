@@ -674,6 +674,7 @@ public class LasersModel extends Observable {
         }
         // Displays updated grid with the position in which the laser was removed
         this.removeSuccess = true;
+        announceChange();
     }
 
     /**
