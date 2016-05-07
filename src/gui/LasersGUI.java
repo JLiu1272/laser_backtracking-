@@ -2,8 +2,11 @@ package gui;
 
 import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,10 +20,12 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.*;
+import ptui.LasersPTUI;
 
 /**
  * The main class that implements the JavaFX UI.   This class represents
@@ -35,6 +40,7 @@ import model.*;
 public class LasersGUI extends Application implements Observer {
     /** The UI's connection to the model */
     private LasersModel model;
+    private GridPane myGrid;
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -127,7 +133,8 @@ public class LasersGUI extends Application implements Observer {
 
 
         border.setTop(topMessagePane());       //TOP of the borderPane
-        border.setCenter(centerButtonPane());  //CENTER GridButtons
+        this.myGrid = centerButtonPane();
+        border.setCenter(this.myGrid);  //CENTER GridButtons
         border.setBottom(bottombtns());        //BOTTOM Buttons
 
         primaryStage.setResizable(false);
@@ -172,17 +179,47 @@ public class LasersGUI extends Application implements Observer {
         int col;
         int rDIM = model.getrDIM();             //getter of rows: rDIM model
         int cDIM = model.getcDIM();             //getter of cols: cDIM model
-        for(row = 1; row<=rDIM; row++){
-            for (col = 1; col<=cDIM; col++){
+        char[][] safe = model.getGrid();
+
+        for(char[] c: safe){
+            System.out.println(Arrays.toString(c));
+        }
+
+
+        for(row = 0; row<rDIM; row++){
+            for (col = 0; col<cDIM; col++){
               //  Button btn = new Button();
                 Button button = new Button();
-                Image laserImg = new Image(getClass().getResourceAsStream("resources/white.png"));
-                ImageView laserIcon = new ImageView(laserImg);
-                button.setGraphic(laserIcon);
-                setButtonBackground(button, "white.png");
-               // btn.setMinSize(30,30);
-               // btn.setStyle("-fx-background-color : white");
+//                Image laserImg = new Image(getClass().getResourceAsStream("resources/white.png"));
+//                ImageView laserIcon = new ImageView(laserImg);
+//                laserIcon = new ImageView();
+//                button.setGraphic(laserIcon);
+                setImage(safe[row][col], button);
+                // btn.setMinSize(30,30);
+                // btn.setStyle("-fx-background-color : white");
+                int r = row;
+                int c = col;
+                button.setOnAction(event -> {
+                    System.out.println("Cliked MATHI");
+                    model.add(r, c);
+                    for(char[] d: safe){
+                        System.out.println(Arrays.toString(d));
+                    }
+                    //System.out.println();
+                });
+                //{System.out.println("I am Clicked!" + r + " " + c)});
+                /*button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("I am clicked re ho!!");
+                        this.model.add(r,c);
+                        model.getDisplay();
+                    }
+                });*/
                 grid.add(button,col, row);
+
+                // find out about different ways to handle javafx events;
+
             }
         }
         grid.setGridLinesVisible(false);
@@ -190,7 +227,52 @@ public class LasersGUI extends Application implements Observer {
         return grid;
     }
 
+    /**
+     * This method is responsible for setting the image icon in the respective
+     * grid buttons as read from the file.
+     *
+     * @param safeContent   The contents in the safe
+     * @param button The button
+     */
+    private void setImage(Character safeContent, Button button){
+        ImageView x;
+        switch (safeContent){
+            case 'X':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillarX.png")));
+                button.setGraphic(x);
+                break;
+            case '1':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar1.png")));
+                button.setGraphic(x);
+                break;
+            case '2':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar2.png")));
+                button.setGraphic(x);
+                break;
+            case '3':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar3.png")));
+                button.setGraphic(x);
+                break;
+            case '4':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar4.png")));
+                button.setGraphic(x);
+                break;
+            case 'L':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/laser.png")));
+                button.setGraphic(x);
+                break;
+            case '*':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/beam.png")));
+                button.setGraphic(x);
+                break;
+            default:
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/white.png")));
+                button.setGraphic(x);
 
+
+        }
+        setButtonBackground(button, "white.png");
+    }
     /**
      * Bottombtn function is used to created the buttons that are displayed in
      * the bottom which include Check, Hint, Solve, Restart and Load respectiv-
@@ -201,6 +283,8 @@ public class LasersGUI extends Application implements Observer {
     private HBox bottombtns(){
         //BOTTOM of the borderPane             //BOTTOM Buttons
         Button checkbtn = new Button("Check");
+        checkbtn.setOnAction(event -> System.out.println("Check Clicked!"));
+
         Button hintbtn = new Button("Hint");
         Button solvebtn = new Button("Solve");
         Button restartbtn = new Button("Restart");
@@ -219,8 +303,16 @@ public class LasersGUI extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-       // System.out.println(arg.toString());
-        // TODO
+     //  System.out.println(arg.toString());
+        updateTheBoard();
+
+    }
+
+    private void updateTheBoard() {
+//        for (Node btn: myGrid.getChildren()) {
+//            //setImage();
+//
+//        }
     }
 
 //    public static void main(String[] args) {
