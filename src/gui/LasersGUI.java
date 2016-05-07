@@ -40,7 +40,7 @@ import ptui.LasersPTUI;
 public class LasersGUI extends Application implements Observer {
     /** The UI's connection to the model */
     private LasersModel model;
-    private GridPane myGrid;
+    private GridPane grid;
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -129,12 +129,12 @@ public class LasersGUI extends Application implements Observer {
 //        int r = model.getrDIM();
         //border.setMinHeight(Math.max(c*30, r*30));
         //border.setMinWidth(Math.max(c*30, r*30));
+
+
         //TOP of the borderPane : Message area indicating status of safe
-
-
         border.setTop(topMessagePane());       //TOP of the borderPane
-        this.myGrid = centerButtonPane();
-        border.setCenter(this.myGrid);  //CENTER GridButtons
+        this.grid = centerButtonGrid();
+        border.setCenter(this.grid);  //CENTER GridButtons
         border.setBottom(bottombtns());        //BOTTOM Buttons
 
         primaryStage.setResizable(false);
@@ -168,7 +168,7 @@ public class LasersGUI extends Application implements Observer {
      * CenterButton pane for the safe
      * @return GridPane
      */
-    private GridPane centerButtonPane(){
+    private GridPane centerButtonGrid(){
         GridPane grid = new GridPane();
 //        double hgap = 2;
 //        double vgap = 1;
@@ -201,6 +201,7 @@ public class LasersGUI extends Application implements Observer {
                 int c = col;
                 button.setOnAction(event -> {
                     System.out.println("Cliked MATHI");
+
                     model.add(r, c);
                     for(char[] d: safe){
                         System.out.println(Arrays.toString(d));
@@ -241,6 +242,11 @@ public class LasersGUI extends Application implements Observer {
                 x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillarX.png")));
                 button.setGraphic(x);
                 break;
+            case '0':
+                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar0.png")));
+                button.setGraphic(x);
+                break;
+
             case '1':
                 x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar1.png")));
                 button.setGraphic(x);
