@@ -40,7 +40,8 @@ import ptui.LasersPTUI;
 public class LasersGUI extends Application implements Observer {
     /** The UI's connection to the model */
     private LasersModel model;
-    private GridPane myGrid;
+    private GridPane grid;
+    private Button[][] referenceGrid;
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -311,12 +312,12 @@ public class LasersGUI extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-     //  System.out.println(arg.toString());
-        for(int row = 0; row < model.getrDIM(); row++){
-            for(int col = 0; col < model.getcDIM(); col++){
+        //  System.out.println(arg.toString());
+        for (int row = 0; row < model.getrDIM(); row++) {
+            for (int col = 0; col < model.getcDIM(); col++) {
                 char letter = model.getGrid()[row][col];
                 ImageView x;
-                switch(letter){
+                switch (letter) {
                     case 'L':
                         x = new ImageView(new Image(getClass().getResourceAsStream("resources/laser.png")));
                         referenceGrid[row][col].setGraphic(x);
@@ -332,6 +333,7 @@ public class LasersGUI extends Application implements Observer {
                 }
             }
         }
+    }
 
     private void updateTheBoard() {
 //        for (Node btn: myGrid.getChildren()) {

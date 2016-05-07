@@ -1336,6 +1336,6 @@ public class LasersModel extends Observable {
      */
     private void announceChange() {
         setChanged();
-        notifyObservers("hello");
+        notifyObservers();
     }
 }
