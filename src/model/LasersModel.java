@@ -369,6 +369,7 @@ public class LasersModel extends Observable {
             }
         }
         this.addSuccess = true;
+        announceChange();
     }
 
     public void addWithGrid(int row, int col, char[][] grid){
