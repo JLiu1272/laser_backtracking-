@@ -300,6 +300,7 @@ public class LasersGUI extends Application implements Observer {
         Button solvebtn = new Button("Solve");
         Button restartbtn = new Button("Restart");
         Button loadbtn = new Button("Load");
+        //File Chooser is the loser here
 
         restartbtn.setOnAction(event -> {
             model.restart();
