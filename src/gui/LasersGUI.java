@@ -171,11 +171,6 @@ public class LasersGUI extends Application implements Observer {
      */
     private GridPane centerButtonPane(){
         grid = new GridPane();
-//        double hgap = 2;
-//        double vgap = 1;
-//        grid.setHgap(hgap);  //gap between buttons
-//        grid.setVgap(vgap);
-
         int row;
         int col;
         int rDIM = model.getrDIM();             //getter of rows: rDIM model
@@ -342,14 +337,6 @@ public class LasersGUI extends Application implements Observer {
             }
         }
     }
-
-    private void updateTheBoard() {
-//        for (Node btn: myGrid.getChildren()) {
-//            //setImage();
-//
-//        }
-    }
-
 
     public static void main(String[] args) {
         Application.launch(args);
