@@ -42,6 +42,7 @@ public class LasersGUI extends Application implements Observer {
     private LasersModel model;
     private GridPane grid;
     private Button[][] referenceGrid;
+    private Label message;
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -150,10 +151,10 @@ public class LasersGUI extends Application implements Observer {
      */
     private FlowPane topMessagePane(){
         FlowPane topLabel = new FlowPane();
-        Label label = new Label();
-        label.setText("Message: Status of safe!");
+        message = new Label();
+        message.setText("Message: Status of safe!");
         topLabel.setAlignment(Pos.CENTER);
-        topLabel.getChildren().add(label);
+        topLabel.getChildren().add(message);
         return topLabel;
 
         // Message types:
@@ -300,6 +301,25 @@ public class LasersGUI extends Application implements Observer {
         Button solvebtn = new Button("Solve");
         Button restartbtn = new Button("Restart");
         Button loadbtn = new Button("Load");
+
+        restartbtn.setOnAction(event -> {
+            model.restart();
+            //System.out.println();
+        });
+
+        checkbtn.setOnAction(event -> {
+            model.verify();
+            if(model.verify().equals("Verified ")){
+                message.setText("Safe ");
+                System.out.println("Verified");
+            }
+            else{
+                System.out.println("Not Verified");
+            }
+            //System.out.println();
+        });
+
+
 
         //BOTTOM Buttons are set here
         HBox bottombtns = new HBox();
