@@ -40,7 +40,7 @@ import ptui.LasersPTUI;
 public class LasersGUI extends Application implements Observer {
     /** The UI's connection to the model */
     private LasersModel model;
-    private GridPane grid;
+    private GridPane myGrid;
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -129,11 +129,11 @@ public class LasersGUI extends Application implements Observer {
 //        int r = model.getrDIM();
         //border.setMinHeight(Math.max(c*30, r*30));
         //border.setMinWidth(Math.max(c*30, r*30));
-
-
         //TOP of the borderPane : Message area indicating status of safe
+
+
         border.setTop(topMessagePane());       //TOP of the borderPane
-        this.grid = centerButtonGrid();
+        this.grid = centerButtonPane();
         border.setCenter(this.grid);  //CENTER GridButtons
         border.setBottom(bottombtns());        //BOTTOM Buttons
 
@@ -168,8 +168,8 @@ public class LasersGUI extends Application implements Observer {
      * CenterButton pane for the safe
      * @return GridPane
      */
-    private GridPane centerButtonGrid(){
-        GridPane grid = new GridPane();
+    private GridPane centerButtonPane(){
+        grid = new GridPane();
 //        double hgap = 2;
 //        double vgap = 1;
 //        grid.setHgap(hgap);  //gap between buttons
@@ -180,6 +180,7 @@ public class LasersGUI extends Application implements Observer {
         int rDIM = model.getrDIM();             //getter of rows: rDIM model
         int cDIM = model.getcDIM();             //getter of cols: cDIM model
         char[][] safe = model.getGrid();
+        referenceGrid = new Button[rDIM][cDIM];
 
         for(char[] c: safe){
             System.out.println(Arrays.toString(c));
@@ -199,15 +200,6 @@ public class LasersGUI extends Application implements Observer {
                 // btn.setStyle("-fx-background-color : white");
                 int r = row;
                 int c = col;
-                button.setOnAction(event -> {
-                    System.out.println("Cliked MATHI");
-
-                    model.add(r, c);
-                    for(char[] d: safe){
-                        System.out.println(Arrays.toString(d));
-                    }
-                    //System.out.println();
-                });
                 //{System.out.println("I am Clicked!" + r + " " + c)});
                 /*button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -217,7 +209,17 @@ public class LasersGUI extends Application implements Observer {
                         model.getDisplay();
                     }
                 });*/
+                referenceGrid[row][col] = button;
                 grid.add(button,col, row);
+                button.setOnAction(event -> {
+                    System.out.println("Cliked MATHI");
+                    model.add(r, c);
+                    setButtonBackground(button, "yellow.png");
+                    for(char[] d: safe){
+                        System.out.println(Arrays.toString(d));
+                    }
+                    //System.out.println();
+                });
 
                 // find out about different ways to handle javafx events;
 
@@ -310,9 +312,26 @@ public class LasersGUI extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
      //  System.out.println(arg.toString());
-        updateTheBoard();
-
-    }
+        for(int row = 0; row < model.getrDIM(); row++){
+            for(int col = 0; col < model.getcDIM(); col++){
+                char letter = model.getGrid()[row][col];
+                ImageView x;
+                switch(letter){
+                    case 'L':
+                        x = new ImageView(new Image(getClass().getResourceAsStream("resources/laser.png")));
+                        referenceGrid[row][col].setGraphic(x);
+                        break;
+                    case '*':
+                        x = new ImageView(new Image(getClass().getResourceAsStream("resources/beam.png")));
+                        referenceGrid[row][col].setGraphic(x);
+                        break;
+                    case '.':
+                        x = new ImageView(new Image(getClass().getResourceAsStream("resources/white.png")));
+                        referenceGrid[row][col].setGraphic(x);
+                        break;
+                }
+            }
+        }
 
     private void updateTheBoard() {
 //        for (Node btn: myGrid.getChildren()) {
@@ -321,7 +340,8 @@ public class LasersGUI extends Application implements Observer {
 //        }
     }
 
-//    public static void main(String[] args) {
-//        Application.launch(args);
-//    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
 }
