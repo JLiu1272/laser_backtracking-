@@ -1,5 +1,7 @@
 package model;
 
+import backtracking.SafeConfig;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class LasersModel extends Observable {
     private boolean display;
     private boolean help;
     private boolean quit;
+
 
     /**
      * This is the constructor for the model that is used to represent the current
@@ -823,78 +826,6 @@ public class LasersModel extends Observable {
         }
         this.verifySuccess = true;
         return true;
-    }
-
-    /**
-     * Verify command displays a status message that indicates whether the safe is
-     * valid or not. In order to be valid, none of the rules of the safe may be
-     * violated. Each tile that is not a pillar must have either a laser or beam
-     * covering it. Each pillar that requires a certain number of neighboring lasers
-     * must add up exactly. If two or more lasers in the sight of each other,
-     * in the cardinal direction, it is invalid
-     *
-     */
-    public boolean verifyWithGrid(int r, int c, char[][] grid){
-
-            //Making sure that the column is not 0
-            if(c != 0){
-                for(int col = c-1; col >= 0; col--){
-                    if(grid[r][col] != '*'){
-                        if(grid[r][col] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            //Making sure that the col is not greater than
-            //the column dimension
-            if(c != cDIM-1){
-                for(int col = c+1; col < cDIM; col++){
-                    if(grid[r][col] != '*'){
-                        if(grid[r][col] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            //Row does not equal to 0
-            if(r != 0){
-                for(int row = r-1; row >= 0; row--){
-                    if(grid[row][c] != '*'){
-                        if(grid[row][c] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            //Row does not equal to the row dimension
-            if(r != rDIM-1){
-                for(int row = r+1; row < cDIM; row++){
-                    //If I hit something that is not
-                    //a laser beam, it means I have hit
-                    //a pillar or a laser. If it is a
-                    //pillar, I break out of the for
-                    //loop, else I return false
-                    if(grid[row][c] != '*'){
-                        if(grid[row][c] == 'L'){
-                            return false;
-                        }
-                        else{
-                            break;
-                        }
-                    }
-                }
-            }
-            return true;
     }
 
     /**
