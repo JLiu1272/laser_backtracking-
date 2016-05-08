@@ -357,10 +357,20 @@ public class LasersGUI extends Application implements Observer {
     }
 
     private void configureFileChooser(final FileChooser fileChooser){
-        fileChooser.setTitle("Load file..");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.home"))
-        );
+        fileChooser.setTitle("Load file....");
+//        fileChooser.setInitialDirectory(
+//                new File(System.getProperty("user.home"))
+//
+//        );
+        //String userDirectoryString = System.getProperty("user.home");
+//        File userDirectory = new File(userDirectoryString);
+//        if(!userDirectory.canRead()) {
+//            userDirectory = new File("c:/");
+//        }
+
+        String userDirectoryString = System.getProperty("user.home");
+        File userDirectory = new File(userDirectoryString);
+        fileChooser.setInitialDirectory(userDirectory);
     }
 
     @Override
