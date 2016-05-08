@@ -408,9 +408,10 @@ public class LasersGUI extends Application implements Observer {
 
     private void configureFileChooser(final FileChooser fileChooser){
         fileChooser.setTitle("Load file..");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.home"))
-        );
+//        fileChooser.setInitialDirectory(
+//                new File(System.getProperty("user.home\\Desktop"))
+//        );
+        fileChooser.setInitialDirectory(new File("C:\\Users\\Moses\\Desktop\\myCS Labs\\Lasers\\tests"));
     }
 
     @Override
