@@ -28,7 +28,7 @@ public class SafeSolverPath {
 
             // attempt to solve the puzzle
             Optional<Configuration> sol = bt.solveHelperFunction(init);
-            List<Configuration> path = bt.solveWithPath(init);
+            List<Configuration> path = bt.solveWithPath();
             //List<Configuration> path = bt.solveWithPath(init);
 
             // compute the elapsed time

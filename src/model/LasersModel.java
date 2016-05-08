@@ -1,12 +1,12 @@
 package model;
 
+import backtracking.Backtracker;
+import backtracking.Configuration;
 import backtracking.SafeConfig;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This class represents the model that will be used to represent
@@ -40,6 +40,13 @@ public class LasersModel extends Observable {
     private boolean help;
     private boolean quit;
 
+    private String filename;
+    private Backtracker backtracker;
+    private List<char[][]> hint;
+    private int hintIndex;
+    private char[][] solution;
+    private boolean noSolution;
+
 
     /**
      * This is the constructor for the model that is used to represent the current
@@ -51,6 +58,7 @@ public class LasersModel extends Observable {
      */
     // Jordan Shea
     public LasersModel(String filename) throws FileNotFoundException {
+
         Scanner in = new Scanner(new File(filename)); //scanning the file in
         this.userRow = 0;
         this.userCol = 0;
@@ -70,6 +78,13 @@ public class LasersModel extends Observable {
         this.cDIM = in.nextInt();
         this.grid = new char[rDIM][cDIM];// creating initial safe grid with their
         // respective row and col dimensions
+
+        this.filename = filename;
+        backtracker = new Backtracker(false);
+        hint = new ArrayList<>();
+        hintIndex = 0;
+        solution = new char[rDIM][cDIM];
+        noSolution = false;
 
         //CONSTRUCTING THE GRID BY ADDING VALUES
         for (int r =0; r <rDIM; r++){
@@ -308,6 +323,7 @@ public class LasersModel extends Observable {
         //return an error
         if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
             this.addFailure = true;
+            announceChange();
             return;
         }
         //If the cell that we want to add it to is an outlet or is a laser beam, it should
@@ -316,6 +332,7 @@ public class LasersModel extends Observable {
                 grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' ||
                 grid[row][col] == 'L'){
             this.addFailure = true;
+            announceChange();
             return;
         }
 
@@ -372,6 +389,48 @@ public class LasersModel extends Observable {
         announceChange();
     }
 
+    public void backtrackerSolver() throws FileNotFoundException{
+        Configuration init = new SafeConfig(filename);
+        Optional<Configuration> sol = backtracker.solve(init);
+        if(sol.isPresent()){
+            SafeConfig safeConfigSolution = (SafeConfig) sol.get();
+            solution = safeConfigSolution.getGrid();
+            noSolution = false;
+        }
+        else{
+            noSolution = true;
+        }
+        announceChange();
+    }
+
+    public char[][] getSolution(){
+        return solution;
+    }
+
+    public boolean solutionStatus(){
+        return noSolution;
+    }
+
+
+
+    public void generateHint() throws FileNotFoundException{
+        Configuration init = new SafeConfig(filename);
+        Optional<Configuration> sol = backtracker.solveHelperFunction(init);
+        List<Configuration> hints = backtracker.solveWithPath();
+
+        for(Configuration config: hints){
+            SafeConfig safeConfig = (SafeConfig) config;
+            char[][] steps = safeConfig.getGrid();
+            hint.add(steps);
+        }
+        hintIndex++;
+        announceChange();
+    }
+
+    public char[][] getHint(){
+        return hint.get(hintIndex-1);
+    }
+
     public void addWithGrid(int row, int col, char[][] grid){
         //If users input a value that is greater
         //than the dimension of the safe, it should
@@ -384,7 +443,7 @@ public class LasersModel extends Observable {
         //return an error
         else if(grid[row][col] == 'X' || grid[row][col] == '1' || grid[row][col] == '2' ||
                 grid[row][col] == '3' || grid[row][col] == '4' || grid[row][col] == '0' ||
-                grid[row][col] == 'L'){
+                grid[row][col] == 'L' || grid[row][col] == '5'){
             this.addFailure = true;
             return;
         }
@@ -398,7 +457,7 @@ public class LasersModel extends Observable {
             //we stop adding the laser beams
             if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
                     grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'
-                    || grid[rowBeams][col] == 'X' || grid[rowBeams][col] == 'L'){
+                    || grid[rowBeams][col] == 'X' || grid[rowBeams][col] == 'L' || grid[rowBeams][col] == '5'){
                 break;
             }
             else{
@@ -409,7 +468,7 @@ public class LasersModel extends Observable {
         for(int rowBeams = row-1; rowBeams >= 0; rowBeams--){
             if(grid[rowBeams][col] == '4' || grid[rowBeams][col] == '3' ||
                     grid[rowBeams][col] == '2' || grid[rowBeams][col] == '1' || grid[rowBeams][col] == '0'||
-                    grid[rowBeams][col] == 'X' || grid[rowBeams][col] == 'L'){
+                    grid[rowBeams][col] == 'X' || grid[rowBeams][col] == 'L' || grid[row][col] == '5'){
                 break;
             }
             else{
@@ -420,7 +479,7 @@ public class LasersModel extends Observable {
         for(int colBeams = col+1; colBeams < cDIM; colBeams++){
             if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' || grid[row][colBeams]== 'X'||
                     grid[row][colBeams] ==  'L' ||
-                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0'){
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0' || grid[row][colBeams] == '5'){
                 break;
             }
             else{
@@ -431,7 +490,7 @@ public class LasersModel extends Observable {
         for(int colBeams = col-1; colBeams >= 0; colBeams--){
             if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' ||
                     grid[row][colBeams] == 'X'|| grid[row][colBeams] == 'L' ||
-                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0'){
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0' || grid[row][colBeams] == '5'){
                 break;
             }
             else{
@@ -439,6 +498,7 @@ public class LasersModel extends Observable {
             }
         }
         this.addSuccess = true;
+        announceChange();
     }
 
     // Jordan Shea
@@ -538,7 +598,7 @@ public class LasersModel extends Observable {
                 for (int south = down; south <= rDIM -1; south++){
                     if (grid[south][east] == '0' || grid[south][east] == '1' ||
                             grid[south][east] == '2' || grid[south][east] == '3' ||
-                            grid[south][east] == '4' || grid[south][east] == 'X'){
+                            grid[south][east] == '4' || grid[south][east] == 'X' ){
                         break;
                     }
                     if (grid[south][east] == 'L'){
@@ -566,7 +626,7 @@ public class LasersModel extends Observable {
                 for (int north = up; north >= 0; north--){
                     if (grid[north][west] == '0' || grid[north][west] == '1' ||
                             grid[north][west] == '2' || grid[north][west] == '3' ||
-                            grid[north][west] == '4' || grid[north][west] == 'X'){
+                            grid[north][west] == '4' || grid[north][west] == 'X' ){
                         break;
                     }
                     if (grid[north][west] == 'L'){
@@ -577,7 +637,7 @@ public class LasersModel extends Observable {
                 for (int south = down; south <= rDIM - 1; south++){
                     if (grid[south][west] == '0' || grid[south][west] == '1' ||
                             grid[south][west] == '2' || grid[south][west] == '3' ||
-                            grid[south][west] == '4' || grid[south][west] == 'X'){
+                            grid[south][west] == '4' || grid[south][west] == 'X' ){
                         break;
                     }
                     if (grid[south][west] == 'L'){
@@ -592,7 +652,7 @@ public class LasersModel extends Observable {
                 counter++;
                 if (grid[south][col] == '0' || grid[south][col] == '1' ||
                         grid[south][col] == '2' || grid[south][col] == '3' ||
-                        grid[south][col] == '4' || grid[south][col] == 'X'){
+                        grid[south][col] == '4' || grid[south][col] == 'X' ){
                     break;
                 }
                 else if (grid[south][col] == 'L' && counter != 1){
@@ -677,6 +737,7 @@ public class LasersModel extends Observable {
         announceChange();
     }
 
+
     /**
      * Verify command displays a status message that indicates whether the safe is
      * valid or not. In order to be valid, none of the rules of the safe may be
@@ -693,12 +754,14 @@ public class LasersModel extends Observable {
                 //call verifyWithPos
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
+                    announceChange();
                     return  row + " " + col;
                 }
                 //If there are more than one laser in the same row or column,
                 //return false
-                if(grid[row][col] == 'L'){
+                else if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
+                        announceChange();
                         return row + " " + col;
                     }
                 }
@@ -711,6 +774,7 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighbors(0, row, col,'L')){
+                        announceChange();
                         return row + " " + col;
                     }
 
@@ -718,44 +782,50 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '1'){
                     //put condition
                     if(!checkNeighbors(1, row, col, 'L')){
+                        announceChange();
                         return row + " " + col;
                     }
 
                 }
                 else if(grid[row][col] == '2'){
                     //put condition
-                    if(!checkNeighbors(2, row, col, 'L')){
+                    if(!checkNeighbors(2, row, col, 'L')) {
+                        announceChange();
                         return row + " " + col;
                     }
                 }
                 else if(grid[row][col] == '3'){
                     //put condition
                     if(!checkNeighbors(3, row, col, 'L')){
+                        announceChange();
                         return row + " " + col;
                     }
                 }
                 else if(grid[row][col] == '4'){
                     //put condition
                     if(!checkNeighbors(4, row, col, 'L')){
+                        announceChange();
                         return row + " " + col;
                     }
                 }
             }
         }
+        announceChange();
         return "verified";
     }
 
     public void restart(){
         for(int row = 0; row < rDIM; row++){
             for(int col = 0; col < cDIM; col++){
-                if(grid[row][col] == 'L'){
-                    grid[row][col] = '.';
-                }
-                else if(grid[row][col] == '*'){
+                if(grid[row][col] == 'L' || grid[row][col] == '*'){
                     grid[row][col] = '.';
                 }
             }
         }
+        hintIndex = 0;
+        solution = new char[rDIM][cDIM];
+        hint.clear();
+        noSolution = false;
         announceChange();
     }
 
@@ -808,6 +878,15 @@ public class LasersModel extends Observable {
                     }
                 }
                 else if(grid[row][col] == '4'){
+                    //put condition
+                    if(!checkNeighborsWithGrid(4, row, col, 'L',grid)){
+                        this.verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
+                        return false;
+                    }
+                }
+                else if(grid[row][col] == '5'){
                     //put condition
                     if(!checkNeighborsWithGrid(4, row, col, 'L',grid)){
                         this.verifyFailure = true;

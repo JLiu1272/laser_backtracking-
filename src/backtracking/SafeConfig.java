@@ -200,6 +200,10 @@ public class SafeConfig implements Configuration{
         return this.grid[currRow][currCol];
     }
 
+    public char[][] getGrid(){
+        return this.grid;
+    }
+
     /**
      * Return the current row
      * @return int - current row
