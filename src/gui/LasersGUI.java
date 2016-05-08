@@ -47,6 +47,9 @@ public class LasersGUI extends Application implements Observer {
     private Button[][] referenceGrid;
     private Label message;
 
+    private int notVerifiedRow;
+    private int getNotVerifiedCol;
+
     private final Stage stage = new Stage();    //NEW STAGE??
 
     /** this can be removed - it is used to demonstrates the button toggle */
@@ -242,7 +245,6 @@ public class LasersGUI extends Application implements Observer {
                 x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar0.png")));
                 button.setGraphic(x);
                 break;
-
             case '1':
                 x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar1.png")));
                 button.setGraphic(x);
@@ -298,16 +300,7 @@ public class LasersGUI extends Application implements Observer {
             configureFileChooser(fileChooser);
             File file = fileChooser.showOpenDialog(stage);
         });
-//        loadbtn.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                configureFileChooser(fileChooser);
-//            }
-//        });
 
-//        loadbtn.setOnAction(event -> {
-//            System.out.println("Load Button Clicked!");
-//        });
 
         restartbtn.setOnAction(event -> {
             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
@@ -323,9 +316,18 @@ public class LasersGUI extends Application implements Observer {
             else{
                 notVerifiedRow = Integer.parseInt(token[0]);
                 getNotVerifiedCol = Integer.parseInt(token[1]);
-                System.out.println("Error verifying at: (" + notVerifiedRow + ", " + getNotVerifiedCol + ")");
-                ImageView x = new ImageView(new Image(getClass().getResourceAsStream("resources/red.png")));
-                referenceGrid[notVerifiedRow][getNotVerifiedCol].setGraphic(x);
+                message.setText("Error verifying at: (" + notVerifiedRow + ", " + getNotVerifiedCol + ")");
+                if(model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'L'
+                   || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '0'
+                   || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '1'
+                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '2' || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '3'
+                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '4' || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'X'){
+                    setButtonBackground(referenceGrid[notVerifiedRow][getNotVerifiedCol],"red.png");
+                }
+                else{
+                    ImageView x = new ImageView(new Image(getClass().getResourceAsStream("resources/red.png")));
+                    referenceGrid[notVerifiedRow][getNotVerifiedCol].setGraphic(x);
+                }
             }
         });
 
@@ -393,10 +395,6 @@ public class LasersGUI extends Application implements Observer {
             }
             message.setText("Hint");
         });
-
-
-
-
 
         //BOTTOM Buttons are set here
         HBox bottombtns = new HBox();

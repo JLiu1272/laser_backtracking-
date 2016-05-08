@@ -574,7 +574,7 @@ public class LasersModel extends Observable {
                 counter++;
                 if (grid[row][east] == '0' || grid[row][east] == '1' ||
                         grid[row][east] == '2' || grid[row][east] == '3' ||
-                        grid[row][east] == '4' || grid[row][east] == 'X' || grid[row][east] == '5'){
+                        grid[row][east] == '4' || grid[row][east] == 'X'){
                     break;
                 }
                 else if (grid[row][east] == 'L' && counter != 1){
@@ -587,7 +587,7 @@ public class LasersModel extends Observable {
                 for (int north = up; north >= 0; north--){
                     if (grid[north][east] == '0' || grid[north][east] == '1' ||
                             grid[north][east] == '2' || grid[north][east] == '3' ||
-                            grid[north][east] == '4' || grid[north][east] == 'X'|| grid[north][east] == '5'){
+                            grid[north][east] == '4' || grid[north][east] == 'X'){
                         break;
                     }
                     if (grid[north][east] == 'L'){
@@ -598,7 +598,7 @@ public class LasersModel extends Observable {
                 for (int south = down; south <= rDIM -1; south++){
                     if (grid[south][east] == '0' || grid[south][east] == '1' ||
                             grid[south][east] == '2' || grid[south][east] == '3' ||
-                            grid[south][east] == '4' || grid[south][east] == 'X' || grid[south][east] == '5'){
+                            grid[south][east] == '4' || grid[south][east] == 'X' ){
                         break;
                     }
                     if (grid[south][east] == 'L'){
@@ -613,7 +613,7 @@ public class LasersModel extends Observable {
                 counter++;
                 if (grid[row][west] == '0' || grid[row][west] == '1' ||
                         grid[row][west] == '2' || grid[row][west] == '3' ||
-                        grid[row][west] == '4' || grid[row][west] == 'X'|| grid[row][west] == '5'){
+                        grid[row][west] == '4' || grid[row][west] == 'X'){
                     break;
                 }
                 else if (grid[row][west] == 'L' && counter != 1){
@@ -626,7 +626,7 @@ public class LasersModel extends Observable {
                 for (int north = up; north >= 0; north--){
                     if (grid[north][west] == '0' || grid[north][west] == '1' ||
                             grid[north][west] == '2' || grid[north][west] == '3' ||
-                            grid[north][west] == '4' || grid[north][west] == 'X' || grid[row][west] == '5'){
+                            grid[north][west] == '4' || grid[north][west] == 'X' ){
                         break;
                     }
                     if (grid[north][west] == 'L'){
@@ -637,7 +637,7 @@ public class LasersModel extends Observable {
                 for (int south = down; south <= rDIM - 1; south++){
                     if (grid[south][west] == '0' || grid[south][west] == '1' ||
                             grid[south][west] == '2' || grid[south][west] == '3' ||
-                            grid[south][west] == '4' || grid[south][west] == 'X' || grid[south][west] == '5'){
+                            grid[south][west] == '4' || grid[south][west] == 'X' ){
                         break;
                     }
                     if (grid[south][west] == 'L'){
@@ -652,7 +652,7 @@ public class LasersModel extends Observable {
                 counter++;
                 if (grid[south][col] == '0' || grid[south][col] == '1' ||
                         grid[south][col] == '2' || grid[south][col] == '3' ||
-                        grid[south][col] == '4' || grid[south][col] == 'X' || grid[south][col] == '5'){
+                        grid[south][col] == '4' || grid[south][col] == 'X' ){
                     break;
                 }
                 else if (grid[south][col] == 'L' && counter != 1){
@@ -665,7 +665,7 @@ public class LasersModel extends Observable {
                 for (int west = left; west >= 0; west--){
                     if (grid[south][west] == '0' || grid[south][west] == '1' ||
                             grid[south][west] == '2' || grid[south][west] == '3' ||
-                            grid[south][west] == '4' || grid[south][west] == 'X' || grid[south][west] == '5'){
+                            grid[south][west] == '4' || grid[south][west] == 'X'){
                         break;
                     }
                     if (grid[south][west] == 'L'){
@@ -676,7 +676,7 @@ public class LasersModel extends Observable {
                 for (int east = right; east <= cDIM - 1; east++){
                     if (grid[south][east] == '0' || grid[south][east] == '1' ||
                             grid[south][east] == '2' || grid[south][east] == '3' ||
-                            grid[south][east] == '4' || grid[south][east] == 'X' || grid[south][east] == '5'){
+                            grid[south][east] == '4' || grid[south][east] == 'X'){
                         break;
                     }
                     if (grid[south][east] == 'L'){
@@ -691,7 +691,7 @@ public class LasersModel extends Observable {
                 counter++;
                 if (grid[north][col] == '0' || grid[north][col] == '1' ||
                         grid[north][col] == '2' || grid[north][col] == '3' ||
-                        grid[north][col] == '4' || grid[north][col] == 'X' || grid[north][col] == '5'){
+                        grid[north][col] == '4' || grid[north][col] == 'X'){
                     break;
                 }
                 else if (grid[north][col] == 'L' && counter != 1){
@@ -704,7 +704,7 @@ public class LasersModel extends Observable {
                 for (int west = left; west >= 0; west--){
                     if (grid[north][west] == '0' || grid[north][west] == '1' ||
                             grid[north][west] == '2' || grid[north][west] == '3' ||
-                            grid[north][west] == '4' || grid[north][west] == 'X' || grid[north][west] == '5'){
+                            grid[north][west] == '4' || grid[north][west] == 'X'){
                         break;
                     }
                     if (grid[north][west] == 'L'){
@@ -715,7 +715,7 @@ public class LasersModel extends Observable {
                 for (int east = right; east <= cDIM - 1; east++){
                     if (grid[north][east] == '0' || grid[north][east] == '1' ||
                             grid[north][east] == '2' || grid[north][east] == '3' ||
-                            grid[north][east] == '4' || grid[north][east] == 'X' || grid[north][east] == '5'){
+                            grid[north][east] == '4' || grid[north][east] == 'X'){
                         break;
                     }
                     if (grid[north][east] == 'L'){
