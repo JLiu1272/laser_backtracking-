@@ -573,6 +573,7 @@ public class LasersModel extends Observable {
                 if (grid[row][east] == '0' || grid[row][east] == '1' ||
                         grid[row][east] == '2' || grid[row][east] == '3' ||
                         grid[row][east] == '4' || grid[row][east] == 'X'){
+                    eastEnd = east;
                     break;
                 }
                 else if (grid[row][east] == 'L'){
@@ -611,6 +612,7 @@ public class LasersModel extends Observable {
                 if (grid[row][west] == '0' || grid[row][west] == '1' ||
                         grid[row][west] == '2' || grid[row][west] == '3' ||
                         grid[row][west] == '4' || grid[row][west] == 'X'){
+                    westEnd = west;
                     break;
                 }
                 else if (grid[row][west] == 'L'){
@@ -649,6 +651,7 @@ public class LasersModel extends Observable {
                 if (grid[south][col] == '0' || grid[south][col] == '1' ||
                         grid[south][col] == '2' || grid[south][col] == '3' ||
                         grid[south][col] == '4' || grid[south][col] == 'X' ){
+                    southEnd = south;
                     break;
                 }
                 else if (grid[south][col] == 'L'){
@@ -690,6 +693,7 @@ public class LasersModel extends Observable {
                 if (grid[north][col] == '0' || grid[north][col] == '1' ||
                         grid[north][col] == '2' || grid[north][col] == '3' ||
                         grid[north][col] == '4' || grid[north][col] == 'X'){
+                    northEnd = north;
                     break;
                 }
                 else if (grid[north][col] == 'L'){
@@ -725,16 +729,19 @@ public class LasersModel extends Observable {
             }
             // Determines what symbol the old laser should be replaced with
             if (laserCheckEW){
-                for (int i = westEnd + 1; i <= eastEnd; i++){
+                for (int i = westEnd + 1; i < eastEnd; i++){
                     grid[row][i] = '*';
                 }
             }
             else if (laserCheckNS){
-                for (int i = northEnd + 1; i <= southEnd; i++){
+                for (int i = northEnd + 1; i < southEnd; i++) {
                     grid[i][col] = '*';
                 }
             }
-            else {
+            if (laserCheckEW || laserCheckNS){
+                grid[row][col] = '*';
+            }
+            else{
                 grid[row][col] = '.';
             }
         }
