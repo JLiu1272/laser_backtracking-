@@ -30,6 +30,8 @@ import java.util.Observer;
 import model.*;
 import ptui.LasersPTUI;
 
+
+
 /**
  * The main class that implements the JavaFX UI.   This class represents
  * the view/controller portion of the UI.  It is connected to the model
@@ -46,6 +48,8 @@ public class LasersGUI extends Application implements Observer {
     private GridPane grid;
     private Button[][] referenceGrid;
     private Label message;
+
+    private final Stage stage = new Stage();    //NEW STAGE??
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -303,16 +307,21 @@ public class LasersGUI extends Application implements Observer {
         Button solvebtn = new Button("Solve");
         Button restartbtn = new Button("Restart");
         Button loadbtn = new Button("Load");
+        //File Chooser is the loser here
 
         final FileChooser fileChooser = new FileChooser();
 
-        loadbtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                configureFileChooser(fileChooser);
-
-            }
+        loadbtn.setOnAction(event1 -> {
+            System.out.println("Load Button Clicked!");
+            configureFileChooser(fileChooser);
+            File file = fileChooser.showOpenDialog(stage);
         });
+//        loadbtn.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                configureFileChooser(fileChooser);
+//            }
+//        });
 
 //        loadbtn.setOnAction(event -> {
 //            System.out.println("Load Button Clicked!");
