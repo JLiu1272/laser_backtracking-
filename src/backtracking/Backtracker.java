@@ -51,6 +51,7 @@ public class Backtracker extends Observable{
             System.out.println(msg + ":\n" + config);
         }
     }
+
     /**
      * Try find a solution, if one exists, for a given configuration.
      *
@@ -93,7 +94,6 @@ public class Backtracker extends Observable{
         debugPrint("Current config", config);
         if (config.isGoal()) {
             debugPrint("\tGoal config", config);
-            //path.add(0,config);
             return Optional.of(config);
         } else {
             for (Configuration child : config.getSuccessors()) {
@@ -122,11 +122,10 @@ public class Backtracker extends Observable{
     /**
      * Find a goal configuration if it exists, and how to get there.
      *
-     * @param current the starting configuration
      * @return a list of configurations to get to a goal configuration.
      * If there are none, return null.
      */
-    public List<Configuration> solveWithPath(Configuration current) {
+    public List<Configuration> solveWithPath() {
         // TODO
         if(path.size() == 0){
             return null;
