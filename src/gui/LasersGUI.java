@@ -314,7 +314,6 @@ public class LasersGUI extends Application implements Observer {
             }
         });
 
-
 //        loadbtn.setOnAction(event -> {
 //            System.out.println("Load Button Clicked!");
 //        });
