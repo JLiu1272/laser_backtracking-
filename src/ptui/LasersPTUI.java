@@ -104,15 +104,16 @@ public class LasersPTUI implements Observer {
         else if (model.getRemoveSuccess()) {
             System.out.println("Laser removed at: (" + model.getUserRow() + ", " + model.getUserCol()+ ")");
             displayGrid();
-
-        } else if (model.getRemoveFailure()) {
+        }
+        else if (model.getRemoveFailure()) {
             System.out.println("Error removing laser at: (" + model.getUserRow() + ", " + model.getUserCol() + ")");
             displayGrid();
-
-        } else if (model.getCommandError()) {
+        }
+        else if (model.getCommandError()) {
             System.out.println("Unrecognized command: " + model.getUserCommand());
             displayGrid();
-        } else if (model.getCoordinateError()) {
+        }
+        else if (model.getCoordinateError()) {
             System.out.println("Incorrect coordinates");
             displayGrid();
         }

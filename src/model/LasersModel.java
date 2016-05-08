@@ -274,12 +274,15 @@ public class LasersModel extends Observable {
                 break;
             case 'd':
                 this.display = true;
+                announceChange();
                 break;
             case 'h':
                 this.help = true;
+                announceChange();
                 break;
             case 'q':
                 this.quit = true;
+                announceChange();
                 break;
             case 'r':
                 if (digits.size() < 2 || digits.size() > 2) {
@@ -292,15 +295,14 @@ public class LasersModel extends Observable {
                 break;
             case 'v':
                 verify();
+                announceChange();
                 break;
             default:
                 this.commandError = true;
                 this.userCommand = str;
+                announceChange();
                 break;
         }
-        //Do the actions that correspond to the command
-        //Return error if the command is not valid
-        announceChange();
     }
 
     /**
@@ -479,7 +481,8 @@ public class LasersModel extends Observable {
         for(int colBeams = col+1; colBeams < cDIM; colBeams++){
             if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' || grid[row][colBeams]== 'X'||
                     grid[row][colBeams] ==  'L' ||
-                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0' || grid[row][colBeams] == '5'){
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0' ||
+                    grid[row][colBeams] == '5'){
                 break;
             }
             else{
@@ -490,7 +493,8 @@ public class LasersModel extends Observable {
         for(int colBeams = col-1; colBeams >= 0; colBeams--){
             if(grid[row][colBeams] == '4' || grid[row][colBeams] == '3' ||
                     grid[row][colBeams] == 'X'|| grid[row][colBeams] == 'L' ||
-                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0' || grid[row][colBeams] == '5'){
+                    grid[row][colBeams] == '2' || grid[row][colBeams] == '1' || grid[row][colBeams] == '0' ||
+                    grid[row][colBeams] == '5'){
                 break;
             }
             else{
@@ -524,61 +528,42 @@ public class LasersModel extends Observable {
         // the safe, then the program should return an error message.
         if (row >= rDIM || col >= cDIM || row < 0 || col < 0) {
             this.removeFailure = true;
+            announceChange();
             return;
         }
         // If the user attempts to remove an object that is not a laser, then
         // the program should return an error message.
         else if (grid[row][col] != 'L') {
             this.removeFailure = true;
+            announceChange();
             return;
         }
         else {
             // Local Variables
-            boolean laserCheck = false;
+            boolean laserCheckEW = false;
+            boolean laserCheckNS = false;
+            int eastEnd = rDIM - 1;
+            int westEnd = 0;
+            int southEnd = rDIM - 1;
+            int northEnd = 0;
             // Corresponds to beams being shot to the right
-            int right;
-            if (col == cDIM - 1){
-                right = col;
-            }
-            else {
-                right = col + 1;
-            }
+            int right = col + 1;
             // Corresponds to beams being shot to the left
-            int left;
-            if (col == 0){
-                left = col;
-            }
-            else {
-                left = col - 1;
-            }
+            int left = col - 1;
             // Corresponds to beams being shot upwards
-            int up;
-            if (row == 0){
-                up = row;
-            }
-            else {
-                up = row - 1;
-            }
+            int up = row - 1;
             // Corresponds with beams being shot downwards
-            int down;
-            if (row == rDIM - 1){
-                down = row;
-            }
-            else {
-                down = row + 1;
-            }
-            int counter;
+            int down = row + 1;
             // Removes the beam that is being shot to the right
-            counter = 0;
             for (int east = right; east <= cDIM -1; east++){
-                counter++;
                 if (grid[row][east] == '0' || grid[row][east] == '1' ||
                         grid[row][east] == '2' || grid[row][east] == '3' ||
                         grid[row][east] == '4' || grid[row][east] == 'X'){
                     break;
                 }
-                else if (grid[row][east] == 'L' && counter != 1){
-                    laserCheck = true;
+                else if (grid[row][east] == 'L'){
+                    laserCheckEW = true;
+                    eastEnd = east;
                     break;
                 }
                 else {
@@ -608,16 +593,15 @@ public class LasersModel extends Observable {
                 }
             }
             // Removes the beam that is being shot to the left
-            counter = 0;
             for (int west = left; west >= 0; west--){
-                counter++;
                 if (grid[row][west] == '0' || grid[row][west] == '1' ||
                         grid[row][west] == '2' || grid[row][west] == '3' ||
                         grid[row][west] == '4' || grid[row][west] == 'X'){
                     break;
                 }
-                else if (grid[row][west] == 'L' && counter != 1){
-                    laserCheck = true;
+                else if (grid[row][west] == 'L'){
+                    laserCheckEW = true;
+                    westEnd = west;
                     break;
                 }
                 else {
@@ -647,16 +631,15 @@ public class LasersModel extends Observable {
                 }
             }
             // Removes the beam that is being shot downwards
-            counter = 0;
             for (int south = down; south <= rDIM - 1; south++){
-                counter++;
                 if (grid[south][col] == '0' || grid[south][col] == '1' ||
                         grid[south][col] == '2' || grid[south][col] == '3' ||
                         grid[south][col] == '4' || grid[south][col] == 'X' ){
                     break;
                 }
-                else if (grid[south][col] == 'L' && counter != 1){
-                    laserCheck = true;
+                else if (grid[south][col] == 'L'){
+                    laserCheckNS = true;
+                    southEnd = south;
                     break;
                 }
                 else {
@@ -686,16 +669,18 @@ public class LasersModel extends Observable {
                 }
             }
             // Removes the beam that is being shot upwards
-            counter = 0;
+            for (int no = up; no >= 0; no--) {
+                System.out.println(no);
+            }
             for (int north = up; north >= 0; north--){
-                counter++;
                 if (grid[north][col] == '0' || grid[north][col] == '1' ||
                         grid[north][col] == '2' || grid[north][col] == '3' ||
                         grid[north][col] == '4' || grid[north][col] == 'X'){
                     break;
                 }
-                else if (grid[north][col] == 'L' && counter != 1){
-                    laserCheck = true;
+                else if (grid[north][col] == 'L'){
+                    laserCheckNS = true;
+                    northEnd = north;
                     break;
                 }
                 else {
@@ -725,8 +710,15 @@ public class LasersModel extends Observable {
                 }
             }
             // Determines what symbol the old laser should be replaced with
-            if (laserCheck){
-                grid[row][col] = '*';
+            if (laserCheckEW){
+                for (int i = westEnd + 1; i <= eastEnd; i++){
+                    grid[row][i] = '*';
+                }
+            }
+            else if (laserCheckNS){
+                for (int i = northEnd + 1; i <= southEnd; i++){
+                    grid[i][col] = '*';
+                }
             }
             else {
                 grid[row][col] = '.';
