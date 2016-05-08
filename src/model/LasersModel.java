@@ -393,6 +393,7 @@ public class LasersModel extends Observable {
             }
         }
         this.addSuccess = true;
+        this.addFailure = false;
         announceChange();
     }
 
