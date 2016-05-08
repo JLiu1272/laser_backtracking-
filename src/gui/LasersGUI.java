@@ -1,6 +1,7 @@
 package gui;
 
 import com.sun.javafx.font.freetype.HBGlyphLayout;
+import com.sun.javafx.font.t2k.T2KFactory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,9 +17,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Observable;
@@ -44,8 +47,7 @@ public class LasersGUI extends Application implements Observer {
     private Button[][] referenceGrid;
     private Label message;
 
-    private int notVerifiedRow;
-    private int getNotVerifiedCol;
+    private final Stage stage = new Stage();    //NEW STAGE??
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -279,7 +281,6 @@ public class LasersGUI extends Application implements Observer {
      * ely.
      * @return HBox
      */
-
     private HBox bottombtns(){
         //BOTTOM of the borderPane             //BOTTOM Buttons
         Button checkbtn = new Button("Check");
@@ -288,6 +289,25 @@ public class LasersGUI extends Application implements Observer {
         Button solvebtn = new Button("Solve");
         Button restartbtn = new Button("Restart");
         Button loadbtn = new Button("Load");
+        //File Chooser is the loser here
+
+        final FileChooser fileChooser = new FileChooser();
+
+        loadbtn.setOnAction(event1 -> {
+            System.out.println("Load Button Clicked!");
+            configureFileChooser(fileChooser);
+            File file = fileChooser.showOpenDialog(stage);
+        });
+//        loadbtn.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                configureFileChooser(fileChooser);
+//            }
+//        });
+
+//        loadbtn.setOnAction(event -> {
+//            System.out.println("Load Button Clicked!");
+//        });
 
         restartbtn.setOnAction(event -> {
             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
@@ -388,6 +408,12 @@ public class LasersGUI extends Application implements Observer {
         return bottombtns;
     }
 
+    private void configureFileChooser(final FileChooser fileChooser){
+        fileChooser.setTitle("Load file..");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+    }
 
     @Override
     public void update(Observable o, Object arg) {
