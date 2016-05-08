@@ -46,6 +46,7 @@ public class LasersModel extends Observable {
     private int hintIndex;
     private char[][] solution;
     private boolean noSolution;
+    private boolean clickable;
 
 
     /**
@@ -85,6 +86,7 @@ public class LasersModel extends Observable {
         hintIndex = 0;
         solution = new char[rDIM][cDIM];
         noSolution = false;
+        clickable = true;
 
         //CONSTRUCTING THE GRID BY ADDING VALUES
         for (int r =0; r <rDIM; r++){
@@ -321,6 +323,9 @@ public class LasersModel extends Observable {
         //If users input a value that is greater
         //than the dimension of the safe, it should
         //return an error
+        if(!clickable){
+            return;
+        }
         if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
             this.addFailure = true;
             announceChange();
@@ -400,6 +405,7 @@ public class LasersModel extends Observable {
         else{
             noSolution = true;
         }
+        clickable = false;
         announceChange();
     }
 
@@ -429,6 +435,10 @@ public class LasersModel extends Observable {
 
     public char[][] getHint(){
         return hint.get(hintIndex-1);
+    }
+
+    public boolean isClickable(){
+        return clickable;
     }
 
     public void addWithGrid(int row, int col, char[][] grid){
@@ -522,6 +532,9 @@ public class LasersModel extends Observable {
     public void remove(int row, int col) {
         // If the user inputs a value that is greater than the dimension of
         // the safe, then the program should return an error message.
+        if(!clickable){
+            return;
+        }
         if (row >= rDIM || col >= cDIM || row < 0 || col < 0) {
             this.removeFailure = true;
             return;
@@ -826,6 +839,7 @@ public class LasersModel extends Observable {
         solution = new char[rDIM][cDIM];
         hint.clear();
         noSolution = false;
+        clickable = true;
         announceChange();
     }
 
