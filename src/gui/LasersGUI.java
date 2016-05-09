@@ -200,21 +200,23 @@ public class LasersGUI extends Application implements Observer {
                     if(model.getGrid()[r1][c1] != 'L'){
                         setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
                         model.add(r, c);
-                        if(model.getAddFailure()){
-                            message.setText("Error adding model at: (" + r + ", " + c + ")");
-                        }
-                        else if(model.getAddSuccess()){
-                            message.setText("Laser added at: (" + r + ", " + c + ")");
+                        if(model.isClickable()) {
+                            if (model.getAddFailure()) {
+                                message.setText("Error adding model at: (" + r + ", " + c + ")");
+                            } else if (model.getAddSuccess()) {
+                                message.setText("Laser added at: (" + r + ", " + c + ")");
+                            }
                         }
                     }
                     else{
                         setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
                         model.remove(r, c);
-                        if(model.getRemoveFailure()){
-                            message.setText("Error removing model at: (" + r + ", " + c + ")");
-                        }
-                        else if(model.getRemoveSuccess()){
-                            message.setText("Laser removed at: (" + r + ", " + c + ")");
+                        if(model.isClickable()) {
+                            if (model.getRemoveFailure()) {
+                                message.setText("Error removing model at: (" + r + ", " + c + ")");
+                            } else if (model.getRemoveSuccess()) {
+                                message.setText("Laser removed at: (" + r + ", " + c + ")");
+                            }
                         }
                     }
                 });
