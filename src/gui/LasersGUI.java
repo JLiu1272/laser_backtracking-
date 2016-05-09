@@ -51,7 +51,7 @@ public class LasersGUI extends Application implements Observer {
     private int notVerifiedRow;
     private int getNotVerifiedCol;
 
-    private final Stage stage = new Stage();    //NEW STAGE??
+    private Stage stage;    //NEW STAGE??
 
     /** this can be removed - it is used to demonstrates the button toggle */
     private static boolean status = true;
@@ -61,15 +61,7 @@ public class LasersGUI extends Application implements Observer {
         // the init method is run before start.  the file name is extracted
         // here and then the model is created.
         try {
-            if(loadFile){
-                final FileChooser fileChooser = new FileChooser();
-                configureFileChooser(fileChooser);
-                File selectedFile = fileChooser.showOpenDialog(stage);
-                this.filename = String.valueOf(selectedFile);
-            }
-            else{
-                this.filename = getParameters().getRaw().get(0);
-            }
+            this.filename = getParameters().getRaw().get(0);
             this.model = new LasersModel(this.filename);
         } catch (FileNotFoundException fnfe) {
             System.out.println(fnfe.getMessage());
@@ -131,7 +123,7 @@ public class LasersGUI extends Application implements Observer {
      */
     private void init(Stage stage) {
         // TODO
-        buttonDemo(stage);  // this can be removed/altered
+        this.model.addObserver(this);
     }
 
     @Override
@@ -142,6 +134,7 @@ public class LasersGUI extends Application implements Observer {
         Scene scene = new Scene(border);
         border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
 
+        stage = primaryStage;
 
         border.setTop(topMessagePane());       //TOP of the borderPane
         this.grid = centerButtonPane();
@@ -309,15 +302,22 @@ public class LasersGUI extends Application implements Observer {
             System.out.println("Load Button Clicked!");
             configureFileChooser(fileChooser);
             File selectedFile = fileChooser.showOpenDialog(stage);
-            loadFile = true;
             System.out.println(selectedFile);
-            try{
                 System.out.println("Hi");
                 this.filename = String.valueOf(selectedFile);
-                init();
-            }catch(Exception exc){
-                exc.getMessage();
-            }
+                try {
+                    this.model = new LasersModel(filename);
+                    char[][] loadGrid = this.model.getGrid();
+                    start(stage);
+                    init(stage);
+                }catch(Exception exc){
+                    exc.getMessage();
+                }
+
+                for(char[] i: this.model.getGrid()){
+                    System.out.println(i);
+                }
+
 
         });
 
@@ -367,8 +367,7 @@ public class LasersGUI extends Application implements Observer {
         });
 
         hintbtn.setOnAction(event -> {
-            String[] token = model.verify().split("\\s+");
-            if(token.length == 1) {
+            if(model.verifyGridCheck(model.getGrid())) {
                 try {
                     model.generateHint();
                 } catch (FileNotFoundException exc) {
@@ -422,8 +421,9 @@ public class LasersGUI extends Application implements Observer {
                 message.setText("Hint");
             }
             else{
-                message.setText("Hint: no next step!");
+                message.setText("Hint: no steps available");
             }
+
         });
 
         //BOTTOM Buttons are set here
@@ -448,6 +448,7 @@ public class LasersGUI extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         //  System.out.println(arg.toString());
+        System.out.println("Update");
         for (int row = 0; row < model.getrDIM(); row++) {
             for (int col = 0; col < model.getcDIM(); col++) {
                 char letter = model.getGrid()[row][col];
@@ -521,12 +522,6 @@ public class LasersGUI extends Application implements Observer {
         }
         else{
             message.setText("Safe does not have a solution!");
-        }
-
-
-
-        for(char[] d: model.getGrid()){
-            System.out.println(Arrays.toString(d));
         }
 
     }
