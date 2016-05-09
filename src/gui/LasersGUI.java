@@ -470,6 +470,7 @@ public class LasersGUI extends Application implements Observer {
             }
         }
 
+
         if(!model.solutionStatus()) {
             for (int row = 0; row < model.getrDIM(); row++) {
                 for (int col = 0; col < model.getcDIM(); col++) {
@@ -529,7 +530,6 @@ public class LasersGUI extends Application implements Observer {
         }
 
     }
-
 //    public static void main(String[] args) {
 //        Application.launch(args);
 //    }
