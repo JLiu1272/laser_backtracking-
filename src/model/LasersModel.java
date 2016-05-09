@@ -874,6 +874,13 @@ public class LasersModel extends Observable {
                 //If there is a power outlet, make sure that the number of lasers
                 //surrounding the outlet matches with its number
                 //In here, we call the checkNeighbors method to help us do this
+                if(grid[row][col] == 'L'){
+                    if(!verifyWithPos(row,col)){
+                        announceChange();
+                        return false;
+                    }
+                }
+
                 if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighborsWithGrid(0, row, col,'L',grid)){
