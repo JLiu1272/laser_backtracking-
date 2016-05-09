@@ -185,7 +185,6 @@ public class LasersGUI extends Application implements Observer {
             System.out.println(Arrays.toString(c));
         }
 
-
         for(row = 0; row<rDIM; row++){
             for (col = 0; col<cDIM; col++){
               //  Button btn = new Button();
@@ -301,7 +300,15 @@ public class LasersGUI extends Application implements Observer {
         loadbtn.setOnAction(event1 -> {
             System.out.println("Load Button Clicked!");
             configureFileChooser(fileChooser);
-            File file = fileChooser.showOpenDialog(stage);
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+
+            }
+//            if (selectedFile != null) {
+//                stage(selectedFile);
+//            }
+
+
         });
 
 
@@ -421,10 +428,11 @@ public class LasersGUI extends Application implements Observer {
 
     private void configureFileChooser(final FileChooser fileChooser){
         fileChooser.setTitle("Load file..");
-//        fileChooser.setInitialDirectory(
-//                new File(System.getProperty("user.home\\Desktop"))
-//        );
-        fileChooser.setInitialDirectory(new File("C:\\Users\\Moses\\Desktop\\myCS Labs\\Lasers\\tests"));
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+
+//        fileChooser.setInitialDirectory(new File("C:\\Users\\Moses\\Desktop\\myCS Labs\\Lasers\\tests"));
     }
 
     @Override
