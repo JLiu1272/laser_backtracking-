@@ -19,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,6 +45,8 @@ public class LasersGUI extends Application implements Observer {
     private GridPane grid;
     private Button[][] referenceGrid;
     private Label message;
+    private String filename;
+    private boolean loadFile = false;
 
     private int notVerifiedRow;
     private int getNotVerifiedCol;
@@ -60,9 +61,16 @@ public class LasersGUI extends Application implements Observer {
         // the init method is run before start.  the file name is extracted
         // here and then the model is created.
         try {
-            Parameters params = getParameters();
-            String filename = params.getRaw().get(0);
-            this.model = new LasersModel(filename);
+            if(loadFile){
+                final FileChooser fileChooser = new FileChooser();
+                configureFileChooser(fileChooser);
+                File selectedFile = fileChooser.showOpenDialog(stage);
+                this.filename = String.valueOf(selectedFile);
+            }
+            else{
+                this.filename = getParameters().getRaw().get(0);
+            }
+            this.model = new LasersModel(this.filename);
         } catch (FileNotFoundException fnfe) {
             System.out.println(fnfe.getMessage());
             System.exit(-1);
@@ -301,13 +309,15 @@ public class LasersGUI extends Application implements Observer {
             System.out.println("Load Button Clicked!");
             configureFileChooser(fileChooser);
             File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
-
+            loadFile = true;
+            System.out.println(selectedFile);
+            try{
+                System.out.println("Hi");
+                this.filename = String.valueOf(selectedFile);
+                init();
+            }catch(Exception exc){
+                exc.getMessage();
             }
-//            if (selectedFile != null) {
-//                stage(selectedFile);
-//            }
-
 
         });
 
