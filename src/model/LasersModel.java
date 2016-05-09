@@ -448,6 +448,9 @@ public class LasersModel extends Observable {
         //If users input a value that is greater
         //than the dimension of the safe, it should
         //return an error
+        if(!clickable){
+            return;
+        }
         if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
             this.addFailure = true;
             return;
