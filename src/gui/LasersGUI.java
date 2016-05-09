@@ -198,9 +198,9 @@ public class LasersGUI extends Application implements Observer {
                 final int c1 = col;
                 button.setOnAction(event -> {
                     if(model.getGrid()[r1][c1] != 'L'){
-                        model.add(r, c);
                         if(model.isClickable()) {
                             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            model.add(r, c);
                             if (model.getAddFailure()) {
                                 message.setText("Error adding model at: (" + r + ", " + c + ")");
                             } else if (model.getAddSuccess()) {
@@ -209,9 +209,9 @@ public class LasersGUI extends Application implements Observer {
                         }
                     }
                     else{
-                        model.remove(r, c);
                         if(model.isClickable()) {
                             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            model.remove(r, c);
                             if (model.getRemoveFailure()) {
                                 message.setText("Error removing model at: (" + r + ", " + c + ")");
                             } else if (model.getRemoveSuccess()) {
