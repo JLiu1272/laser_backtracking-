@@ -198,9 +198,9 @@ public class LasersGUI extends Application implements Observer {
                 final int c1 = col;
                 button.setOnAction(event -> {
                     if(model.getGrid()[r1][c1] != 'L'){
-                        setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
-                        model.add(r, c);
                         if(model.isClickable()) {
+                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            model.add(r, c);
                             if (model.getAddFailure()) {
                                 message.setText("Error adding model at: (" + r + ", " + c + ")");
                             } else if (model.getAddSuccess()) {
@@ -209,9 +209,9 @@ public class LasersGUI extends Application implements Observer {
                         }
                     }
                     else{
-                        setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
-                        model.remove(r, c);
                         if(model.isClickable()) {
+                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            model.remove(r, c);
                             if (model.getRemoveFailure()) {
                                 message.setText("Error removing model at: (" + r + ", " + c + ")");
                             } else if (model.getRemoveSuccess()) {
@@ -273,6 +273,7 @@ public class LasersGUI extends Application implements Observer {
             default:
                 x = new ImageView(new Image(getClass().getResourceAsStream("resources/white.png")));
                 button.setGraphic(x);
+                break;
 
 
         }
@@ -312,6 +313,8 @@ public class LasersGUI extends Application implements Observer {
 
 
         restartbtn.setOnAction(event -> {
+            checkbtn.setDisable(false);
+            hintbtn.setDisable(false);
             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
             model.restart();
             message.setText("Safe is reset");
@@ -343,6 +346,8 @@ public class LasersGUI extends Application implements Observer {
         solvebtn.setOnAction(event -> {
             try{
                 model.backtrackerSolver();
+                checkbtn.setDisable(true);
+                hintbtn.setDisable(true);
                 for(char[] i: model.getSolution()){
                     System.out.println(i);
                 }
@@ -352,57 +357,63 @@ public class LasersGUI extends Application implements Observer {
         });
 
         hintbtn.setOnAction(event -> {
-            try{
-                model.generateHint();
-            }catch(FileNotFoundException exc){
-                exc.getMessage();
-            }
-            for (int row = 0; row < model.getrDIM(); row++) {
-                for (int col = 0; col < model.getcDIM(); col++) {
-                    char letter = model.getHint()[row][col];
-                    ImageView x;
-                    switch (letter) {
-                        case 'L':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/laser.png")));
-                            setButtonBackground(referenceGrid[row][col], "yellow.png");
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '*':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/beam.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '0':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar0.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '1':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar1.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '2':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar2.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '3':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar3.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '4':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar4.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case 'X':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillarX.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
-                        case '.':
-                            x = new ImageView(new Image(getClass().getResourceAsStream("resources/white.png")));
-                            referenceGrid[row][col].setGraphic(x);
-                            break;
+            String[] token = model.verify().split("\\s+");
+            if(token.length == 1) {
+                try {
+                    model.generateHint();
+                } catch (FileNotFoundException exc) {
+                    exc.getMessage();
+                }
+                for (int row = 0; row < model.getrDIM(); row++) {
+                    for (int col = 0; col < model.getcDIM(); col++) {
+                        char letter = model.getHint()[row][col];
+                        ImageView x;
+                        switch (letter) {
+                            case 'L':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/laser.png")));
+                                setButtonBackground(referenceGrid[row][col], "yellow.png");
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '*':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/beam.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '0':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar0.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '1':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar1.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '2':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar2.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '3':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar3.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '4':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillar4.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case 'X':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillarX.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                            case '.':
+                                x = new ImageView(new Image(getClass().getResourceAsStream("resources/white.png")));
+                                referenceGrid[row][col].setGraphic(x);
+                                break;
+                        }
                     }
                 }
+                message.setText("Hint");
             }
-            message.setText("Hint");
+            else{
+                message.setText("Hint: no next step!");
+            }
         });
 
         //BOTTOM Buttons are set here

@@ -96,8 +96,28 @@ public class LasersModel extends Observable {
             }
         }
     }
-
     // Jordan Shea
+
+    public void restartWithLoad(String filename) throws FileNotFoundException{
+        Scanner in = new Scanner(new File(filename)); //scanning the file in
+        this.rDIM = in.nextInt();    //Reading in the dimension of the safe
+        this.cDIM = in.nextInt();
+        this.grid = new char[rDIM][cDIM];// creating initial safe grid with their
+        hintIndex = 0;
+        solution = new char[rDIM][cDIM];
+        hint.clear();
+        noSolution = false;
+        clickable = true;
+
+        //CONSTRUCTING THE GRID BY ADDING VALUES
+        for (int r =0; r <rDIM; r++){
+            for(int c = 0; c < cDIM; c++){
+                String s = in.next();
+                this.grid[r][c] = s.charAt(0);
+            }
+        }
+        announceChange();
+    }
     /**
      * Rudimentary function to obtain model state from LasersPTUI.
      * @return int value corresponding to the number of rows the safe contains.
@@ -420,8 +440,6 @@ public class LasersModel extends Observable {
         return noSolution;
     }
 
-
-
     public void generateHint() throws FileNotFoundException{
         Configuration init = new SafeConfig(filename);
         Optional<Configuration> sol = backtracker.solveHelperFunction(init);
@@ -448,6 +466,9 @@ public class LasersModel extends Observable {
         //If users input a value that is greater
         //than the dimension of the safe, it should
         //return an error
+        if(!clickable){
+            return;
+        }
         if(row >= rDIM || col >= cDIM || row < 0 || col < 0){
             this.addFailure = true;
             return;
