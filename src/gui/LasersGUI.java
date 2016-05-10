@@ -281,7 +281,7 @@ public class LasersGUI extends Application implements Observer {
         setButtonBackground(button, "white.png");
     }
     /**
-     * Bottombtn function is used to created the buttons that are displayed in
+     * Bottombtn function is used to create the buttons that are displayed in
      * the bottom which include Check, Hint, Solve, Restart and Load respectiv-
      * ely.
      * @return HBox
