@@ -13,10 +13,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import model.*;
+
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
 /**
  * The main class that implements the JavaFX UI.   This class represents
@@ -103,6 +105,10 @@ public class LasersGUI extends Application implements Observer {
     private FlowPane topMessagePane(){
         FlowPane topLabel = new FlowPane();
         message = new Label();
+
+        Path p = Paths.get("C:\\Hello\\AnotherFolder\\The File Name.PDF");
+        String file = p.getFileName().toString();
+
         message.setText("Message: Status of safe!");
         topLabel.setAlignment(Pos.CENTER);
         topLabel.getChildren().add(message);
