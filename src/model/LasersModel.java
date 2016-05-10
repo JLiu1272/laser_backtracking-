@@ -422,7 +422,7 @@ public class LasersModel extends Observable {
 
     public void generateHint() throws FileNotFoundException{
         Configuration init = new SafeConfig(filename);
-        Optional<Configuration> sol = backtracker.solveHelperFunction(init);
+        backtracker.solveHelperFunction(init);
         List<Configuration> hints = backtracker.solveWithPath();
 
         for(Configuration config: hints){
@@ -687,9 +687,6 @@ public class LasersModel extends Observable {
                 }
             }
             // Removes the beam that is being shot upwards
-            for (int no = up; no >= 0; no--) {
-                System.out.println(no);
-            }
             for (int north = up; north >= 0; north--){
                 if (grid[north][col] == '0' || grid[north][col] == '1' ||
                         grid[north][col] == '2' || grid[north][col] == '3' ||
@@ -769,6 +766,8 @@ public class LasersModel extends Observable {
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
                     verifyFailure = true;
+                    this.userRow = row;
+                    this.userCol = col;
                     announceChange();
                     return row + " " + col;
                 }
@@ -777,6 +776,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
                         verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -790,6 +791,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighbors(0, row, col,'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -798,6 +801,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '1'){
                     //put condition
                     if(!checkNeighbors(1, row, col, 'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -806,6 +811,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '2'){
                     //put condition
                     if(!checkNeighbors(2, row, col, 'L')) {
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -813,6 +820,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '3'){
                     //put condition
                     if(!checkNeighbors(3, row, col, 'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -820,6 +829,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '4'){
                     //put condition
                     if(!checkNeighbors(4, row, col, 'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
