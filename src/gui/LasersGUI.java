@@ -53,7 +53,7 @@ public class LasersGUI extends Application implements Observer {
 
     private Stage stage;    //NEW STAGE??
 
-    /** this can be removed - it is used to demonstrates the button toggle */
+    /** this can be removed - it is used to demonstrate the button toggle */
     private static boolean status = true;
 
     @Override
@@ -132,7 +132,8 @@ public class LasersGUI extends Application implements Observer {
        // init(primaryStage);  // do all your UI initialization here
         BorderPane border = new BorderPane();
         Scene scene = new Scene(border);
-        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
+        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,
+                                              CornerRadii.EMPTY, Insets.EMPTY)));
 
         stage = primaryStage;
 
@@ -154,7 +155,7 @@ public class LasersGUI extends Application implements Observer {
     private FlowPane topMessagePane(){
         FlowPane topLabel = new FlowPane();
         message = new Label();
-        message.setText("Message: Status of safe!");
+        message.setText(filename + " loaded.");
         topLabel.setAlignment(Pos.CENTER);
         topLabel.getChildren().add(message);
         return topLabel;
@@ -182,9 +183,9 @@ public class LasersGUI extends Application implements Observer {
         char[][] safe = model.getGrid();
         referenceGrid = new Button[rDIM][cDIM];
 
-        for(char[] c: safe){
-            System.out.println(Arrays.toString(c));
-        }
+//        for(char[] c: safe){
+//            System.out.println(Arrays.toString(c));
+//        }
 
         for(row = 0; row<rDIM; row++){
             for (col = 0; col<cDIM; col++){
@@ -200,7 +201,8 @@ public class LasersGUI extends Application implements Observer {
                 button.setOnAction(event -> {
                     if(model.getGrid()[r1][c1] != 'L'){
                         if(model.isClickable()) {
-                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],
+                                      referenceGrid[notVerifiedRow][getNotVerifiedCol]);
                             model.add(r, c);
                             if (model.getAddFailure()) {
                                 message.setText("Error adding model at: (" + r + ", " + c + ")");
@@ -211,7 +213,8 @@ public class LasersGUI extends Application implements Observer {
                     }
                     else{
                         if(model.isClickable()) {
-                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],
+                                      referenceGrid[notVerifiedRow][getNotVerifiedCol]);
                             model.remove(r, c);
                             if (model.getRemoveFailure()) {
                                 message.setText("Error removing model at: (" + r + ", " + c + ")");
@@ -303,7 +306,7 @@ public class LasersGUI extends Application implements Observer {
             configureFileChooser(fileChooser);
             File selectedFile = fileChooser.showOpenDialog(stage);
             System.out.println(selectedFile);
-                System.out.println("Hi");
+//                System.out.println("Hi");
                 this.filename = String.valueOf(selectedFile);
                 try {
                     this.model = new LasersModel(filename);
@@ -325,7 +328,8 @@ public class LasersGUI extends Application implements Observer {
         restartbtn.setOnAction(event -> {
             checkbtn.setDisable(false);
             hintbtn.setDisable(false);
-            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],
+                      referenceGrid[notVerifiedRow][getNotVerifiedCol]);
             model.restart();
             message.setText("Safe is reset");
         });
@@ -338,12 +342,15 @@ public class LasersGUI extends Application implements Observer {
             else{
                 notVerifiedRow = Integer.parseInt(token[0]);
                 getNotVerifiedCol = Integer.parseInt(token[1]);
-                message.setText("Error verifying at: (" + notVerifiedRow + ", " + getNotVerifiedCol + ")");
+                message.setText("Error verifying at: (" + notVerifiedRow + ", "
+                                                      + getNotVerifiedCol + ")");
                 if(model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'L'
                    || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '0'
                    || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '1'
-                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '2' || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '3'
-                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '4' || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'X'){
+                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '2'
+                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '3'
+                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '4'
+                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'X'){
                     setButtonBackground(referenceGrid[notVerifiedRow][getNotVerifiedCol],"red.png");
                 }
                 else{
