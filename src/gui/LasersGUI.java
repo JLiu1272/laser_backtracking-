@@ -310,6 +310,7 @@ public class LasersGUI extends Application implements Observer {
                 //If it hits a pillar.
                 //Instead of completely changing the the image at that location, it should
                 //set the background to red
+                //Testing
                 if (model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'L'
                         || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '0'
                         || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '1'
