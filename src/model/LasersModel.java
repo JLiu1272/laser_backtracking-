@@ -574,12 +574,12 @@ public class LasersModel extends Observable {
                 if (grid[row][east] == '0' || grid[row][east] == '1' ||
                         grid[row][east] == '2' || grid[row][east] == '3' ||
                         grid[row][east] == '4' || grid[row][east] == 'X'){
-                    eastEnd = east;
+                    eastEnd = east - 1;
                     break;
                 }
                 else if (grid[row][east] == 'L'){
                     laserCheckEW = true;
-                    eastEnd = east;
+                    eastEnd = east - 1;
                     break;
                 }
                 else {
@@ -613,12 +613,12 @@ public class LasersModel extends Observable {
                 if (grid[row][west] == '0' || grid[row][west] == '1' ||
                         grid[row][west] == '2' || grid[row][west] == '3' ||
                         grid[row][west] == '4' || grid[row][west] == 'X'){
-                    westEnd = west;
+                    westEnd = west + 1;
                     break;
                 }
                 else if (grid[row][west] == 'L'){
                     laserCheckEW = true;
-                    westEnd = west;
+                    westEnd = west + 1;
                     break;
                 }
                 else {
@@ -652,12 +652,12 @@ public class LasersModel extends Observable {
                 if (grid[south][col] == '0' || grid[south][col] == '1' ||
                         grid[south][col] == '2' || grid[south][col] == '3' ||
                         grid[south][col] == '4' || grid[south][col] == 'X' ){
-                    southEnd = south;
+                    southEnd = south - 1;
                     break;
                 }
                 else if (grid[south][col] == 'L'){
                     laserCheckNS = true;
-                    southEnd = south;
+                    southEnd = south - 1;
                     break;
                 }
                 else {
@@ -694,12 +694,12 @@ public class LasersModel extends Observable {
                 if (grid[north][col] == '0' || grid[north][col] == '1' ||
                         grid[north][col] == '2' || grid[north][col] == '3' ||
                         grid[north][col] == '4' || grid[north][col] == 'X'){
-                    northEnd = north;
+                    northEnd = north + 1;
                     break;
                 }
                 else if (grid[north][col] == 'L'){
                     laserCheckNS = true;
-                    northEnd = north;
+                    northEnd = north + 1;
                     break;
                 }
                 else {
@@ -730,12 +730,12 @@ public class LasersModel extends Observable {
             }
             // Determines what symbol the old laser should be replaced with
             if (laserCheckEW){
-                for (int i = westEnd + 1; i < eastEnd; i++){
+                for (int i = westEnd; i <= eastEnd; i++){
                     grid[row][i] = '*';
                 }
             }
             else if (laserCheckNS){
-                for (int i = northEnd + 1; i < southEnd; i++) {
+                for (int i = northEnd; i <= southEnd; i++) {
                     grid[i][col] = '*';
                 }
             }
@@ -844,13 +844,15 @@ public class LasersModel extends Observable {
                 //call verifyWithPos
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
+                    verifyFailure = true;
                     announceChange();
-                    return  row + " " + col;
+                    return row + " " + col;
                 }
                 //If there are more than one laser in the same row or column,
                 //return false
                 else if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
+                        verifyFailure = true;
                         announceChange();
                         return row + " " + col;
                     }
@@ -900,8 +902,9 @@ public class LasersModel extends Observable {
                 }
             }
         }
+        verifySuccess = true;
         announceChange();
-        return "verified";
+        return "Verified";
     }
 
     public void restart(){

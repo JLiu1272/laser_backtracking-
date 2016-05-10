@@ -183,6 +183,7 @@ public class LasersGUI extends Application implements Observer {
 
         for(row = 0; row<rDIM; row++){
             for (col = 0; col<cDIM; col++){
+              //  Button btn = new Button();
                 Button button = new Button();
                 setImage(safe[row][col], button);
                 int r = row;
@@ -279,7 +280,7 @@ public class LasersGUI extends Application implements Observer {
         setButtonBackground(button, "white.png");
     }
     /**
-     * Bottombtn function is used to created the buttons that are displayed in
+     * Bottombtn function is used to create the buttons that are displayed in
      * the bottom which include Check, Hint, Solve, Restart and Load respectiv-
      * ely.
      * @return HBox
@@ -477,7 +478,6 @@ public class LasersGUI extends Application implements Observer {
             }
         }
 
-        System.out.println(model.solutionStatus());
 
         if(!model.solutionStatus()) {
             for (int row = 0; row < model.getrDIM(); row++) {
@@ -525,7 +525,7 @@ public class LasersGUI extends Application implements Observer {
                     }
                 }
             }
-            message.setText("Safe is solve22d");
+            message.setText("Safe is solved");
         }
         else{
             message.setText("Safe does not have a solution!");
@@ -533,7 +533,3 @@ public class LasersGUI extends Application implements Observer {
 
     }
 
-//    public static void main(String[] args) {
-//        Application.launch(args);
-//    }
-}
