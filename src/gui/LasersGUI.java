@@ -1,23 +1,17 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -28,7 +22,6 @@ import java.nio.file.Paths;
 
 
 import model.*;
-import ptui.LasersPTUI;
 
 /**
  * The main class that implements the JavaFX UI.   This class represents
@@ -52,7 +45,6 @@ public class LasersGUI extends Application implements Observer {
 
     private int notVerifiedRow;
     private int getNotVerifiedCol;
-
     private Stage stage;    //NEW STAGE??
 
     /**
@@ -93,59 +85,24 @@ public class LasersGUI extends Application implements Observer {
     }
 
     /**
-     * This is a private demo method that shows how to create a button
-     * and attach a foreground image with a background image that
-     * toggles from yellow to red each time it is pressed.
-     *
-     * @param stage the stage to add components into
-     */
-    private void buttonDemo(Stage stage) {
-        // this demonstrates how to create a button and attach a foreground and
-        // background image to it.
-        Button button = new Button();
-        Image laserImg = new Image(getClass().getResourceAsStream("resources/laser.png"));
-        ImageView laserIcon = new ImageView(laserImg);
-        button.setGraphic(laserIcon);
-        setButtonBackground(button, "yellow.png");
-        button.setOnAction(e -> {
-            // toggles background between yellow and red
-            if (!status) {
-                setButtonBackground(button, "yellow.png");
-            } else {
-                setButtonBackground(button, "red.png");
-            }
-            status = !status;
-        });
-
-        Scene scene = new Scene(button);
-        stage.setScene(scene);
-    }
-
-    /**
      * The
-     *
      * @param stage the stage to add UI components into
      */
     private void init(Stage stage) {
-        // TODO
         this.model.addObserver(this);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // TODO
         // init(primaryStage);  // do all your UI initialization here
         BorderPane border = new BorderPane();
         Scene scene = new Scene(border);
-        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-
+        border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
         stage = primaryStage;
-
         border.setTop(topMessagePane());       //TOP of the borderPane
         this.grid = centerButtonPane();
         border.setCenter(this.grid);  //CENTER GridButtons
         border.setBottom(bottombtns());        //BOTTOM Buttons
-
         primaryStage.setResizable(false);
         primaryStage.setTitle("Lasers");
         primaryStage.setScene(scene);
@@ -179,13 +136,11 @@ public class LasersGUI extends Application implements Observer {
         // The result of attempting to fully solve the laser placements.
     }
 
-
     /**
      * CenterButton pane for the safe
-     *
      * @return GridPane
      */
-    private GridPane centerButtonPane() {
+    private GridPane centerButtonPane(){
         grid = new GridPane();
 
         int row;
@@ -193,7 +148,8 @@ public class LasersGUI extends Application implements Observer {
         int rDIM = model.getrDIM();             //getter of rows: rDIM model
         int cDIM = model.getcDIM();             //getter of cols: cDIM model
         char[][] safe = model.getGrid();
-        referenceGrid = new Button[rDIM][cDIM]; //Used during update to reference the buttons to be updated
+        referenceGrid = new Button[rDIM][cDIM];
+
 
         for (row = 0; row < rDIM; row++) {
             for (col = 0; col < cDIM; col++) {
@@ -203,7 +159,7 @@ public class LasersGUI extends Application implements Observer {
                 int r = row;
                 int c = col;
                 referenceGrid[row][col] = button;
-                grid.add(button, col, row);
+                grid.add(button,col, row);
                 final int r1 = row;
                 final int c1 = col;
                 //Adding event handling for button
@@ -249,9 +205,9 @@ public class LasersGUI extends Application implements Observer {
      * @param safeContent The contents in the safe
      * @param button      The button
      */
-    private void setImage(Character safeContent, Button button) {
+    private void setImage(Character safeContent, Button button){
         ImageView x;
-        switch (safeContent) {
+        switch (safeContent){
             case 'X':
                 x = new ImageView(new Image(getClass().getResourceAsStream("resources/pillarX.png")));
                 button.setGraphic(x);
@@ -293,7 +249,6 @@ public class LasersGUI extends Application implements Observer {
         }
         setButtonBackground(button, "white.png");
     }
-
     /**
      * Bottombtn function is used to create the buttons that are displayed in
      * the bottom which include Check, Hint, Solve, Restart and Load respectiv-
@@ -301,7 +256,7 @@ public class LasersGUI extends Application implements Observer {
      *
      * @return HBox
      */
-    private HBox bottombtns() {
+    private HBox bottombtns(){
         //BOTTOM of the borderPane             //BOTTOM Buttons
         Button checkbtn = new Button("Check");
 
@@ -345,7 +300,6 @@ public class LasersGUI extends Application implements Observer {
             String[] token = model.verify().split("\\s+");
             //Verify returns a string, if verify has two strings,
             //it is not verified, else it is fully verified
-            System.out.println("Safe is fully verified: " + model.verify());
             if (token.length == 1) {
                 message.setText("Safe is fully verified!");
             } else {
@@ -442,7 +396,8 @@ public class LasersGUI extends Application implements Observer {
                     }
                 }
                 message.setText("Hint");
-            } else {
+            }
+            else{
                 message.setText("Hint: no steps available");
             }
 
@@ -451,14 +406,14 @@ public class LasersGUI extends Application implements Observer {
         //BOTTOM Buttons are set here
         HBox bottombtns = new HBox();
         bottombtns.setAlignment(Pos.CENTER);       //BOTTOM buttons added here
-        bottombtns.getChildren().addAll(checkbtn, hintbtn, solvebtn, restartbtn, loadbtn);
+        bottombtns.getChildren().addAll(checkbtn,hintbtn,solvebtn,restartbtn,loadbtn);
 
         bottombtns.setAlignment(Pos.CENTER);
 
         return bottombtns;
     }
 
-    private void configureFileChooser(final FileChooser fileChooser) {
+    private void configureFileChooser(final FileChooser fileChooser){
         fileChooser.setTitle("Load file..");
         fileChooser.setInitialDirectory(
                 new File(System.getProperty("user.home"))
@@ -492,7 +447,7 @@ public class LasersGUI extends Application implements Observer {
             }
         }
 
-        if (!model.solutionStatus()) {
+        if(!model.solutionStatus()) {
             for (int row = 0; row < model.getrDIM(); row++) {
                 for (int col = 0; col < model.getcDIM(); col++) {
                     char letter = model.getSolution()[row][col];
@@ -539,10 +494,11 @@ public class LasersGUI extends Application implements Observer {
                 }
             }
             message.setText("Safe is solved");
-        } else {
+        }
+        else{
             message.setText("Safe does not have a solution!");
         }
 
     }
-}
 
+}
