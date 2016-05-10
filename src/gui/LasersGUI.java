@@ -375,7 +375,6 @@ public class LasersGUI extends Application implements Observer {
                 new File(System.getProperty("user.home"))
         );
 
-//        fileChooser.setInitialDirectory(new File("C:\\Users\\Moses\\Desktop\\myCS Labs\\Lasers\\tests"));
     }
 
     @Override
