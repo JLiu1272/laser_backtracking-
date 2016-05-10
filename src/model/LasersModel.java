@@ -266,8 +266,9 @@ public class LasersModel extends Observable {
         //Return error if the command is not valid
         switch (currCh) {
             case 'a':
-                if (digits.size() < 2 || digits.size() > 2) {
+                if (digits.size() != 2) {
                     this.coordinateError = true;
+                    announceChange();
                 } else {
                     this.userRow = digits.get(0);
                     this.userCol = digits.get(1);
@@ -287,8 +288,9 @@ public class LasersModel extends Observable {
                 announceChange();
                 break;
             case 'r':
-                if (digits.size() < 2 || digits.size() > 2) {
+                if (digits.size() != 2) {
                     this.coordinateError = true;
+                    announceChange();
                 } else {
                     this.userRow = digits.get(0);
                     this.userCol = digits.get(1);
