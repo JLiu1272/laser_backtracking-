@@ -1,33 +1,22 @@
 package gui;
-
-import com.sun.javafx.font.freetype.HBGlyphLayout;
-import com.sun.javafx.font.t2k.T2KFactory;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
-
 import model.*;
-import ptui.LasersPTUI;
 
 /**
  * The main class that implements the JavaFX UI.   This class represents
@@ -46,15 +35,9 @@ public class LasersGUI extends Application implements Observer {
     private Button[][] referenceGrid;
     private Label message;
     private String filename;
-    private boolean loadFile = false;
-
     private int notVerifiedRow;
     private int getNotVerifiedCol;
-
     private Stage stage;    //NEW STAGE??
-
-    /** this can be removed - it is used to demonstrates the button toggle */
-    private static boolean status = true;
 
     @Override
     public void init() throws Exception {
@@ -89,58 +72,24 @@ public class LasersGUI extends Application implements Observer {
     }
 
     /**
-     * This is a private demo method that shows how to create a button
-     * and attach a foreground image with a background image that
-     * toggles from yellow to red each time it is pressed.
-     *
-     * @param stage the stage to add components into
-     */
-    private void buttonDemo(Stage stage) {
-        // this demonstrates how to create a button and attach a foreground and
-        // background image to it.
-        Button button = new Button();
-        Image laserImg = new Image(getClass().getResourceAsStream("resources/laser.png"));
-        ImageView laserIcon = new ImageView(laserImg);
-        button.setGraphic(laserIcon);
-        setButtonBackground(button, "yellow.png");
-        button.setOnAction(e -> {
-            // toggles background between yellow and red
-            if (!status) {
-                setButtonBackground(button, "yellow.png");
-            } else {
-                setButtonBackground(button, "red.png");
-            }
-            status = !status;
-        });
-
-        Scene scene = new Scene(button);
-        stage.setScene(scene);
-    }
-
-    /**
      * The
      * @param stage the stage to add UI components into
      */
     private void init(Stage stage) {
-        // TODO
         this.model.addObserver(this);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // TODO
        // init(primaryStage);  // do all your UI initialization here
         BorderPane border = new BorderPane();
         Scene scene = new Scene(border);
         border.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,CornerRadii.EMPTY, Insets.EMPTY)));
-
         stage = primaryStage;
-
         border.setTop(topMessagePane());       //TOP of the borderPane
         this.grid = centerButtonPane();
         border.setCenter(this.grid);  //CENTER GridButtons
         border.setBottom(bottombtns());        //BOTTOM Buttons
-
         primaryStage.setResizable(false);
         primaryStage.setTitle("Lasers");
         primaryStage.setScene(scene);
@@ -166,7 +115,6 @@ public class LasersGUI extends Application implements Observer {
         // The result of requesting a hint for the next laser to place.
         // The result of attempting to fully solve the laser placements.
     }
-
 
     /**
      * CenterButton pane for the safe
@@ -307,7 +255,6 @@ public class LasersGUI extends Application implements Observer {
                 this.filename = String.valueOf(selectedFile);
                 try {
                     this.model = new LasersModel(filename);
-                    char[][] loadGrid = this.model.getGrid();
                     start(stage);
                     init(stage);
                 }catch(Exception exc){
@@ -525,7 +472,4 @@ public class LasersGUI extends Application implements Observer {
         }
 
     }
-//    public static void main(String[] args) {
-//        Application.launch(args);
-//    }
 }
