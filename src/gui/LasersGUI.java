@@ -39,7 +39,7 @@ public class LasersGUI extends Application implements Observer {
     private String filename;
     private int notVerifiedRow;
     private int getNotVerifiedCol;
-    private Stage stage;    //NEW STAGE??
+    private Stage stage;
 
     @Override
     public void init() throws Exception {
@@ -48,8 +48,8 @@ public class LasersGUI extends Application implements Observer {
         try {
             this.filename = getParameters().getRaw().get(0);
             this.model = new LasersModel(this.filename);
-        } catch (FileNotFoundException fnfe) {
-            System.out.println(fnfe.getMessage());
+        } catch (FileNotFoundException exc) {
+            System.out.println(exc.getMessage());
             System.exit(-1);
         }
         this.model.addObserver(this);
@@ -106,10 +106,10 @@ public class LasersGUI extends Application implements Observer {
         FlowPane topLabel = new FlowPane();
         message = new Label();
 
-        Path p = Paths.get("C:\\Hello\\AnotherFolder\\The File Name.PDF");
+        Path p = Paths.get(filename);
         String file = p.getFileName().toString();
 
-        message.setText("Message: Status of safe!");
+        message.setText(file + " loaded");
         topLabel.setAlignment(Pos.CENTER);
         topLabel.getChildren().add(message);
         return topLabel;
