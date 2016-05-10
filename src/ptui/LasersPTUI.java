@@ -97,9 +97,11 @@ public class LasersPTUI implements Observer {
         }
         else if (model.getVerifySuccess()){
             System.out.println("Safe is fully verified!");
+            displayGrid();
         }
         else if (model.getVerifyFailure()){
             System.out.println("Error verifying at: (" + model.getUserRow() + ", " + model.getUserCol() + ")");
+            displayGrid();
         }
         else if (model.getRemoveSuccess()) {
             System.out.println("Laser removed at: (" + model.getUserRow() + ", " + model.getUserCol()+ ")");
