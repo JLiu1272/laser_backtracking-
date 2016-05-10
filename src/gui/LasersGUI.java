@@ -129,11 +129,6 @@ public class LasersGUI extends Application implements Observer {
         int cDIM = model.getcDIM();             //getter of cols: cDIM model
         char[][] safe = model.getGrid();
         referenceGrid = new Button[rDIM][cDIM];
-
-        for(char[] c: safe){
-            System.out.println(Arrays.toString(c));
-        }
-
         for(row = 0; row<rDIM; row++){
             for (col = 0; col<cDIM; col++){
               //  Button btn = new Button();
@@ -247,11 +242,8 @@ public class LasersGUI extends Application implements Observer {
         final FileChooser fileChooser = new FileChooser();
 
         loadbtn.setOnAction(event1 -> {
-            System.out.println("Load Button Clicked!");
             configureFileChooser(fileChooser);
             File selectedFile = fileChooser.showOpenDialog(stage);
-            System.out.println(selectedFile);
-                System.out.println("Hi");
                 this.filename = String.valueOf(selectedFile);
                 try {
                     this.model = new LasersModel(filename);
@@ -259,10 +251,6 @@ public class LasersGUI extends Application implements Observer {
                     init(stage);
                 }catch(Exception exc){
                     exc.getMessage();
-                }
-
-                for(char[] i: this.model.getGrid()){
-                    System.out.println(i);
                 }
 
 
@@ -305,9 +293,6 @@ public class LasersGUI extends Application implements Observer {
                 model.backtrackerSolver();
                 checkbtn.setDisable(true);
                 hintbtn.setDisable(true);
-                for(char[] i: model.getSolution()){
-                    System.out.println(i);
-                }
             }catch(FileNotFoundException exc){
                 exc.getMessage();
             }
@@ -395,7 +380,6 @@ public class LasersGUI extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         //  System.out.println(arg.toString());
-        System.out.println("Update");
         for (int row = 0; row < model.getrDIM(); row++) {
             for (int col = 0; col < model.getcDIM(); col++) {
                 char letter = model.getGrid()[row][col];
