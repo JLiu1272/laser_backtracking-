@@ -13,10 +13,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import model.*;
+
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
 /**
  * The main class that implements the JavaFX UI.   This class represents
@@ -103,7 +105,11 @@ public class LasersGUI extends Application implements Observer {
     private FlowPane topMessagePane(){
         FlowPane topLabel = new FlowPane();
         message = new Label();
-        message.setText(filename + " loaded.");
+
+        Path p = Paths.get("C:\\Hello\\AnotherFolder\\The File Name.PDF");
+        String file = p.getFileName().toString();
+
+        message.setText("Message: Status of safe!");
         topLabel.setAlignment(Pos.CENTER);
         topLabel.getChildren().add(message);
         return topLabel;
@@ -154,8 +160,7 @@ public class LasersGUI extends Application implements Observer {
                     }
                     else{
                         if(model.isClickable()) {
-                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],
-                                      referenceGrid[notVerifiedRow][getNotVerifiedCol]);
+                            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
                             model.remove(r, c);
                             if (model.getRemoveFailure()) {
                                 message.setText("Error removing model at: (" + r + ", " + c + ")");
@@ -375,6 +380,7 @@ public class LasersGUI extends Application implements Observer {
                 new File(System.getProperty("user.home"))
         );
 
+//        fileChooser.setInitialDirectory(new File("C:\\Users\\Moses\\Desktop\\myCS Labs\\Lasers\\tests"));
     }
 
     @Override

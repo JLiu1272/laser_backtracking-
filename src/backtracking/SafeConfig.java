@@ -56,6 +56,11 @@ public class SafeConfig implements Configuration{
 
     }
 
+    /**
+     * A copy constructor, it is needed in the getSuccessor method
+     * @param other - (SafeConfig) The safeconfig that we would like
+     *                 to copy
+     */
     public SafeConfig(SafeConfig other){
         this.rDIM = other.rDIM;
         this.cDIM = other.cDIM;
@@ -75,6 +80,8 @@ public class SafeConfig implements Configuration{
 
         ArrayList<Configuration> successors = new ArrayList<>();
 
+        //If it hits an empty spot, generate a successor with a laser that
+        //that spot, also generate a an empty successor at the slot
         if(grid[currRow][currCol] == '.'){
             SafeConfig lasersAdded = new SafeConfig(this);
             lasersModel.addWithGrid(currRow,currCol,lasersAdded.grid);
@@ -83,16 +90,21 @@ public class SafeConfig implements Configuration{
             successors.add(empty);
         }
         else{
+            //If it is a pillar, generate a successor with no changes made to it
             SafeConfig noChange = new SafeConfig(this);
             successors.add(noChange);
         }
+
         return successors;
     }
 
     @Override
     public boolean isValid() {
         // TODO
+        //Check to make sure that no means are in the way of the current one
+        //in the horizontal and vertical direction
         if(grid[currRow][currCol] == 'L') {
+            //East Direction
             for (int row = currRow + 1; row < rDIM; row++) {
                 if (grid[row][currCol] == 'L') {
                     return false;
@@ -100,6 +112,7 @@ public class SafeConfig implements Configuration{
                     break;
                 }
             }
+            //West Direction
             for (int row = currRow - 1; row >= 0; row--) {
                 if (grid[row][currCol] == 'L') {
                     return false;
@@ -107,6 +120,7 @@ public class SafeConfig implements Configuration{
                     break;
                 }
             }
+            //South Direction
             for (int col = currCol + 1; col < cDIM; col++) {
                 if (grid[currRow][col] == 'L') {
                     return false;
@@ -114,6 +128,7 @@ public class SafeConfig implements Configuration{
                     break;
                 }
             }
+            //North Direction
             for (int col = currCol - 1; col >= 0; col--) {
                 if (grid[currRow][col] == 'L') {
                     return false;
@@ -123,10 +138,15 @@ public class SafeConfig implements Configuration{
             }
         }
 
+        //Check to make sure that the the number of
+        //laser surrounding the pillars are less than or equal to
+        //the number of lasers that the pillar can take
         if(!lasersModel.verifyGridCheck(grid)){
             return false;
         }
 
+        //If there is an empty slot in the grid, then
+        //it means it is an invalid grid
         if(currRow == rDIM-1 && currCol == cDIM-1){
             for(int row = 0; row < rDIM;row++){
                 for(int col = 0; col < cDIM;col++){
@@ -136,6 +156,11 @@ public class SafeConfig implements Configuration{
                 }
             }
         }
+
+        //Increment the position of the grid
+        //If it has hit the end of the column,
+        //Increment the row, and set column back
+        //to 0
         if(currCol >= cDIM-1){
             currRow++;
             currCol = 0;
@@ -149,6 +174,10 @@ public class SafeConfig implements Configuration{
     @Override
     public boolean isGoal() {
         // TODO
+        //If no grid are empty and
+        //all pillars have the correct
+        //number of lasers, return true,
+        //otherwise return false
         for(int row = 0; row < rDIM; row++){
             for(int col = 0; col < cDIM; col++){
                 if(grid[row][col] == '.'){
@@ -156,7 +185,7 @@ public class SafeConfig implements Configuration{
                 }
             }
         }
-        return true;
+        return lasersModel.verifyGridCheck(this.grid);
     }
 
     /**

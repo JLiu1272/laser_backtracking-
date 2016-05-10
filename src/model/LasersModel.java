@@ -748,6 +748,82 @@ public class LasersModel extends Observable {
         announceChange();
     }
 
+    /**
+     * Verify command displays a status message that indicates whether the safe is
+     * valid or not. In order to be valid, none of the rules of the safe may be
+     * violated. Each tile that is not a pillar must have either a laser or beam
+     * covering it. Each pillar that requires a certain number of neighboring lasers
+     * must add up exactly. If two or more lasers in the sight of each other,
+     * in the cardinal direction, it is invalid
+     *
+     */
+    public String verifyWithGrid(char[][] grid){
+        for(int row = 0; row < rDIM; row++){
+            for(int col = 0; col < cDIM; col++){
+                //If the current object at this position is a Laser,
+                //call verifyWithPos
+                //If one of the tiles are empty, return an error
+                if(grid[row][col] == '.'){
+                    announceChange();
+                    return  row + " " + col;
+                }
+                //If there are more than one laser in the same row or column,
+                //return false
+                else if(grid[row][col] == 'L'){
+                    if(!verifyWithPos(row,col)){
+                        announceChange();
+                        return row + " " + col;
+                    }
+                }
+                //If there is a power outlet, make sure that the number of lasers
+                //surrounding the outlet matches with its number
+                //In here, we call the checkNeighbors method to help us do this
+                //If there is a power outlet, make sure that the number of lasers
+                //surrounding the outlet matches with its number
+                //In here, we call the checkNeighbors method to help us do this
+                else if(grid[row][col] == '0'){
+                    //put conditions
+                    if(!checkNeighbors(0, row, col,'L')){
+                        announceChange();
+                        return row + " " + col;
+                    }
+
+                }
+                else if(grid[row][col] == '1'){
+                    //put condition
+                    if(!checkNeighbors(1, row, col, 'L')){
+                        announceChange();
+                        return row + " " + col;
+                    }
+
+                }
+                else if(grid[row][col] == '2'){
+                    //put condition
+                    if(!checkNeighbors(2, row, col, 'L')) {
+                        announceChange();
+                        return row + " " + col;
+                    }
+                }
+                else if(grid[row][col] == '3'){
+                    //put condition
+                    if(!checkNeighbors(3, row, col, 'L')){
+                        announceChange();
+                        return row + " " + col;
+                    }
+                }
+                else if(grid[row][col] == '4'){
+                    //put condition
+                    if(!checkNeighbors(4, row, col, 'L')){
+                        announceChange();
+                        return row + " " + col;
+                    }
+                }
+            }
+        }
+        announceChange();
+        return "verified";
+    }
+
 
     /**
      * Verify command displays a status message that indicates whether the safe is
@@ -1420,7 +1496,7 @@ public class LasersModel extends Observable {
         }
         //Row does not equal to the row dimension
         if(r != rDIM-1){
-            for(int row = r+1; row < cDIM; row++){
+            for(int row = r+1; row < rDIM; row++){
                 //If I hit something that is not
                 //a laser beam, it means I have hit
                 //a pillar or a laser. If it is a
