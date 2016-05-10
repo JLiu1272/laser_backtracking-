@@ -769,6 +769,8 @@ public class LasersModel extends Observable {
                 //If one of the tiles are empty, return an error
                 if(grid[row][col] == '.'){
                     verifyFailure = true;
+                    this.userRow = row;
+                    this.userCol = col;
                     announceChange();
                     return row + " " + col;
                 }
@@ -777,6 +779,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == 'L'){
                     if(!verifyWithPos(row,col)){
                         verifyFailure = true;
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -790,6 +794,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '0'){
                     //put conditions
                     if(!checkNeighbors(0, row, col,'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -798,6 +804,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '1'){
                     //put condition
                     if(!checkNeighbors(1, row, col, 'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -806,6 +814,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '2'){
                     //put condition
                     if(!checkNeighbors(2, row, col, 'L')) {
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -813,6 +823,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '3'){
                     //put condition
                     if(!checkNeighbors(3, row, col, 'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
@@ -820,6 +832,8 @@ public class LasersModel extends Observable {
                 else if(grid[row][col] == '4'){
                     //put condition
                     if(!checkNeighbors(4, row, col, 'L')){
+                        this.userRow = row;
+                        this.userCol = col;
                         announceChange();
                         return row + " " + col;
                     }
