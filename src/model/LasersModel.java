@@ -422,7 +422,7 @@ public class LasersModel extends Observable {
 
     public void generateHint() throws FileNotFoundException{
         Configuration init = new SafeConfig(filename);
-        Optional<Configuration> sol = backtracker.solveHelperFunction(init);
+        backtracker.solveHelperFunction(init);
         List<Configuration> hints = backtracker.solveWithPath();
 
         for(Configuration config: hints){
@@ -687,9 +687,6 @@ public class LasersModel extends Observable {
                 }
             }
             // Removes the beam that is being shot upwards
-            for (int no = up; no >= 0; no--) {
-                System.out.println(no);
-            }
             for (int north = up; north >= 0; north--){
                 if (grid[north][col] == '0' || grid[north][col] == '1' ||
                         grid[north][col] == '2' || grid[north][col] == '3' ||
