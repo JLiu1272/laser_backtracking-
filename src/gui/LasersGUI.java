@@ -46,7 +46,6 @@ public class LasersGUI extends Application implements Observer {
     private Button[][] referenceGrid;
     private Label message;
     private String filename;
-    private boolean loadFile = false;
 
     private int notVerifiedRow;
     private int getNotVerifiedCol;
@@ -180,15 +179,10 @@ public class LasersGUI extends Application implements Observer {
         int rDIM = model.getrDIM();             //getter of rows: rDIM model
         int cDIM = model.getcDIM();             //getter of cols: cDIM model
         char[][] safe = model.getGrid();
-        referenceGrid = new Button[rDIM][cDIM];
-
-        for(char[] c: safe){
-            System.out.println(Arrays.toString(c));
-        }
+        referenceGrid = new Button[rDIM][cDIM]; //Used during update to reference the buttons to be updated
 
         for(row = 0; row<rDIM; row++){
             for (col = 0; col<cDIM; col++){
-              //  Button btn = new Button();
                 Button button = new Button();
                 setImage(safe[row][col], button);
                 int r = row;
@@ -197,7 +191,9 @@ public class LasersGUI extends Application implements Observer {
                 grid.add(button,col, row);
                 final int r1 = row;
                 final int c1 = col;
+                //Adding event handling for button
                 button.setOnAction(event -> {
+                    //If the location at that grid is a laser, call add method
                     if(model.getGrid()[r1][c1] != 'L'){
                         if(model.isClickable()) {
                             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
@@ -209,6 +205,7 @@ public class LasersGUI extends Application implements Observer {
                             }
                         }
                     }
+                    //If the location at that grid is not a laser, call remove method
                     else{
                         if(model.isClickable()) {
                             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
@@ -224,6 +221,7 @@ public class LasersGUI extends Application implements Observer {
 
             }
         }
+        //Add the grid to the corresponding location in the borderpane
         grid.setGridLinesVisible(false);
         grid.setAlignment(Pos.CENTER);
         return grid;
@@ -298,14 +296,13 @@ public class LasersGUI extends Application implements Observer {
 
         final FileChooser fileChooser = new FileChooser();
 
+        //Action event for the load button
         loadbtn.setOnAction(event1 -> {
-            System.out.println("Load Button Clicked!");
             configureFileChooser(fileChooser);
             File selectedFile = fileChooser.showOpenDialog(stage);
-            System.out.println(selectedFile);
-                System.out.println("Hi");
                 this.filename = String.valueOf(selectedFile);
                 try {
+                    //Creating a new laser model based on the filename
                     this.model = new LasersModel(filename);
                     char[][] loadGrid = this.model.getGrid();
                     start(stage);
@@ -313,16 +310,12 @@ public class LasersGUI extends Application implements Observer {
                 }catch(Exception exc){
                     exc.getMessage();
                 }
-
-                for(char[] i: this.model.getGrid()){
-                    System.out.println(i);
-                }
-
-
         });
 
-
+        //Action event for the restart button
         restartbtn.setOnAction(event -> {
+            //Once restart button is called, check and hint button should
+            //work again
             checkbtn.setDisable(false);
             hintbtn.setDisable(false);
             setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
@@ -330,22 +323,33 @@ public class LasersGUI extends Application implements Observer {
             message.setText("Safe is reset");
         });
 
+        //Action event for the check button
         checkbtn.setOnAction(event -> {
             String[] token = model.verify().split("\\s+");
+            //Verify returns a string, if verify has two strings,
+            //it is not verified, else it is fully verified
+            System.out.println("Safe is fully verified: " + model.verify());
             if(token.length == 1){
                 message.setText("Safe is fully verified!");
             }
             else{
+                //Return a message containing the location of the error.
                 notVerifiedRow = Integer.parseInt(token[0]);
                 getNotVerifiedCol = Integer.parseInt(token[1]);
                 message.setText("Error verifying at: (" + notVerifiedRow + ", " + getNotVerifiedCol + ")");
+                //If it hits a pillar.
+                //Instead of completely changing the the image at that location, it should
+                //set the background to red
                 if(model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'L'
                    || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '0'
                    || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '1'
-                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '2' || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '3'
-                        || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '4' || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'X'){
+                   || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '2'
+                   || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '3'
+                   || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == '4'
+                   || model.getGrid()[notVerifiedRow][getNotVerifiedCol] == 'X'){
                     setButtonBackground(referenceGrid[notVerifiedRow][getNotVerifiedCol],"red.png");
                 }
+                //If it isn't a pillar or a laser, it can simply change the image to red
                 else{
                     ImageView x = new ImageView(new Image(getClass().getResourceAsStream("resources/red.png")));
                     referenceGrid[notVerifiedRow][getNotVerifiedCol].setGraphic(x);
@@ -353,20 +357,23 @@ public class LasersGUI extends Application implements Observer {
             }
         });
 
+        //Action event for solve button
         solvebtn.setOnAction(event -> {
             try{
+                //Calls backtracking solve method
                 model.backtrackerSolver();
+                //Disables check and hint button
                 checkbtn.setDisable(true);
                 hintbtn.setDisable(true);
-                for(char[] i: model.getSolution()){
-                    System.out.println(i);
-                }
             }catch(FileNotFoundException exc){
                 exc.getMessage();
             }
         });
 
+        //Action event for hint button
         hintbtn.setOnAction(event -> {
+            //Sets all of the red image from check back to white cells
+            setImage(model.getGrid()[notVerifiedRow][getNotVerifiedCol],referenceGrid[notVerifiedRow][getNotVerifiedCol]);
             if(model.verifyGridCheck(model.getGrid())) {
                 try {
                     model.generateHint();
@@ -448,7 +455,6 @@ public class LasersGUI extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         //  System.out.println(arg.toString());
-        System.out.println("Update");
         for (int row = 0; row < model.getrDIM(); row++) {
             for (int col = 0; col < model.getcDIM(); col++) {
                 char letter = model.getGrid()[row][col];
@@ -470,6 +476,8 @@ public class LasersGUI extends Application implements Observer {
                 }
             }
         }
+
+        System.out.println(model.solutionStatus());
 
         if(!model.solutionStatus()) {
             for (int row = 0; row < model.getrDIM(); row++) {
@@ -517,7 +525,7 @@ public class LasersGUI extends Application implements Observer {
                     }
                 }
             }
-            message.setText("Safe is solved");
+            message.setText("Safe is solve22d");
         }
         else{
             message.setText("Safe does not have a solution!");
