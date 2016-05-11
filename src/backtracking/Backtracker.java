@@ -25,8 +25,6 @@ public class Backtracker extends Observable{
 
     private boolean debug;
     private List<Configuration> path = new ArrayList<>();
-    private char[][] solution;
-
     /**
      * Initialize a new backtracker.
      *

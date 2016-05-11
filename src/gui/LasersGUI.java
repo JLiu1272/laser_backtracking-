@@ -396,7 +396,6 @@ public class LasersGUI extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //  System.out.println(arg.toString());
         for (int row = 0; row < model.getrDIM(); row++) {
             for (int col = 0; col < model.getcDIM(); col++) {
                 char letter = model.getGrid()[row][col];
