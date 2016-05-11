@@ -733,7 +733,7 @@ public class LasersModel extends Observable {
                     grid[row][i] = '*';
                 }
             }
-            else if (laserCheckNS){
+            if (laserCheckNS){
                 for (int i = northEnd; i <= southEnd; i++) {
                     grid[i][col] = '*';
                 }
