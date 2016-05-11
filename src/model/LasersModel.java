@@ -727,7 +727,6 @@ public class LasersModel extends Observable {
                     }
                 }
             }
-            // Determines what symbol the old laser should be replaced with
             if (laserCheckEW){
                 for (int i = westEnd; i <= eastEnd; i++){
                     grid[row][i] = '*';
@@ -738,6 +737,7 @@ public class LasersModel extends Observable {
                     grid[i][col] = '*';
                 }
             }
+            // Determines what symbol the old laser should be replaced with
             if (laserCheckEW || laserCheckNS){
                 grid[row][col] = '*';
             }
