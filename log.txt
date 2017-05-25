@@ -1,0 +1,1159 @@
+commit 34a6b2bd9dbae6ee72226e2af58a12d135a97b04
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 18:21:55 2016 -0400
+
+    Backtracking Changes
+
+commit ba4af51cc4992e89d690462b272085de69cf905a
+Merge: 2069fe4 753d3c1
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 18:15:55 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2069fe4b30d48994658e61f46b413ea3d9b102d4
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 18:15:37 2016 -0400
+
+    Path File Changed
+
+commit 753d3c1ea85c986a33a9cff3590fd6a2a691bd1f
+Merge: 2885faa 0ff3f79
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 18:05:17 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2885faa10c06dc85bc4011509d616b5cf91dc300
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 18:04:57 2016 -0400
+
+    Fixed bug with incorrect coordinate error
+
+commit 0ff3f796cc75a6320925d59ccca0ea14b9dc33b0
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 18:03:52 2016 -0400
+
+    Truncated the code length in each line to be 80 at most per style guidelines.
+
+commit a354980c70ef23cdefdddb8633deb4f74065f9e6
+Merge: e43578d a33693f
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:58:16 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit e43578d931fc0072dbbb24862c3146b87bf2ab8f
+Merge: 404bc99 587e6b2
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:55:35 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit a33693fa5892d42f191a2119da8150d064a7d237
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:54:44 2016 -0400
+
+    Path File Changed
+
+commit 404bc99b3738ae0fc9424b91e2cb28ba9a30b2b9
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:54:07 2016 -0400
+
+    Removed print statements and stuffs
+
+commit 587e6b2bbefa548f8355052f27a118dff3f5906c
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:53:22 2016 -0400
+
+    Path File Changed
+
+commit 8fe3ade30141e19766ab44c040efd1cf63ce0ceb
+Merge: 2b2a222 a3c9310
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:53:03 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 43f0c2f3ba54ab9b1183b217954e842eb0ddbee2
+Merge: 93037b6 a3c9310
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:52:00 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 93037b6ac506ffb5fecbdc7e229355af1debd179
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:51:43 2016 -0400
+
+    dd
+
+commit 16f87dff5299ff63f89b5aec1a4bb1feadd419cd
+Merge: 34109aa 3c1adde
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:50:41 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 2b2a2227532a0c4015fa819eac8e17e67a15ae4a
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:49:00 2016 -0400
+
+    Pushing some polishing and to pull
+
+commit a3c9310387606dbf1476e2c94684616e181864d1
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 17:48:33 2016 -0400
+
+    Got rid of unnecessary print statements
+
+commit 34109aa8cf4fc2e7b0b7309a8405c75f9e44e447
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:45:39 2016 -0400
+
+    Push Test
+
+commit 3c1adde45678c19d1bfa4a97b2f7a9575b3fdeb1
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 17:45:04 2016 -0400
+
+    Tidied up LasersModel
+
+commit 91ce21bdbdf48ec154beb7ceaef8cf74427ad588
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 17:38:09 2016 -0400
+
+    Fixed error with Verify()
+
+commit df3395598ca4254300f3e755de8713f721781c8b
+Merge: 2626461 ddd98e0
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 17:34:11 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 26264610b0983e58ce11669706a81b1ef47eb38c
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 10 17:33:50 2016 -0400
+
+    Removed unnecessary import statements
+
+commit 34495b1599b70d0ec5138ea35e51598e5cc95c04
+Merge: 1b02341 ddd98e0
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:33:27 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 1b02341a5ff2853f439f855e8c6a739a28a6f329
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue May 10 17:31:18 2016 -0400
+
+    Fixed some bugs
+
+commit ddd98e033357d23b85abc1f729af38736f3f7402
+Merge: 9e6c03c 43b511e
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:25:48 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 9e6c03c095303be51e620bff86dde1371c04dc91
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Tue May 10 17:25:31 2016 -0400
+
+    Pushing for pull
+
+commit 43b511efe069cb81bbe04d8300b8f2e34c410efb
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Mon May 9 17:30:02 2016 -0400
+
+    Fixed a bug where verify would not be displayed properly in PTUI
+
+commit 0134be406c9c91d793045892265ee8876a737f4b
+Merge: 2edf2a1 953a0b9
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Mon May 9 10:06:59 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2edf2a14cec9ef146005449d4257e7b6cd5c8d86
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Mon May 9 10:06:39 2016 -0400
+
+    Pushing to pull the changes
+
+commit 953a0b9f33f288722401e33671a16b6b45005597
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 23:19:41 2016 -0400
+
+    Load is Working Now
+
+commit 0846561613ef921a51b898d428b93d0a7fceae44
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 21:24:40 2016 -0400
+
+    Pushing the GUI's load
+
+commit 797f7597c1f7cd6771140c6060664ce161268310
+Merge: b146d60 4d9dcc4
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 20:57:24 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit b146d6099fbafb76d12574083b16ef0cf84620c6
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 20:57:11 2016 -0400
+
+    Pushing
+
+commit 4d9dcc4341864110d63b0e60bb930d99529b6cac
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 20:56:36 2016 -0400
+
+    Completed Restart With load
+
+commit d854a73efc95c4bdc51e2635263930da78b39d1c
+Merge: 7769ec9 dd4d43f
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 20:41:58 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7769ec9f62e1f1f3923abe997b49c41438383174
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 20:41:42 2016 -0400
+
+    Solve Function Fixed
+
+commit dd4d43f3e6f81bd20d3c10e78c44e14ed81164d9
+Merge: e41e349 e3f470a
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 20:13:31 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit e41e34942a014ec7f3631d29c431dcfc69ad9194
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 20:13:16 2016 -0400
+
+    Pushing for pull.
+
+commit e3f470a907574648c86b6af3b8f42d37422a379c
+Merge: 1a5a51c 753e43f
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 16:53:44 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1a5a51cdad59462e95cd2559ccf1c5a5cceea686
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 16:53:26 2016 -0400
+
+    Issue with Add Laser
+
+commit 753e43f388702ac0932afba922af153e4f2ee6eb
+Merge: 0db90df d06529a
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sun May 8 16:33:08 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 0db90df24b3c344e8952d7fbe60046502971b0ea
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sun May 8 16:32:36 2016 -0400
+
+    Fixed bug affecting pillar interaction with remove() function
+
+commit d06529aa4584a43cac8ba7f5653b8c78c5f91313
+Merge: dd2ca9a a7a3ffd
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 16:19:03 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit dd2ca9a43c3b94934496e071d346b8280866aa63
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 16:18:43 2016 -0400
+
+    Changed features in solve
+
+commit a7a3ffd9a201a4b4ce85df2f9e2cdad2e7866f35
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sun May 8 16:14:03 2016 -0400
+
+    Debugged parts of LasersModel and LasersPTUI
+
+commit 1250117946f304e4ff3828c8205419ffa161e334
+Merge: 929a6cc ca032a6
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 14:03:49 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 929a6ccdd8a9993e4b97f309e3cc37e8734885c2
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sun May 8 14:00:24 2016 -0400
+
+    Pushing it for pull
+
+commit ca032a6d085d1443cf7aa607313d33f7cfc5160c
+Merge: 1e63ddb ad5672b
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 12:43:26 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1e63ddb76ff081ba0671f5aa4fa14c90cbea4c0e
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sun May 8 12:43:01 2016 -0400
+
+    Finished Hint, Solve, Restart, Add, Remove
+
+commit ad5672b5ada681ceee168eee82cc462a834586d4
+Author: Moses <mxl2261@rit.edu>
+Date:   Sun May 8 12:01:13 2016 -0400
+
+    File Path for gui set to the tests directory inside lasers.
+
+commit cd7a30c35a64532130cc547371a04fe9a697c0fa
+Merge: 2bd5da2 17eacac
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 21:07:59 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 2bd5da2d75974aae58a16e8cbacdf41fc70c6261
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 21:05:30 2016 -0400
+
+    Finished Hint, Solve, Restart, Add, Remove
+
+commit 17eacacfd39f8af67068734aa37fec69e46e719f
+Merge: b4485cc 588f4e7
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 20:24:37 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit b4485cc0ac2fb27e3b83a1441b7a3d3aa48b04a0
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 20:24:16 2016 -0400
+
+    Pushing the mac gui for pull from desktop
+
+commit 588f4e7b2c42898def3f30dc66fdc9b9e027cf32
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat May 7 20:21:50 2016 -0400
+
+    File Chooser
+
+commit 2e7da27fcd10ea770934fa0337a23225c19522f4
+Merge: dcb8dc2 a114cfe
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat May 7 19:37:45 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit dcb8dc2820bf3fbe3f908154947ff7494ebbff84
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat May 7 19:37:20 2016 -0400
+
+    Choosing the file. Pushing it to the limits
+
+commit a114cfe6c72cca4b9dc2819a26780c4867e04500
+Merge: 2f19fc0 4c57132
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 19:36:12 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2f19fc0d4a4f2b14ffbcb4cbd124dcfb56bce051
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 19:35:58 2016 -0400
+
+    Adding the filechooser to the scene bruh!
+
+commit 4c57132f55ecd922535a6d7f03efb2e4a54ad6b7
+Merge: f52b256 d1beff3
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat May 7 19:31:16 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit f52b2560b2daa82ba66beffc6e6e79e32578e812
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat May 7 19:30:56 2016 -0400
+
+    Trying to pull from the crappy desktop
+
+commit d1beff39bbea25f6d365771584a5d8a915384854
+Merge: e4f73d2 8333da2
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 16:22:34 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit e4f73d26f9cb9d1878f699fce53d80d640f3c638
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 16:22:08 2016 -0400
+
+    Pushing to pull
+
+commit 8333da219d83db805430c66cf220dc3ace9538cc
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 16:21:23 2016 -0400
+
+    Restart Completed
+
+commit 31ff3b701a701a7f1ce17cd0091ec154764ec9ad
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 15:51:59 2016 -0400
+
+    Remove and Add works
+
+commit fd9fbc010f854e28be5f66bb84c0b45242b476f0
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 15:40:24 2016 -0400
+
+    Pushing the GUI.
+
+commit 7f69d7649a511bbf6796e33b218d2dc54723c6ec
+Merge: 8a7e173 afd5098
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 15:39:08 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 8a7e173dc089579662335c66bb95f05b9e6c8662
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 15:36:24 2016 -0400
+
+    Laser0 image added for gui.
+
+commit afd5098df061a6f2ae8f06c59840aa59ad90c425
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 15:36:01 2016 -0400
+
+    Gui Add function works
+
+commit 2107e021181ece2104e31a5c76f562bbd5175b87
+Merge: 9e2befd 32c6685
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 15:01:34 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 9e2befd408dd55dfc7957b0bc5106c6dffed6501
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat May 7 15:01:18 2016 -0400
+
+    Deleted some functions in Lasers Model that I didn't use
+
+commit 32c66859a41651ebb24460b19500c74c2766dfa6
+Merge: 02eaedb f71d796
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 15:00:23 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 02eaedb66da7dce4b70da5d997458a2e973bffa8
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Sat May 7 14:59:53 2016 -0400
+
+    LasersGUI pushing for teamwork.
+
+commit f71d7964877d4f8de7d042083dfe551f2b35fa76
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri May 6 13:03:33 2016 -0400
+
+    SolveWithPath is done, i have not added anything to make the backtracking model talk to the gui yet
+
+commit fe72ec806fe914e3764bfa5adb5f2aef7604fb17
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Thu May 5 23:00:28 2016 -0400
+
+    GUI background color set to gray and then some polishing is done.
+
+commit 50cc76a461e30cb3bdbfc7d751e763102900b97d
+Merge: 2f4061c f3b02e3
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Thu May 5 22:50:50 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2f4061cc2a337ffe0f25d37938097d96cb0f617e
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Thu May 5 22:50:35 2016 -0400
+
+    Still trying to figure out how to do solveWithPath. Half way through it.
+
+commit f3b02e3833eadaa6db3e61d1ae24d2657670a116
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu May 5 22:41:10 2016 -0400
+
+    Organized GUI's structural layout.
+
+commit c952cca154c733c146c0eba3a489f350433940f6
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu May 5 22:16:14 2016 -0400
+
+    Organized Buttons in the GUI into separate funcitons.
+
+commit e0d4a533b46f0120c5aabe302d9cc98d1635c71b
+Merge: 24189d6 9c53fc7
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu May 5 21:42:59 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/gui/LasersGUI.java
+
+commit 24189d6b87b74c7e8d0ecff36739355f2a5932cc
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu May 5 21:41:32 2016 -0400
+
+    Pushing for pull.
+
+commit 9c53fc7ad4b1617cc96897ff80bb7c0817d0e558
+Merge: 0069636 deeaca5
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Thu May 5 21:40:09 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 00696360d522a8ebab2d8bb026c9aca14facd0d5
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Thu May 5 21:39:51 2016 -0400
+
+    Pushing the GUI.
+
+commit deeaca55708bfc6112245096a247f401954ecabe
+Merge: e75a50f 57a7c50
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Thu May 5 21:13:17 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit e75a50fe74b3c6537aeea98e7202151676959c18
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Thu May 5 21:12:49 2016 -0400
+
+    Backtracking PTUI Completed
+
+commit 57a7c5033614231df606711853153b15c7087390
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Thu May 5 21:07:11 2016 -0400
+
+    Pushing the gui.
+
+commit 5a7e31e64991e304707a14b1a9e6e4d591cae76c
+Merge: ad6f724 5d3b541
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu May 5 21:00:42 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit ad6f724b104672a006036128ec8f18cacb86525e
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu May 5 21:00:18 2016 -0400
+
+    Pushing for pulling.
+
+commit 5d3b541699acebee2df61ab7731085aa300d10cc
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Thu May 5 12:00:26 2016 -0400
+
+    Added more polished gui. Now can work on event handling and more polishing.
+
+commit c2c310ecf7ba39f6cc5b0d4f625ef0a56c3838ce
+Author: moseslagoon(mac) <mxl2261@rit.edu>
+Date:   Thu May 5 11:37:28 2016 -0400
+
+    LasersGUI: made the initial layout. Needs some more polishing
+
+commit dc59aa0cd3d730dfd0f93f6fa1df253cbb183e54
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 3 15:46:53 2016 -0400
+
+    Created LasersModel and added functionality to ControllerPTUI and LasersPTUI
+
+commit 7ad836e531149282be71f9c64a1d38c56663f550
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue May 3 11:49:04 2016 -0400
+
+    Created LasersModel and added functionality to ControllerPTUI and LasersPTUI
+
+commit 428a88b495a55130c00d62f705b8dc589fb228e7
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon May 2 18:53:10 2016 -0400
+
+    Create New Classes
+
+commit d256cf2aa01965c50e3eb3cf1ab6d68a00f2b16e
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon May 2 18:45:59 2016 -0400
+
+    Create New Classes
+
+commit 1e19b268ca981496939e73d75cbeb69c2b377e18
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon May 2 18:40:20 2016 -0400
+
+    Create New Classes
+
+commit 04213cc5117f52c950e7df96e715343472653bca
+Merge: 7d17b9e 1259e9b
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:34:40 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7d17b9e93226b2d7e87654674a97e6653a10b66c
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:34:20 2016 -0400
+
+    Issue with entering nothing
+
+commit 1259e9b1c74eb43178a7e62174edaafeb9275cfc
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 17:33:51 2016 -0400
+
+    Fixed remove()... for the nth time
+
+commit 169abfbf2435e0f8a8719840b59a70e464eda0ef
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 17:19:29 2016 -0400
+
+    Fixed error in Main() or LasersPTUI
+
+commit 4eff244a53039125b9d3bd88f455051977f53649
+Merge: 3a540bf 3f9ddcb
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 17:18:33 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/LasersPTUI.java
+
+commit 3a540bfdc8b59886acafe01acc4f476e6de3f9ca
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 17:17:48 2016 -0400
+
+    Fixed remove()... again.
+
+commit 3f9ddcbb3466776c37a904a09ee8a957b7686eb9
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:13:20 2016 -0400
+
+    Issue with entering nothing
+
+commit 08bfeb46bbdea936eeec3717d8b93095b34b5093
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:04:37 2016 -0400
+
+    Format Issue
+
+commit 0a08203baa3c7a23edd753d987446e4b75fee361
+Merge: a8649e5 dfa9e03
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:02:59 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/LasersConfig.java
+    #	src/LasersPTUI.java
+
+commit a8649e5a941d5090fd78e6e4657fa4dbdf6644cd
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:00:46 2016 -0400
+
+    Format Issue
+
+commit dfa9e03ebb3212be4b7b9c1274441bfae14127ef
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 17:00:21 2016 -0400
+
+    Moved remove() to LasersConfig Part II
+
+commit 7bcd97225a7c2ef5d89cd651fe7c858ad8a01896
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 17:00:20 2016 -0400
+
+    Format Issue
+
+commit 8d72ed379fb62591da8a0867a13c1d2a756d7da3
+Merge: 38145da 863c078
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 16:59:24 2016 -0400
+
+    Moved remove() to LasersConfig
+
+commit 38145da2e6ce716828c7329c9f23815f1fc399ba
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Fri Apr 15 16:30:38 2016 -0400
+
+    Revision for remove() function
+
+commit 863c0783d9805d08ef0f98be70d33c98c644eda7
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 16:27:28 2016 -0400
+
+    Format Issue
+
+commit 6bb6cc81689377fc657369aee294eff411e94863
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 16:18:53 2016 -0400
+
+    Format Issue
+
+commit d51cb5d5aec8086ba6cbaa56b787d4e5abbe68b8
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 16:10:00 2016 -0400
+
+    Format Issue
+
+commit a2df50bc2b14fc26f3b008d68e44a63231a110f5
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 16:04:02 2016 -0400
+
+    Format Issue
+
+commit 70bad8bd88bf3f770bc9d55dd93482ae6bf5b72b
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 15:59:44 2016 -0400
+
+    Format Issue
+
+commit f96c2b3bc2cc0b5cf15000a05a7185b992895359
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Fri Apr 15 15:37:54 2016 -0400
+
+    verify with position did not do what it was suppose to, but that has now been fixed
+
+commit 2558edf16c4c7f7502859e29e0f08273ef36d763
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Thu Apr 14 22:23:12 2016 -0400
+
+    verify with position did not do what it was suppose to, but that has now been fixed
+
+commit 1beefb7dba61deac14f27c169a47caab38f198c8
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu Apr 14 18:59:58 2016 -0400
+
+    Pushing this now.
+
+commit b1b8e5b86d7b739ee9d688dd34afddfad65276ff
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu Apr 14 18:53:00 2016 -0400
+
+    Pushing the new classes Yay~
+
+commit 967562f8d97f766aea238ed21dc587acd7736a47
+Merge: 8a2cb24 6091e74
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu Apr 14 18:52:14 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/LasersPTUI.java
+
+commit 8a2cb24a1174f24788646818dce2915fd1b1cb43
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu Apr 14 18:49:10 2016 -0400
+
+    Splitted classes. Lasers PTUI and Lasers Config
+
+commit 6091e74d25cdca40b880322dff235d8bd1845ea9
+Merge: 20fa43f d9e275a
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Thu Apr 14 18:47:34 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 20fa43fd73992418e6af92714a58c37760b44f95
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Thu Apr 14 18:47:02 2016 -0400
+
+    Completed code for two command arguments
+
+commit d9e275a3b339b3758b576cb307c5773546ad3903
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu Apr 14 18:04:56 2016 -0400
+
+    Working on splitting classes. Pushing for pull.
+
+commit b793866898d5e2a60afed4e2757b2856794dc999
+Merge: 1e33fa7 51e7025
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Thu Apr 14 18:03:47 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1e33fa71c6641ded7330353ed81000abc3e950bc
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Thu Apr 14 18:03:28 2016 -0400
+
+    Completed and documented remove() PART IV
+
+commit 51e7025d18cb5300c5d659bf1b93732d0a9d2f8b
+Author: Moses <mxl2261@rit.edu>
+Date:   Thu Apr 14 17:57:39 2016 -0400
+
+    Added classes for object orientation. Grid and LasersConfig.
+
+commit 460e92f0916f219c1d5af1b621d2af484e7c0d6c
+Merge: b15b73e 7a11e10
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Thu Apr 14 16:46:09 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit b15b73eda250cdb220e6cf78659d89677094d299
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Thu Apr 14 16:45:27 2016 -0400
+
+    Completed and documented remove() PART III
+
+commit 7a11e10de5630de6b6e2146316a7fd76c712b607
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Wed Apr 13 13:43:15 2016 -0400
+
+    Fixed An Error issue with verify
+
+commit 89c19bf23473659adb0c0127a038ef41da6ae7e8
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Wed Apr 13 12:52:49 2016 -0400
+
+    Command now takes negatives and values that are greater than 9 correctly. It also handles all the that it needs to handle
+
+commit 83b54c46ecd30359d569a4f6cf76b633347e8fe7
+Merge: 7df1764 6ec0fd2
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Wed Apr 13 11:45:16 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7df17649d0627ef8bb01d9c3ab83166d9a6c9e49
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Wed Apr 13 11:45:01 2016 -0400
+
+    Commands Changed to accommadate for errors
+
+commit 6ec0fd2a43214c6d4e636f7b175a7479afaa4638
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Wed Apr 13 11:23:45 2016 -0400
+
+    Completed and documented remove() PART II
+
+commit 790120867049b3c2218d8555b6b8a9192f6c2faa
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 22:54:22 2016 -0400
+
+    Commands Changed to accommadate for errors
+
+commit 75db31ba1a7f0fad283c1296b0af45a8c9abb868
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 21:45:58 2016 -0400
+
+    Added my own name on parts that I did
+
+commit 78810bda4a8b0d4a963331e1ba6705aadb2e0b85
+Merge: 4ced8a1 c32bd82
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 21:39:56 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 4ced8a1f09221bcab24d66e7353c865c468eb06b
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 21:39:38 2016 -0400
+
+    Fixed an error in verify
+
+commit c32bd8276fecab814072886e7742ec00af2cbad6
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue Apr 12 21:16:14 2016 -0400
+
+    Completed and documented remove()
+
+commit 392a343d118d1967f76c78888f180e26cd2f6b9d
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Tue Apr 12 20:04:10 2016 -0400
+
+    Began implementation of remove() function
+
+commit 757fa5259ae631cff611cbad56b7192e44700875
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 19:59:40 2016 -0400
+
+    Add function now includes the addition of laser beams
+
+commit 076dc085f0bbc82c7823c4318708f4bbff1d4cde
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 18:04:57 2016 -0400
+
+    Add is completed
+
+commit 980638384bfc8653970e093174625d45578a28c2
+Merge: aab9418 0ba5163
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 17:28:25 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit aab94183099e5c67cb5ab365676e857b964124ff
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Tue Apr 12 17:28:02 2016 -0400
+
+    copy constructor Completed
+
+commit 0ba51633e38e089c5e5e49c61e16d10dd86dc1ff
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 22:48:23 2016 -0400
+
+    Handles display 14x14
+
+commit 9ec758f85efd8f87ff4694ab561572d89263cd7c
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon Apr 11 22:30:32 2016 -0400
+
+    Verify Completed 2
+
+commit 5e82b848b1ce26d2bbbc84abd11ae2b8d61cb895
+Merge: 214effa 0dd113d
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon Apr 11 22:25:09 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/LasersPTUI.java
+
+commit 214effa766c463e4374fb8e87f849b360c63e975
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon Apr 11 22:20:04 2016 -0400
+
+    Verify Completed
+
+commit 62c32de851a914a92c69c48f3cf30e928ddc038a
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon Apr 11 22:18:50 2016 -0400
+
+    Verify Completed
+
+commit 0dd113d52eccac96c68d9851a05e229a13a3dd9a
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Mon Apr 11 20:56:12 2016 -0400
+
+    Fixed formatting for switch statement PART II
+
+commit eaa33102f0de53959084442d1c5861d68b86f219
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Mon Apr 11 20:35:48 2016 -0400
+
+    Fixed formatting for switch statement
+
+commit 3f50de3c9e4a42b255f2d225236a5c28113d1fb1
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 20:14:19 2016 -0400
+
+    Trying to pull
+
+commit 47ff6a3ad5b53ee8de7c45ebcd09ae94458e5986
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 20:03:57 2016 -0400
+
+    Commiting for pull
+
+commit 4e99350de57f303289216019aece68f8ea76fbc0
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Mon Apr 11 20:02:48 2016 -0400
+
+    Created looping switch statement for user input in safe mode
+
+commit 114714340d015da59f4bd73ba6e86e988681658c
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 19:37:28 2016 -0400
+
+    Push For Jordan
+
+commit 7e47ea99e8f4bebdaee7122344151f6068a34259
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 19:31:36 2016 -0400
+
+    Push for pull
+
+commit b5c6649346a749143ed5591311b7087af5bd0094
+Merge: 6a856e4 38579b8
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 19:30:28 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/LasersPTUI.java
+
+commit 6a856e466fa7af93126156fdfd9d609dd4efcc2d
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 18:07:08 2016 -0400
+
+    HelpMessage printout.
+
+commit 0f8e99cce134c585cbe9d41341e1daad1acd77a6
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 17:56:18 2016 -0400
+
+    Pushing initial implementation of Display and Constructor.
+
+commit 38579b820a296fcf63e6993d94a60259a9ed2f49
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Mon Apr 11 14:43:04 2016 -0400
+
+    Deleted Unnecessary Lines
+
+commit 71599c451de4dd37ef8b70ad4f768fc74a524279
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 13:11:44 2016 -0400
+
+    Print out the grid initialization
+
+commit ce2c40bcee30b3717889dd63468fcdf920658e53
+Merge: e3c6b6e bae6597
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 11:45:41 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit e3c6b6e6d73defac54eb9638a824cc22fdbb6ec8
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 11:45:19 2016 -0400
+
+    Pushing for pull
+
+commit bae65972896f5aff9187e7972cd5cb25791274ec
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Mon Apr 11 11:42:20 2016 -0400
+
+    Creation of main method to take in arguments
+
+commit d9375691164c9f01be15b0e33ebc03fcf44e4678
+Author: Moses <mxl2261@rit.edu>
+Date:   Mon Apr 11 11:02:51 2016 -0400
+
+    Initial Constructor.
+
+commit 7c0f5e7c4b61757ab68ed7ed8be997b14a1b741c
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat Apr 9 17:12:38 2016 -0400
+
+    Method Skeleton
+
+commit b3021cf08cbb126df8a68c54b33e9b66d18b784d
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat Apr 9 17:06:22 2016 -0400
+
+    Job Specification
+
+commit 0b53b9d043c5edb613e9cbe174614ed3ad73b609
+Merge: 5d30a8c e76482b
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat Apr 9 16:59:11 2016 -0400
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #	src/LasersPTUI.java
+
+commit 5d30a8c526f8aea040ac12f151e0a57f4455063e
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat Apr 9 16:58:07 2016 -0400
+
+    Added name for test
+
+commit e76482bbfaf2652225e9a64903ee7b81f0ad271f
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sat Apr 9 16:54:12 2016 -0400
+
+    Implementation of a test method Part II
+
+commit fd057b4a73de750ed6642c3e7dec09cc58c21143
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sat Apr 9 16:48:53 2016 -0400
+
+    Implementation of a test method
+
+commit 7e8bf1562ae4a33d559b5af0d26de2a962e19315
+Author: Moses <mxl2261@rit.edu>
+Date:   Sat Apr 9 16:48:17 2016 -0400
+
+    testing
+
+commit fe54f8d050e6f2f17f42bc34beece1f8b719da11
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat Apr 9 16:45:35 2016 -0400
+
+    Main Function Write Up
+
+commit fed920cf30234b796fe855919694ec6c3e290285
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat Apr 9 16:37:31 2016 -0400
+
+    Initial Check In 3
+
+commit be382c6c42bd265ea35e77ad6c780a17203edb0e
+Merge: 5772578 f030ea0
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sat Apr 9 16:36:13 2016 -0400
+
+    Merge branch 'master' of ssh://glados.cs.rit.edu/home/group/s142/p142-03n/GIT/Lasers
+    
+    # Conflicts:
+    #	src/LasersPTUI.java
+
+commit 577257810adac0ddc29b9f4a1f2aa5d4ff2265e8
+Author: jes7923 <jes7923@cs.rit.edu>
+Date:   Sat Apr 9 16:22:40 2016 -0400
+
+    Initialization
+
+commit f030ea0771d246a983bec131b8cc59f89ebde23a
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat Apr 9 16:22:24 2016 -0400
+
+    Initial Check In 2
+
+commit 45eac1be06f7cae60a01c00f5922e440926f7439
+Author: JenniferLiu <jwt7689@rit.edu>
+Date:   Sat Apr 9 16:18:33 2016 -0400
+
+    Initial Check In
